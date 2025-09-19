@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>মেনু | বাংলা ট্র্যাডিশনাল রেস্টুরেন্ট | ঢাকা</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHxlbnwwfHwwfHw%3D&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .food-card {
+            transition: transform 0.3s ease;
+        }
+        .food-card:hover {
+            transform: translateY(-5px);
+        }
+        .category-btn {
+            transition: all 0.3s ease;
+        }
+        .category-btn.active {
+            background-color: #d97706;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <h1 class="text-2xl md:text-3xl font-bold text-amber-600">ট্র্যাডিশনাল রেস্টুরেন্ট</h1>
+            </div>
+            
+            <!-- Desktop Navigation - Right aligned -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="Traditional_Restaurant.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">হোম</a>
+                <a href="Menu_Items.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">মেনু</a>
+                <a href="About_Us.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">আমাদের সম্পর্কে</a>
+                <a href="Contact.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">যোগাযোগ</a>
+                <a href="Order.html" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-medium transition duration-300">অর্ডার করুন</a>
+            </nav>
+            
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button class="text-gray-700 focus:outline-none" id="mobile-menu-button">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation (hidden by default) -->
+        <div class="md:hidden hidden bg-white shadow-lg" id="mobile-nav">
+            <div class="px-4 py-3 flex flex-col space-y-3">
+                <a href="Traditional_Restaurant.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">হোম</a>
+                <a href="Menu_Items.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">মেনু</a>
+                <a href="About_Us.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">আমাদের সম্পর্কে</a>
+                <a href="Contact.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">যোগাযোগ</a>
+                <a href="Contact.html" class="py-2 text-amber-600 font-medium">অর্ডার করুন</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg py-16 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">আমাদের মেনু</h2>
+            <p class="text-xl md:text-2xl mb-8">বাংলাদেশের ঐতিহ্যবাহী সব খাবারের স্বাদ নিন আমাদের রেস্টুরেন্টে</p>
+        </div>
+    </section>
+
+    <!-- Menu Categories -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button class="category-btn active px-5 py-2 rounded-full border border-amber-600 text-amber-600 font-medium" data-category="all">
+                    সব আইটেম
+                </button>
+                <button class="category-btn px-5 py-2 rounded-full border border-amber-600 text-amber-600 font-medium" data-category="biriyani">
+                    বিরিয়ানি
+                </button>
+                <button class="category-btn px-5 py-2 rounded-full border border-amber-600 text-amber-600 font-medium" data-category="meat">
+                    মাংস
+                </button>
+                <button class="category-btn px-5 py-2 rounded-full border border-amber-600 text-amber-600 font-medium" data-category="fish">
+                    মাছ
+                </button>
+                <button class="category-btn px-5 py-2 rounded-full border border-amber-600 text-amber-600 font-medium" data-category="vegetable">
+                    সবজি
+                </button>
+                <button class="category-btn px-5 py-2 rounded-full border border-amber-600 text-amber-600 font-medium" data-category="dessert">
+                    মিষ্টান্ন
+                </button>
+            </div>
+
+            <!-- Menu Items -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="menu-items">
+                <!-- Biriyani Items -->
+                <div class="food-card bg-white rounded-lg shadow-md overflow-hidden" data-category="biriyani">
+                    <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGJpcnlhbml8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60" 
+                         alt="স্পেশাল কাচ্চি বিরিয়ানি" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">স্পেশাল কাচ্চি বিরিয়ানি</h3>
+                        <p class="text-gray-600 mb-4">মূল্য: ৩২০ টাকা</p>
+                        <p class="text-gray-700">সুগন্ধি বাসমতি চাল, মসলা দিয়ে রান্না কাচ্চি মটন এর বিরিয়ানি</p>
+                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold order-btn">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="food-card bg-white rounded-lg shadow-md overflow-hidden" data-category="biriyani">
+                    <img src="https://images.unsplash.com/photo-1563379091339-03246963d9d9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Y2hpY2tlbiUyMGJpcnlhbml8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60" 
+                         alt="মুরগি বিরিয়ানি" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">মুরগি বিরিয়ানি</h3>
+                        <p class="text-gray-600 mb-4">মূল্য: ২৫০ টাকা</p>
+                        <p class="text-gray-700">স্পেশাল মসলা ও সুগন্ধি চাল দিয়ে তৈরি মুরগির বিরিয়ানি</p>
+                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold order-btn">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="food-card bg-white rounded-lg shadow-md overflow-hidden" data-category="biriyani">
+                    <img src="https://images.unsplash.com/photo-1599043513900-ed6fe01d3833?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YmVlZiUyMGJpcnlhbml8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60" 
+                         alt="গরুর মাংসের বিরিয়ানি" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">গরুর মাংসের বিরিয়ানি</h3>
+                        <p class="text-gray-600 mb-4">মূল্য: ২৮০ টাকা</p>
+                        <p class="text-gray-700">গরুর মাংস দিয়ে তৈরি সুগন্ধি বিরিয়ানি, বিশেষ মসলায় রান্না</p>
+                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold order-btn">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Meat Items -->
+                <div class="food-card bg-white rounded-lg shadow-md overflow-hidden" data-category="meat">
+                    <img src="https://images.unsplash.com/photo-1603360946369-dc9bbd814503?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG11dHRvbiUyMGJocmFpbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" 
+                         alt="মটন ভুনা" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">মটন ভুনা</h3>
+                        <p class="text-gray-600 mb-4">মূল্য: ৩৫০ টাকা</p>
+                        <p class="text-gray-700">বিশেষ পদ্ধতিতে রান্না করা গরুর মাংস ভুনা, বাংলার ঐতিহ্যবাহী রেসিপি</p>
+                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold order-btn">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="food-card bg-white rounded-lg shadow-md overflow-hidden" data-category="meat">
+                    <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fG11cmdobyUyMGRhbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" 
+                         alt="মুর্গি দাল" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">মুর্গি দাল</h3>
+                        <p class="text-gray-600 mb-4">মূল্য: ২৮০ টাকা</p>
+                        <p class="text-gray-700">টক-মিষ্টি স্বাদের মুর্গি দাল, বাংলার traditional recipe অনুযায়ী</p>
+                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold order-btn">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="food-card bg-white rounded-lg shadow-md overflow-hidden" data-category="meat">
+                    <img src="https://images.unsplash.com/photo-1632778149955-e80f8ceca2e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGNoaWNrZW4lMjByb2FzdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" 
+                         alt="রোস্ট মুরগি" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">রোস্ট মুরগি</h3>
+                        <p class="text-gray-600 mb-4">মূল্য: ৩২০ টাকা</p>
+                        <p class="text-gray-700">বিভিন্ন মসলা দিয়ে ম্যারিনেট করে বিশেষভাবে রোস্ট করা মুরগি</p>
+                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold order-btn">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Fish Items -->
+                <div class="food-card bg-white rounded-lg shadow-md overflow-hidden" data-category="fish">
+                    <img src="https://images.unsplash.com/photo-1633321702518-7feccafb94d5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGZpc2glMjBjdXJyeXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" 
+                         alt="ইলিশ মাছ ভুনা" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">ইলিশ মাছ ভুনা</h3>
+                        <p class="text-gray-600 mb-4">মূল্য: ৪৫০ টাকা</p>
+                        <p class="text-gray-700">তাজা ইলিশ মাছ সাথে traditional spices দিয়ে ভুনা</p>
+                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold order-btn">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="food-card bg-white rounded-lg shadow-md overflow-hidden" data-category="fish">
+                    <img src="https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGZpc2glMjBmcnl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60" 
+                         alt="পাবদা মাছ ভাজা" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">পাবদা মাছ ভাজা</h3>
+                        <p class="text-gray-600 mb-4">মূল্য: ৩২০ টাকা</p>
+                        <p class="text-gray-700">তাজা পাবদা মাছ মসলা দিয়ে ভাজা, পাশে পিয়াজ ও মরিচ</p>
+                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold order-btn">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="food-card bg-white rounded-lg shadow-md overflow-hidden" data-category="fish">
+                    <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZmlzaCUyMGN1cnJ5fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" 
+                         alt="রুই মাছ কারি" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">রুই মাছ কারি</h3>
+                        <p class="text-gray-600 mb-4">মূল্য: ৩৮০ টাকা</p>
+                        <p class="text-gray-700">তাজা রুই মাছ দিয়ে তৈরি মসলাদার কারি, বাংলার ঐতিহ্যবাহী রেসিপি</p>
+                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold order-btn">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Vegetable Items -->
+                <div class="food-card bg-white rounded-lg shadow-md overflow-hidden" data-category="vegetable">
+                    <img src="https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHZlZ2V0YWJsZSUyMGN1cnJ5fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" 
+                         alt="মিশ্র সবজি" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">মিশ্র সবজি</h3>
+                        <p class="text-gray-600 mb-4">মূল্য: ১৫০ টাকা</p>
+                        <p class="text-gray-700">তাজা মিশ্র সবজি দিয়ে তৈরি সুস্বাদু পদ, বিশেষ মসলায় রান্না</p>
+                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold order-btn">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="food-card bg-white rounded-lg shadow-md overflow-hidden" data-category="vegetable">
+                    <img src="https://images.unsplash.com/photo-1532544616489-d4bfb2f7df49?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8ZGFsJTIwbGVudGlsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" 
+                         alt="মসুর ডাল" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">মসুর ডাল</h3>
+                        <p class="text-gray-600 mb-4">মূল্য: ১২০ টাকা</p>
+                        <p class="text-gray-700">স্পেশাল মসলা দিয়ে রান্না করা গরম মসুর ডাল</p>
+                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold order-btn">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="food-card bg-white rounded-lg shadow-md overflow-hidden" data-category="vegetable">
+                    <img src="https://images.unsplash.com/photo-1576024897775-41ac108531e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHBvdGF0byUyMGZyeXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" 
+                         alt="আলু ভাজি" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">আলু ভাজি</h3>
+                        <p class="text-gray-600 mb-4">মূল্য: ১০০ টাকা</p>
+                        <p class="text-gray-700">তাজা আলু পেঁয়াজ ও মরিচ দিয়ে ভাজা, বাংলার সাদামাটা কিন্তু সুস্বাদু পদ</p>
+                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold order-btn">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Dessert Items -->
+                <div class="food-card bg-white rounded-lg shadow-md overflow-hidden" data-category="dessert">
+                    <img src="https://images.unsplash.com/photo-1563725294477-aec9bf967b60?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cm9zaG9nb2xsYXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" 
+                         alt="রসগোল্লা" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">রসগোল্লা</h3>
+                        <p class="text-gray-600 mb-4">মূল্য: ১৮০ টাকা (৬ পিস)</p>
+                        <p class="text-gray-700">তাজা ছানা দিয়ে তৈরি বাংলার ঐতিহ্যবাহী মিষ্টি রসগোল্লা</p>
+                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold order-btn">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="food-card bg-white rounded-lg shadow-md overflow-hidden" data-category="dessert">
+                    <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bWlzdHklMjBkb2l8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60" 
+                         alt="মিষ্টি দই" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">মিষ্টি দই</h3>
+                        <p class="text-gray-600 mb-4">মূল্য: ১৫০ টাকা</p>
+                        <p class="text-gray-700">ঘরে তৈরি মিষ্টি দই, বিশেষ পদ্ধতিতে প্রস্তুত</p>
+                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold order-btn">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="food-card bg-white rounded-lg shadow-md overflow-hidden" data-category="dessert">
+                    <img src="https://images.unsplash.com/photo-1605523385721-31701a5d4ab0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8c2FuZGVzaHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" 
+                         alt="সন্দেশ" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">সন্দেশ</h3>
+                        <p class="text-gray-600 mb-4">মূল্য: ২০০ টাকা (৮ পিস)</p>
+                        <p class="text-gray-700">তাজা ছানা ও চিনি দিয়ে তৈরি নরম সন্দেশ</p>
+                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold order-btn">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">ট্র্যাডিশনাল রেস্টুরেন্ট</h3>
+                    <p class="mb-4">বাংলাদেশের ঐতিহ্যবাহী খাবারের স্বাদ</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-amber-400 hover:text-amber-300"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-amber-400 hover:text-amber-300"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-amber-400 hover:text-amber-300"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">যোগাযোগ</h3>
+                    <p class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i> ১২/৪, ধানমন্ডি, ঢাকা</p>
+                    <p class="mb-2"><i class="fas fa-phone mr-2"></i> +৮৮০ ১৭১২ ৩৪৫ ৬৭৮</p>
+                    <p class="mb-2"><i class="fas fa-envelope mr-2"></i> info@traditionalrestaurant.com</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">খোলার সময়</h3>
+                    <p class="mb-2">সোমবার - শনিবার: ১১:০০ AM - ১১:০০ PM</p>
+                    <p class="mb-2">রবিবার: ১২:০০ PM - ১১:০০ PM</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>&copy; ২০২৩ ট্র্যাডিশনাল রেস্টুরেন্ট। সকল права защищены।</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.querySelector('.mobile-nav').classList.toggle('hidden');
+        });
+
+        // Category filtering
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const menuItems = document.querySelectorAll('.food-card');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const category = button.getAttribute('data-category');
+                
+                // Show/hide menu items based on category
+                menuItems.forEach(item => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Order button functionality
+        const orderButtons = document.querySelectorAll('.order-btn');
+        orderButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const itemName = button.parentElement.querySelector('h3').textContent;
+                alert(`"${itemName}" অর্ডার করতে আপনাকে ধন্যবাদ! আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।`);
+            });
+        });
+    </script>
+</body>
+</html>

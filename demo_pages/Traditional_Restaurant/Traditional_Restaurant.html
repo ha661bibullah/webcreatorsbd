@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বাংলা ট্র্যাডিশনাল রেস্টুরেন্ট | ঢাকা</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHxlbnwwfHwwfHw%3D&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .food-card {
+            transition: transform 0.3s ease;
+        }
+        .food-card:hover {
+            transform: translateY(-5px);
+        }
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #d97706;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <h1 class="text-2xl md:text-3xl font-bold text-amber-600">ট্র্যাডিশনাল রেস্টুরেন্ট</h1>
+            </div>
+            
+            <!-- Desktop Navigation - Right aligned -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="Traditional_Restaurant.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">হোম</a>
+                <a href="Menu_Items.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">মেনু</a>
+                <a href="About_Us.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">আমাদের সম্পর্কে</a>
+                <a href="Contact.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">যোগাযোগ</a>
+                <a href="Order.html" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-medium transition duration-300">অর্ডার করুন</a>
+            </nav>
+            
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button class="text-gray-700 focus:outline-none" id="mobile-menu-button">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation (hidden by default) -->
+        <div class="md:hidden hidden bg-white shadow-lg" id="mobile-nav">
+            <div class="px-4 py-3 flex flex-col space-y-3">
+                <a href="Traditional_Restaurant.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">হোম</a>
+                <a href="Menu_Items.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">মেনু</a>
+                <a href="About_Us.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">আমাদের সম্পর্কে</a>
+                <a href="Contact.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">যোগাযোগ</a>
+                <a href="Contact.html" class="py-2 text-amber-600 font-medium">অর্ডার করুন</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg py-20 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6">ঢাকার সেরা বাংলা খাবার</h2>
+            <p class="text-xl md:text-2xl mb-8">স্বাদে এবং গন্ধে অতুলনীয় ঐতিহ্যবাহী বাংলা রান্না</p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <button class="bg-amber-600 hover:bg-amber-700 px-6 py-3 rounded-full text-lg font-semibold transition duration-300">মেনু দেখুন</button>
+                <button class="bg-white hover:bg-gray-100 text-amber-600 px-6 py-3 rounded-full text-lg font-semibold transition duration-300">অর্ডার করুন</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rest of the content remains the same as in your original code -->
+    <!-- Stats Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">আমাদের সাফল্য</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6 bg-amber-50 rounded-lg shadow">
+                    <div class="text-5xl font-bold text-amber-600 mb-2">৪০%</div>
+                    <h3 class="text-xl font-semibold mb-2">অনলাইন অর্ডার</h3>
+                    <p class="text-gray-600">আমাদের মোট বিক্রির ৪০% আসে অনলাইন অর্ডার থেকে</p>
+                </div>
+                <div class="text-center p-6 bg-amber-50 rounded-lg shadow">
+                    <div class="text-5xl font-bold text-amber-600 mb-2">৩০%</div>
+                    <h3 class="text-xl font-semibold mb-2">ওয়েবসাইট ট্রাফিক</h3>
+                    <p class="text-gray-600">গত বছরে আমাদের ওয়েবসাইট ভিজিটর ৩০% বৃদ্ধি পেয়েছে</p>
+                </div>
+                <div class="text-center p-6 bg-amber-50 rounded-lg shadow">
+                    <div class="text-5xl font-bold text-amber-600 mb-2">৮৫%</div>
+                    <h3 class="text-xl font-semibold mb-2">কাস্টমার রিটেনশন</h3>
+                    <p class="text-gray-600">আমাদের ৮৫% গ্রাহক নিয়মিতভাবে ফিরে আসেন</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-10">
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cm�zdGF1cmFudHxlbnwwfHwwfHw%3D&w=1000&q=80" 
+                         alt="রেস্টুরেন্ট ইন্টেরিয়র" class="rounded-lg shadow-lg">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold mb-6">আমাদের সম্পর্কে</h2>
+                    <p class="text-gray-700 mb-4">
+                        বাংলা ট্র্যাডিশনাল রেস্টুরেন্ট ঢাকার হৃদয় থেকে আপনাকে পরিবেশন করে আসছে ১৯৯৫ সাল থেকে। আমরা ঐতিহ্যবাহী বাংলা রেসিপি আধুনিক রান্নার শৈলীর সাথে মিলিয়ে আপনাকে অনন্য স্বাদের অভিজ্ঞতা দিতে প্রতিশ্রুতিবদ্ধ।
+                    </p>
+                    <p class="text-gray-700 mb-6">
+                        আমাদের দক্ষ শেফরা স্থানীয়ভাবে sourced তাজা উপাদান ব্যবহার করে রান্না করেন, যা প্রতিটি খাবারে বাংলার সমৃদ্ধ culinary heritage কে জীবন্ত করে তোলে।
+                    </p>
+                    <button class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-full font-semibold transition duration-300">
+                        আরও জানুন
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4">আমাদের জনপ্রিয় খাবার</h2>
+            <p class="text-gray-600 text-center mb-12">আমাদের বিশেষত্বযুক্ত খাবারগুলো দেখুন এবং স্বাদ নিন</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Food Item 1 -->
+                <div class="food-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGJpcnlhbml8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60" 
+                         alt="বিরিয়ানি" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">স্পেশাল কাচ্চি বিরিয়ানি</h3>
+                        <p class="text-gray-600 mb-4">মূল্য: ৩২০ টাকা</p>
+                        <p class="text-gray-700">সুগন্ধি বাসমতি চাল, মসলা দিয়ে রান্না কাচ্চি মutton এর বিরিয়ানি</p>
+                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold transition duration-300">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Food Item 2 -->
+                <div class="food-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1633321702518-7feccafb94d5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGZpc2glMjBjdXJyeXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" 
+                         alt="মাছ ভুনা" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">ইলিশ মাছ ভুনা</h3>
+                        <p class="text-gray-600 mb-4">মূল্য: ৪৫০ টাকা</p>
+                        <p class="text-gray-700">তাজা ইলিশ মাছ সাথে traditional spices দিয়ে ভুনা</p>
+                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold transition duration-300">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Food Item 3 -->
+                <div class="food-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fG11cmdobyUyMGRhbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" 
+                         alt="মুর্গি দাল" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">মুর্গি দাল</h3>
+                        <p class="text-gray-600 mb-4">মূল্য: ২৮০ টাকা</p>
+                        <p class="text-gray-700">টক-মিষ্টি স্বাদের মুর্গি দাল, বাংলার traditional recipe অনুযায়ী</p>
+                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold transition duration-300">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-full font-semibold text-lg transition duration-300">
+                    সম্পূর্ণ মেনু দেখুন
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-amber-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4">গ্রাহকদের মতামত</h2>
+            <p class="text-gray-600 text-center mb-12">আমাদের গ্রাহকরা কি বলেন</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="text-amber-500 text-2xl">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        "ঢাকায় সেরা বাংলা খাবার! তাদের কাচ্চি বিরিয়ানি অসাধারণ। নিয়মিতই আমি এখানে খেতে আসি।"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="ml-4">
+                            <h4 class="font-semibold">আনিকা ইসলাম</h4>
+                            <p class="text-gray-600">নিয়মিত গ্রাহক</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="text-amber-500 text-2xl">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        "অনলাইন অর্ডার করা খুব সহজ এবং খাবার সময়মতো পেয়েছি। স্বাদটা ঠিক রেস্টুরেন্টে খাওয়ার মতোই ছিল।"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="ml-4">
+                            <h4 class="font-semibold">রফিকুল ইসলাম</h4>
+                            <p class="text-gray-600">অনলাইন গ্রাহক</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="text-amber-500 text-2xl">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        "পরিবেশ খুব সুন্দর এবং staffরা খুব বন্ধুত্বপূর্ণ। খাবারের quality অসাধারণ।强烈推荐！"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="ml-4">
+                            <h4 class="font-semibold">চেন ইয়াং</h4>
+                            <p class="text-gray-600">বিদেশী পর্যটক</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-10">
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold mb-6">আমাদের সাথে যোগাযোগ করুন</h2>
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold mb-2">ঠিকানা:</h3>
+                        <p class="text-gray-700">১২৩ কাওরান বাজার, ঢাকা, বাংলাদেশ</p>
+                    </div>
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold mb-2">ফোন:</h3>
+                        <p class="text-gray-700">+৮৮০ ১৭১২ ৩৪৫ ৬৭৮</p>
+                    </div>
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold mb-2">ইমেইল:</h3>
+                        <p class="text-gray-700">info@bengaltraditional.com</p>
+                    </div>
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold mb-2">খোলার সময়:</h3>
+                        <p class="text-gray-700">সকাল ১১টা - রাত ১১টা (সপ্তাহের সবদিন)</p>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <div class="bg-gray-100 p-6 rounded-lg">
+                        <h3 class="text-2xl font-semibold mb-6">অবস্থান</h3>
+                        <div class="aspect-w-16 aspect-h-9">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d116834.00977741619!2d90.349285767855!3d23.78077774494031!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b087026b81%3A0x8fa563bbdd5904c2!2sDhaka!5e0!3m2!1sen!2sbd!4v1678122991332!5m2!1sen!2sbd" 
+                                    width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade" class="rounded-lg"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">বাংলা ট্র্যাডিশনাল রেস্টুরেন্ট</h3>
+                    <p class="text-gray-400">ঢাকার সেরা ঐতিহ্যবাহী বাংলা খাবারের অভিজ্ঞতা</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">লিংক</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">হোম</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">মেনু</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">আমাদের সম্পর্কে</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">যোগাযোগ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">যোগাযোগ</h3>
+                    <p class="text-gray-400">১২৩ কাওরান বাজার, ঢাকা</p>
+                    <p class="text-gray-400">+৮৮০ ১৭১২ ৩৪৫ ৬৭৮</p>
+                    <p class="text-gray-400">info@bengaltraditional.com</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">সামাজিক মাধ্যম</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <div class="mt-6">
+                        <h4 class="font-semibold mb-2">অ্যাপ ডাউনলোড করুন</h4>
+                        <div class="flex space-x-2">
+                            <button class="bg-black text-white px-4 py-2 rounded flex items-center">
+                                <i class="fab fa-apple mr-2"></i> App Store
+                            </button>
+                            <button class="bg-black text-white px-4 py-2 rounded flex items-center">
+                                <i class="fab fa-google-play mr-2"></i> Play Store
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; ২০২৩ বাংলা ট্র্যাডিশনাল রেস্টুরেন্ট। সকল права защищены।</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle functionality
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileNav = document.getElementById('mobile-nav');
+            mobileNav.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

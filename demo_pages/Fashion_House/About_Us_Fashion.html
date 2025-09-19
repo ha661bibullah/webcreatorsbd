@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আমাদের সম্পর্কে - বাংলা ফ্যাশন হাউস</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .collection-menu {
+            position: relative;
+        }
+        .collection-submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            z-index: 1000;
+            padding: 10px 0;
+        }
+        .collection-menu:hover .collection-submenu {
+            display: block;
+        }
+        .collection-submenu a {
+            display: block;
+            padding: 8px 20px;
+            color: #4a5568;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .collection-submenu a:hover {
+            background-color: #f7fafc;
+            color: #805ad5;
+        }
+        @media (max-width: 767px) {
+            .collection-submenu {
+                position: static;
+                box-shadow: none;
+                background-color: transparent;
+                padding-left: 20px;
+            }
+            .collection-submenu a {
+                color: white;
+                padding: 6px 0;
+            }
+            .collection-submenu a:hover {
+                background-color: rgba(255,255,255,0.1);
+            }
+        }
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin: 0 auto;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(to bottom, #805ad5, #d53f8c);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.3rem;
+            top: 0.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background: #805ad5;
+            border: 4px solid #fff;
+            box-shadow: 0 0 0 3px #805ad5;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+<div id="header-placeholder"></div>
+<script>
+fetch('header.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const closeMenu = document.getElementById('closeMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+
+    // Mobile menu open/close
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.remove('-translate-x-full');
+      overlay.classList.remove('hidden');
+    });
+
+    closeMenu.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    overlay.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    // Mobile collection toggle with arrow rotation
+    document.querySelectorAll('.collection-toggle').forEach(button => {
+      const arrow = button.querySelector('i'); // arrow icon
+      const submenu = button.nextElementSibling;
+
+      button.addEventListener('click', () => {
+        if (!submenu) return;
+
+        submenu.classList.toggle('hidden'); // সাবমেনু খোলে/বন্ধ হয়
+
+        // Arrow rotation
+        if (arrow) {
+          arrow.classList.toggle('rotate-180');
+        }
+      });
+    });
+
+    // Active menu highlight
+    const currentPage = window.location.pathname.split('/').pop(); // file name
+    // Desktop links
+    document.querySelectorAll('nav a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('text-yellow-300', 'font-bold');
+      } else {
+        link.classList.remove('text-yellow-300', 'font-bold');
+      }
+    });
+
+    // Mobile links
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('bg-purple-700', 'text-yellow-300', 'rounded');
+      } else {
+        link.classList.remove('bg-purple-700', 'text-yellow-300', 'rounded');
+      }
+    });
+  });
+</script>
+<style>
+body {
+  padding-top: 60px;
+}
+
+/* Desktop submenu hover only on link */
+.group-link + .submenu {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.group-link:hover + .submenu {
+  opacity: 1;
+  visibility: visible;
+}
+</style>
+
+
+
+    <!-- Page Header -->
+    <section class="bg-gradient-to-r from-purple-700 to-purple-900 text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4">আমাদের সম্পর্কে</h2>
+            <p class="text-xl max-w-3xl mx-auto">বাংলাদেশের ঐতিহ্যবাহী পোশাক সংরক্ষণ ও আধুনিকীকরণে আমাদের অঙ্গীকার</p>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-10">
+                <div class="w-full md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1603400521630-9f2de124b33b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="বাংলা ফ্যাশন হাউসের প্রতিষ্ঠাতা" class="rounded-lg shadow-lg">
+                </div>
+                <div class="w-full md:w-1/2">
+                    <h2 class="text-3xl font-bold mb-6 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-20 after:h-1 after:bg-gradient-to-r after:from-purple-600 after:to-purple-800">আমাদের গল্প</h2>
+                    <p class="text-lg mb-4">২০১০ সালে বাংলা ফ্যাশন হাউস যাত্রা শুরু করে বাংলাদেশের ঐতিহ্যবাহী পোশাককে আধুনিক প্রজন্মের কাছে পৌঁছে দেওয়ার লক্ষ্যে। আমাদের প্রতিষ্ঠাতা ফাতেমা খাতুনের স্বপ্ন ছিল বাংলার সাংস্কৃতিক ঐতিহ্যকে ফ্যাশনের মাধ্যমে বিশ্বদরবারে উপস্থাপন করা।</p>
+                    <p class="text-lg mb-4">আজ আমরা গর্বিত যে সারাদেশের হাজারো গ্রাহক আমাদের সাথে যুক্ত হয়েছেন এবং আমাদের পণ্যের গুণগত মান ও সেবায় সন্তুষ্ট। আমরা স্থানীয় কারিগরদের সাথে কাজ করি এবং তাদের দক্ষতা উন্নয়নে সহায়তা করি।</p>
+                    <p class="text-lg">আমাদের লক্ষ্য হলো বাংলার ঐতিহ্যবাহী নকশা ও কারুকার্যকে আধুনিক ফ্যাশন ট্রেন্ডের সাথে মিলিয়ে এমন পোশাক তৈরি করা যা যেকোনো বয়সের মানুষ পরতে পছন্দ করবে।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission and Vision -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Mission -->
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-bullseye text-5xl text-purple-600 mb-4"></i>
+                        <h3 class="text-2xl font-bold">আমাদের মিশন</h3>
+                    </div>
+                    <p class="text-lg">বাংলাদেশের ঐতিহ্যবাহী পোশাক ও টেক্সটাইল শিল্পকে বিশ্বব্যাপী ছড়িয়ে দেওয়া এবং স্থানীয় কারিগরদের কাজকে স্বীকৃতি ও সম্মান দেওয়া। আমরা চাই আমাদের প্রতিটি পণ্য গ্রাহকদের মধ্যে বাংলার সংস্কৃতি ও ঐতিহ্যের প্রতি ভালোবাসা তৈরি করুক।</p>
+                </div>
+                
+                <!-- Vision -->
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-eye text-5xl text-purple-600 mb-4"></i>
+                        <h3 class="text-2xl font-bold">আমাদের ভিশন</h3>
+                    </div>
+                    <p class="text-lg">বাংলাদেশের ঐতিহ্যবাহী পোশাককে আন্তর্জাতিক ফ্যাশন ইন্ডাস্ট্রির একটি গুরুত্বপূর্ণ অংশ হিসেবে প্রতিষ্ঠিত করা। আমরা চাই বাংলার নকশা ও কারুকার্য বিশ্বজুড়ে মানুষের দৈনন্দিন পোশাকের অংশ হয়ে উঠুক এবং বাংলাদেশের টেক্সটাইল শিল্প বিশ্বসেরা হিসেবে স্বীকৃতি পাক।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 relative pb-2 after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-purple-600 after:to-purple-800">
+                আমাদের যাত্রা
+            </h2>
+            
+            <div class="timeline max-w-4xl mx-auto">
+                <!-- Timeline Item 1 -->
+                <div class="timeline-item">
+                    <h3 class="text-xl font-bold mb-2">২০১০</h3>
+                    <p class="text-lg">ধানমন্ডিতে আমাদের প্রথম শোরুম খোলা হয়। শুরু হয় বাংলা ফ্যাশন হাউসের যাত্রা।</p>
+                </div>
+                
+                <!-- Timeline Item 2 -->
+                <div class="timeline-item">
+                    <h3 class="text-xl font-bold mb-2">২০১৩</h3>
+                    <p class="text-lg">আমাদের অনলাইন প্ল্যাটফর্ম চালু করা হয়, যা সারাদেশে আমাদের পণ্য পৌঁছে দেয়।</p>
+                </div>
+                
+                <!-- Timeline Item 3 -->
+                <div class="timeline-item">
+                    <h3 class="text-xl font-bold mb-2">২০১৫</h3>
+                    <p class="text-lg">আমরা প্রথম আন্তর্জাতিক অর্ডার পাই এবং বিশ্বব্যাপী আমাদের পণ্য রপ্তানি শুরু করি।</p>
+                </div>
+                
+                <!-- Timeline Item 4 -->
+                <div class="timeline-item">
+                    <h3 class="text-xl font-bold mb-2">২০১৮</h3>
+                    <p class="text-lg">চট্টগ্রাম ও সিলেটে আমাদের নতুন শাখা খোলা হয় এবং ৫০+ স্থানীয় কারিগরের সাথে কাজ শুরু করি।</p>
+                </div>
+                
+                <!-- Timeline Item 5 -->
+                <div class="timeline-item">
+                    <h3 class="text-xl font-bold mb-2">২০২৩</h3>
+                    <p class="text-lg">১০,০০০+ সন্তুষ্ট গ্রাহক এবং ১০+ দেশে আমাদের পণ্য রপ্তানি করার মাইলফলক স্পর্শ করি।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 relative pb-2 after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-purple-600 after:to-purple-800">
+                আমাদের মূল্যবোধ
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Value 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-hands-helping text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">স্থানীয় কারিগরদের সহায়তা</h3>
+                    <p class="text-gray-700">আমরা স্থানীয় কারিগরদের সাথে সরাসরি কাজ করি এবং তাদের ন্যায্য মজুরি প্রদান করি।</p>
+                </div>
+                
+                <!-- Value 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-leaf text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">টেকসই উৎপাদন</h3>
+                    <p class="text-gray-700">আমরা পরিবেশবান্ধব উপকরণ ব্যবহার করি এবং টেকসই উৎপাদন প্রক্রিয়া অনুসরণ করি।</p>
+                </div>
+                
+                <!-- Value 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-medal text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">গুণগত মান</h3>
+                    <p class="text-gray-700">আমাদের প্রতিটি পণ্য উচ্চমানের উপকরণ ও নিখুঁত কারুকার্য দ্বারা তৈরি হয়।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 relative pb-2 after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-purple-600 after:to-purple-800">
+                আমাদের দল
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Team Member 1 -->
+                <div class="text-center">
+                    <div class="w-48 h-48 mx-auto mb-4 rounded-full overflow-hidden border-4 border-purple-200">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="ফাতেমা খাতুন" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold">ফাতেমা খাতুন</h3>
+                    <p class="text-purple-600">প্রতিষ্ঠাতা ও সিইও</p>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="text-center">
+                    <div class="w-48 h-48 mx-auto mb-4 rounded-full overflow-hidden border-4 border-purple-200">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="রহিম আহমেদ" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold">রহিম আহমেদ</h3>
+                    <p class="text-purple-600">হেড অফ ডিজাইন</p>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="text-center">
+                    <div class="w-48 h-48 mx-auto mb-4 rounded-full overflow-hidden border-4 border-purple-200">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="সুমাইয়া আক্তার" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold">সুমাইয়া আক্তার</h3>
+                    <p class="text-purple-600">মার্কেটিং ম্যানেজার</p>
+                </div>
+                
+                <!-- Team Member 4 -->
+                <div class="text-center">
+                    <div class="w-48 h-48 mx-auto mb-4 rounded-full overflow-hidden border-4 border-purple-200">
+                        <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&auto=format&fit=crop&w=644&q=80" alt="জaved করিম" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold">জaved করিম</h3>
+                    <p class="text-purple-600">প্রোডাকশন ম্যানেজার</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-16 bg-gradient-to-r from-purple-700 to-purple-900 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">আমাদের সাথে যোগ দিন</h2>
+            <p class="text-xl max-w-3xl mx-auto mb-8">আপনিও বাংলার ঐতিহ্যবাহী পোশাক সংরক্ষণ ও আধুনিকীকরণের এই যাত্রার অংশ হন। আমাদের কালেকশন থেকে পছন্দের পোশাকটি সংগ্রহ করুন অথবা আমাদের সাথে যুক্ত হন।</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#" class="bg-white text-purple-700 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition">পণ্য দেখুন</a>
+                <a href="#" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-bold hover:bg-white hover:text-purple-700 transition">যোগাযোগ করুন</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <!-- Company Info -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-purple-600">বাংলা ফ্যাশন হাউস</h3>
+                    <p class="mb-4">বাংলাদেশের ঐতিহ্যবাহী পোশাককে আধুনিক প্রজন্মের কাছে পৌঁছে দেওয়ার লক্ষ্যে আমরা কাজ করছি ২০১০ সাল থেকে।</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-2xl hover:text-purple-400 transition"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-2xl hover:text-purple-400 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-2xl hover:text-purple-400 transition"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="text-2xl hover:text-purple-400 transition"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-purple-600">দ্রুত লিংক</h3>
+                    <ul class="space-y-2">
+                        <li><a href="Fashion_House.html" class="hover:text-purple-400 transition">হোম</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition">আমাদের সম্পর্কে</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition">কালেকশন</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition">ব্লগ</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition">যোগাযোগ</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-purple-600">যোগাযোগ</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-purple-400"></i>
+                            <span>১২৩/ক, ধানমন্ডি, ঢাকা-১২০৫, বাংলাদেশ</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3 text-purple-400"></i>
+                            <span>+৮৮০ ১৭১২ ৩৪৫৬৭৮</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-purple-400"></i>
+                            <span>info@banglahouse.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Newsletter -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-purple-600">নিউজলেটার</h3>
+                    <p class="mb-4">আমাদের নতুন কালেকশন এবং অফার সম্পর্কে জানতে সাবস্ক্রাইব করুন</p>
+                    <form class="flex flex-col space-y-2">
+                        <input type="email" placeholder="আপনার ইমেইল" class="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:border-purple-500">
+                        <button type="submit" class="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded font-medium transition">সাবস্ক্রাইব</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="border-t border-gray-800 pt-6 text-center">
+                <p>&copy; ২০২৩ বাংলা ফ্যাশন হাউস। সকল স্বত্ব সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Menu -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const overlay = document.getElementById('overlay');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        // Mobile Collection Menu Toggle
+        const collectionMenuMobile = document.querySelector('.collection-menu-mobile a');
+        const collectionSubmenuMobile = document.querySelector('.collection-submenu-mobile');
+        
+        collectionMenuMobile.addEventListener('click', (e) => {
+            e.preventDefault();
+            collectionSubmenuMobile.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

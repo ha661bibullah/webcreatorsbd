@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>যোগাযোগ - মাদ্রাসা শিক্ষা</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .course-card {
+            transition: transform 0.3s ease;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+        .mobile-menu {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            .desktop-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- নেভিগেশন বার -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <span class="text-2xl font-bold text-green-600">মাদ্রাসা শিক্ষা</span>
+            </div>
+            
+            <div class="desktop-menu hidden md:flex space-x-8">
+                <a href="madrasa.html" class="text-gray-600 hover:text-green-600">হোম</a>
+                <a href="#" class="text-gray-600 hover:text-green-600">কোর্স</a>
+                <a href="#" class="text-gray-600 hover:text-green-600">বই</a>
+                <a href="#" class="text-gray-600 hover:text-green-600">শিক্ষক</a>
+                <a href="#" class="text-gray-600 hover:text-green-600">উপদেষ্টা</a>
+                <a href="#" class="text-gray-600 hover:text-green-600">ব্লগ</a>
+                <a href="#" class="text-gray-600 hover:text-green-600">সম্পর্কে</a>
+                <a href="contact.html" class="text-green-600 font-semibold">যোগাযোগ</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="hidden md:block relative">
+                    <input type="text" placeholder="কোর্স বা বই খুঁজুন..." class="px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 w-64">
+                    <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+                </div>
+                <button class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">লগইন</button>
+                <button class="md:hidden text-gray-600" id="mobileMenuButton">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- মোবাইল মেনু -->
+        <div class="mobile-menu hidden bg-white border-t" id="mobileMenu">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="madrasa.html" class="text-gray-600 hover:text-green-600 py-2">হোম</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 py-2">কোর্স</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 py-2">বই</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 py-2">শিক্ষক</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 py-2">উপদেষ্টা</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 py-2">ব্লগ</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 py-2">সম্পর্কে</a>
+                <a href="contact.html" class="text-green-600 font-semibold py-2">যোগাযোগ</a>
+                <div class="relative pt-2">
+                    <input type="text" placeholder="কোর্স বা বই খুঁজুন..." class="px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 w-full">
+                    <i class="fas fa-search absolute right-3 top-4 text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- যোগাযোগ হিরো সেকশন -->
+    <section class="hero-bg text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">যোগাযোগ করুন</h1>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">আমাদের কোর্স সম্পর্কে বিস্তারিত জানতে এবং আপনার প্রশ্নের উত্তর পেতে আমাদের সাথে যোগাযোগ করুন</p>
+        </div>
+    </section>
+
+    <!-- যোগাযোগের তথ্য -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-3xl font-bold mb-8 text-green-700">যোগাযোগের তথ্য</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-green-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-phone-alt text-green-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-1">ফোন নম্বর</h3>
+                                <p class="text-gray-600">+৮৮০ ১৭১২-৩৪৫৬৭৮</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-green-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-envelope text-green-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-1">ইমেইল</h3>
+                                <p class="text-gray-600">contact@amardershiksha.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-green-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-map-marker-alt text-green-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-1">ঠিকানা</h3>
+                                <p class="text-gray-600">লেভেল ৫, বাড়ি ৪৫, রোড ১০, বনানী, ঢাকা ১২১৩</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-green-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-clock text-green-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-1">সময়সূচি</h3>
+                                <p class="text-gray-600">সকাল ৯টা থেকে সন্ধ্যা ৮টা (শুক্রবার বন্ধ)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h2 class="text-3xl font-bold mb-8 text-green-700">আমাদের সাথে যোগাযোগ করুন</h2>
+                    
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="name">আপনার নাম</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="email">ইমেইল</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="phone">ফোন নম্বর</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="course">আপনি কোন কোর্স সম্পর্কে জানতে চান?</label>
+                            <select id="course" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400">
+                                <option value="">কোর্স নির্বাচন করুন</option>
+                                <option value="quran">কোরআন শিক্ষা</option>
+                                <option value="hadith">হাদিস শিক্ষা</option>
+                                <option value="arabic">আরবি ভাষা</option>
+                                <option value="fiqh">ফিকাহ শিক্ষা</option>
+                                <option value="tajweed">তাজবিদ</option>
+                                <option value="history">ইসলামিক ইতিহাস</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="message">আপনার মেসেজ</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-green-700 w-full">মেসেজ পাঠান</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- আমাদের জনপ্রিয় কোর্সসমূহ -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-green-700">আমাদের জনপ্রিয় কোর্সসমূহ</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-48">
+                        <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="ওয়েব ডেভেলপমেন্ট কোর্স" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">ওয়েব ডেভেলপমেন্ট কোর্স</h3>
+                        <p class="text-gray-600 text-sm mb-4">HTML, CSS, JavaScript, React, Node.js সহ সম্পূর্ণ ফ্রন্ট-এন্ড ও ব্যাক-এন্ড ডেভেলপমেন্ট শিখুন</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-green-600 font-bold text-xl">৳১২,০০০</span>
+                            <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">কোর্সটি কিনুন</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-48">
+                        <img src="https://images.unsplash.com/photo-1516937941344-00b4e0337589?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="মোবাইল অ্যাপ ডেভেলপমেন্ট কোর্স" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">মোবাইল অ্যাপ ডেভেলপমেন্ট কোর্স</h3>
+                        <p class="text-gray-600 text-sm mb-4">Flutter, React Native, Android, iOS অ্যাপ ডেভেলপমেন্ট শিখুন এবং প্রফেশনাল ডেভেলপার হোন</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-green-600 font-bold text-xl">৳১৫,০০০</span>
+                            <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">কোর্সটি কিনুন</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-48">
+                        <img src="https://images.unsplash.com/photo-1432888622747-4eb9a8f5a07a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="ডিজিটাল মার্কেটিং কোর্স" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">ডিজিটাল মার্কেটিং কোর্স</h3>
+                        <p class="text-gray-600 text-sm mb-4">SEO, SEM, সোশ্যাল মিডিয়া মার্কেটিং, কনটেন্ট মার্কেটিং, ইমেইল মার্কেটিং এবং আরও অনেক কিছু শিখুন</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-green-600 font-bold text-xl">৳৯,০০০</span>
+                            <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">কোর্সটি কিনুন</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- সাধারণ জিজ্ঞাসা -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-green-700">সাধারণ জিজ্ঞাসা</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-bold mb-3 text-green-600">কোর্সগুলো কি পুরোপুরি অনলাইনে হয়?</h3>
+                    <p class="text-gray-700">হ্যাঁ, আমাদের সব কোর্স পুরোপুরি অনলাইনে হয়। আপনি যেকোনো সময়, যেকোনো স্থান থেকে অ্যাক্সেস করতে পারবেন।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-bold mb-3 text-green-600">কোর্সের মেয়াদ কত দিন?</h3>
+                    <p class="text-gray-700">কোর্স অনুযায়ী মেয়াদ আলাদা। সাধারণত আমাদের কোর্সের মেয়াদ ৩ থেকে ৬ মাস পর্যন্ত হয়ে থাকে।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-bold mb-3 text-green-600">কোর্স ফি একবারে দিতে হবে নাকি কিস্তিতে দেওয়া যাবে?</h3>
+                    <p class="text-gray-700">আমরা একবারে পেমেন্ট এবং ২-৩ কিস্তিতে পেমেন্ট উভয় অপশনই প্রদান করি। কিস্তিতে পেমেন্ট করলে সামান্য অতিরিক্ত চার্জ প্রযোজ্য।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-bold mb-3 text-green-600">কোর্স শেষে কি সার্টিফিকেট দেওয়া হয়?</h3>
+                    <p class="text-gray-700">হ্যাঁ, সব কোর্স সফলভাবে সম্পন্ন করার পর আপনি ইন্ডাস্ট্রি স্বীকৃত সার্টিফিকেট পাবেন।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-bold mb-3 text-green-600">কোর্স থেকে কি জব প্লেসমেন্ট সাপোর্ট দেওয়া হয়?</h3>
+                    <p class="text-gray-700">হ্যাঁ, আমরা সেরা শিক্ষার্থীদের জন্য জব প্লেসমেন্ট সাপোর্ট প্রদান করি। আমাদের অনেক পার্টনার কোম্পানি রয়েছে যারা আমাদের গ্র্যাজুয়েটদের নিয়োগ দেয়।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-bold mb-3 text-green-600">কোর্সে ভর্তির জন্য কী কী প্রয়োজন?</h3>
+                    <p class="text-gray-700">বেশিরভাগ কোর্সের জন্য শুধুমাত্র একটি স্মার্টফোন বা কম্পিউটার এবং ইন্টারনেট সংযোগ প্রয়োজন। কিছু এডভান্সড কোর্সের জন্য প্রাক-জ্ঞান প্রয়োজন হতে পারে।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ফুটার -->
+    <footer class="bg-green-800 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">দ্রুত লিংক</h3>
+                    <ul class="space-y-2">
+                        <li><a href="madrasa.html" class="hover:text-green-300">হোম</a></li>
+                        <li><a href="#" class="hover:text-green-300">আমাদের সম্পর্কে</a></li>
+                        <li><a href="#" class="hover:text-green-300">সকল কোর্স</a></li>
+                        <li><a href="#" class="hover:text-green-300">শিক্ষকমণ্ডলী</a></li>
+                        <li><a href="#" class="hover:text-green-300">ক্লাস সময়সূচি</a></li>
+                        <li><a href="contact.html" class="hover:text-green-300">যোগাযোগ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">জনপ্রিয় কোর্স</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-green-300">কোরআন তেলাওয়াত</a></li>
+                        <li><a href="#" class="hover:text-green-300">হাদিস শিক্ষা</a></li>
+                        <li><a href="#" class="hover:text-green-300">আরবি ভাষা</a></li>
+                        <li><a href="#" class="hover:text-green-300">ফিকাহ শিক্ষা</a></li>
+                        <li><a href="#" class="hover:text-green-300">তাজবিদ</a></li>
+                        <li><a href="#" class="hover:text-green-300">ইসলামিক ইতিহাস</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">নিউজলেটার</h3>
+                    <p class="mb-4">নিউজলেটার সাবস্ক্রাইব করুন</p>
+                    <div class="flex">
+                        <input type="email" placeholder="আপনার ইমেইল" class="px-4 py-2 rounded-l-md w-full text-gray-800">
+                        <button class="bg-green-600 px-4 py-2 rounded-r-md hover:bg-green-500">সাবস্ক্রাইব</button>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">যোগাযোগ</h3>
+                    <p class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i> আজিমপুর, ঢাকা-১২০৫</p>
+                    <p class="mb-2"><i class="fas fa-phone-alt mr-2"></i> +৮৮০১৯১১-৫৬৭৮৯০</p>
+                    <p class="mb-4"><i class="fas fa-envelope mr-2"></i> billaharif661@gmail.com</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-green-700 mt-8 pt-6 text-center text-sm">
+                <p>© ২০২৫ মাদ্রাসা শিক্ষা। সমস্ত অধিকার সংরক্ষিত।</p>
+                <div class="mt-2">
+                    <a href="#" class="mx-2 hover:text-green-300">প্রাইভেসি পলিসি</a>
+                    <a href="#" class="mx-2 hover:text-green-300">টার্মস অফ সার্ভিস</a>
+                    <a href="#" class="mx-2 hover:text-green-300">কোর্স নীতিমালা</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // মোবাইল মেনু টগল করার জন্য JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

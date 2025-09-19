@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ইসলামিক পরামর্শ ও মার্গদর্শন - মাদ্রাসা শিক্ষা</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .service-card {
+            transition: transform 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        .mobile-menu {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            .desktop-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- নেভিগেশন বার -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <span class="text-2xl font-bold text-green-600">মাদ্রাসা শিক্ষা</span>
+            </div>
+            
+            <div class="desktop-menu hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-green-600">হোম</a>
+                <a href="#" class="text-gray-600 hover:text-green-600">কোর্স</a>
+                <a href="#" class="text-gray-600 hover:text-green-600">বই</a>
+                <a href="#" class="text-gray-600 hover:text-green-600">শিক্ষক</a>
+                <a href="advisor.html" class="text-green-600 font-semibold">উপদেষ্টা</a>
+                <a href="#" class="text-gray-600 hover:text-green-600">ব্লগ</a>
+                <a href="#" class="text-gray-600 hover:text-green-600">সম্পর্কে</a>
+                <a href="#" class="text-gray-600 hover:text-green-600">যোগাযোগ</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="hidden md:block relative">
+                    <input type="text" placeholder="কোর্স বা বই খুঁজুন..." class="px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 w-64">
+                    <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+                </div>
+                <button class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">লগইন</button>
+                <button class="md:hidden text-gray-600" id="mobileMenuButton">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- মোবাইল মেনু -->
+        <div class="mobile-menu hidden bg-white border-t" id="mobileMenu">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="index.html" class="text-gray-600 hover:text-green-600 py-2">হোম</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 py-2">কোর্স</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 py-2">বই</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 py-2">শিক্ষক</a>
+                <a href="advisor.html" class="text-green-600 font-semibold py-2">উপদেষ্টা</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 py-2">ব্লগ</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 py-2">সম্পর্কে</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 py-2">যোগাযোগ</a>
+                <div class="relative pt-2">
+                    <input type="text" placeholder="কোর্স বা বই খুঁজুন..." class="px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 w-full">
+                    <i class="fas fa-search absolute right-3 top-4 text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- হিরো সেকশন -->
+    <section class="hero-bg text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">ইসলামিক পরামর্শ ও মার্গদর্শন</h1>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">আধুনিক জীবনের চ্যালেঞ্জ মোকাবেলায় ইসলামিক দৃষ্টিকোণ থেকে পরামর্শ</p>
+        </div>
+    </section>
+
+    <!-- উদ্ধৃতি সেকশন -->
+    <section class="py-12 bg-green-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-2xl font-semibold text-green-700 mb-4">আমাদের সাথে যোগাযোগ করুন</h2>
+                <p class="text-lg text-gray-700 italic mb-4">"তোমাদের মধ্যে সর্বোত্তম ব্যক্তি সেই যে নিজে কুরআন শিক্ষা করে এবং অন্যকে শিক্ষা দেয়।"</p>
+                <p class="text-gray-600">সহীহ বুখারী</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- আমাদের সেবাসমূহ -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-green-700">আমাদের সেবাসমূহ</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">আধুনিক জীবনের বিভিন্ন ক্ষেত্রে ইসলামিক পরামর্শ ও মার্গদর্শন</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="service-card bg-white p-6 rounded-lg shadow">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-quran text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">কুরআন ও হাদিস শিক্ষা</h3>
+                    <p class="text-gray-600 mb-4">বিশেষজ্ঞ শিক্ষকদের দ্বারা কুরআন ও হাদিস শিক্ষার ব্যবস্থা। অনলাইন ও অফলাইন ক্লাসের মাধ্যমে সঠিক উচ্চারণ ও অর্থ শিখুন।</p>
+                    <a href="#" class="text-green-600 font-semibold hover:text-green-700">আরো জানুন →</a>
+                </div>
+                
+                <div class="service-card bg-white p-6 rounded-lg shadow">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-pray text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">ইবাদত সংক্রান্ত পরামর্শ</h3>
+                    <p class="text-gray-600 mb-4">নামাজ, রোজা, হজ্জ, যাকাত সহ বিভিন্ন ইবাদত সম্পর্কে সঠিক নিয়ম ও পদ্ধতি জানুন। সকল প্রশ্নের উত্তর পাবেন।</p>
+                    <a href="#" class="text-green-600 font-semibold hover:text-green-700">আরো জানুন →</a>
+                </div>
+                
+                <div class="service-card bg-white p-6 rounded-lg shadow">
+                    <div class="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-home text-yellow-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">পারিবারিক পরামর্শ</h3>
+                    <p class="text-gray-600 mb-4">বিবাহ, সন্তান লালন-পালন, পারিবারিক সম্পর্ক বজায় রাখার ক্ষেত্রে ইসলামিক দৃষ্টিকোণ থেকে পরামর্শ।</p>
+                    <a href="#" class="text-green-600 font-semibold hover:text-green-700">আরো জানুন →</a>
+                </div>
+                
+                <div class="service-card bg-white p-6 rounded-lg shadow">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-coins text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">অর্থনৈতিক পরামর্শ</h3>
+                    <p class="text-gray-600 mb-4">হালাল উপার্জন, বিনিয়োগ, সুদমুক্ত লেনদেন সহ বিভিন্ন অর্থনৈতিক বিষয়ে ইসলামিক গাইডলাইন।</p>
+                    <a href="#" class="text-green-600 font-semibold hover:text-green-700">আরো জানুন →</a>
+                </div>
+                
+                <div class="service-card bg-white p-6 rounded-lg shadow">
+                    <div class="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-heart text-pink-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">মানসিক স্বাস্থ্য ও আধ্যাত্মিকতা</h3>
+                    <p class="text-gray-600 mb-4">আধুনিক জীবনের চাপ, মানসিক সমস্যা এবং আধ্যাত্মিক উন্নয়নের জন্য ইসলামিক পরামর্শ।</p>
+                    <a href="#" class="text-green-600 font-semibold hover:text-green-700">আরো জানুন →</a>
+                </div>
+                
+                <div class="service-card bg-white p-6 rounded-lg shadow">
+                    <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-graduation-cap text-indigo-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">ইসলামিক শিক্ষা</h3>
+                    <p class="text-gray-600 mb-4">শিশু, কিশোর ও প্রাপ্তবয়স্কদের জন্য বিভিন্ন বয়স উপযোগী ইসলামিক শিক্ষা কার্যক্রম।</p>
+                    <a href="#" class="text-green-600 font-semibold hover:text-green-700">আরো জানুন →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- যোগাযোগ ফর্ম -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-3xl font-bold mb-6 text-green-700">যোগাযোগ করুন</h2>
+                    <p class="text-gray-600 mb-8">আপনার প্রশ্ন বা পরামর্শের জন্য আমাদের সাথে যোগাযোগ করুন</p>
+                    
+                    <h3 class="text-xl font-bold mb-4 text-green-600">আমাদের সাথে সরাসরি যোগাযোগ করুন</h3>
+                    <p class="text-gray-600 mb-6">আপনার যেকোনো প্রশ্ন বা পরামর্শের জন্য আমরা সবসময় প্রস্তুত আছি। আমাদের সাথে যোগাযোগ করতে নিচের তথ্য ব্যবহার করুন।</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-green-600 mt-1 mr-3"></i>
+                            <p class="text-gray-600">১২৩ ইসলামিক সেন্টার রোড, ঢাকা, বাংলাদেশ</p>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone-alt text-green-600 mr-3"></i>
+                            <p class="text-gray-600">+৮৮০ ১৭১২৩৪৫৬৭৮</p>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-green-600 mr-3"></i>
+                            <p class="text-gray-600">info@islamicadvisor.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="ইসলামিক পরামর্শ" class="rounded-lg shadow-md">
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="bg-white p-8 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-6 text-green-700">আমাদেরকে বার্তা পাঠান</h3>
+                        <form>
+                            <div class="mb-4">
+                                <label for="name" class="block text-gray-700 mb-2">নাম</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400">
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="block text-gray-700 mb-2">ইমেইল</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400">
+                            </div>
+                            <div class="mb-4">
+                                <label for="subject" class="block text-gray-700 mb-2">বিষয়</label>
+                                <input type="text" id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400">
+                            </div>
+                            <div class="mb-6">
+                                <label for="message" class="block text-gray-700 mb-2">আপনার বার্তা</label>
+                                <textarea id="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-md hover:bg-green-700 font-semibold">বার্তা পাঠান</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ফুটার -->
+    <footer class="bg-green-800 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">দ্রুত লিংক</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="hover:text-green-300">হোম</a></li>
+                        <li><a href="#" class="hover:text-green-300">আমাদের সম্পর্কে</a></li>
+                        <li><a href="#" class="hover:text-green-300">সকল কোর্স</a></li>
+                        <li><a href="#" class="hover:text-green-300">শিক্ষকমণ্ডলী</a></li>
+                        <li><a href="#" class="hover:text-green-300">ক্লাস সময়সূচি</a></li>
+                        <li><a href="#" class="hover:text-green-300">যোগাযোগ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">জনপ্রিয় কোর্স</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-green-300">কোরআন তেলাওয়াত</a></li>
+                        <li><a href="#" class="hover:text-green-300">হাদিস শিক্ষা</a></li>
+                        <li><a href="#" class="hover:text-green-300">আরবি ভাষা</a></li>
+                        <li><a href="#" class="hover:text-green-300">ফিকাহ শিক্ষা</a></li>
+                        <li><a href="#" class="hover:text-green-300">তাজবিদ</a></li>
+                        <li><a href="#" class="hover:text-green-300">ইসলামিক ইতিহাস</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">নিউজলেটার</h3>
+                    <p class="mb-4">নিউজলেটার সাবস্ক্রাইব করুন</p>
+                    <div class="flex">
+                        <input type="email" placeholder="আপনার ইমেইল" class="px-4 py-2 rounded-l-md w-full text-gray-800">
+                        <button class="bg-green-600 px-4 py-2 rounded-r-md hover:bg-green-500">সাবস্ক্রাইব</button>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">যোগাযোগ</h3>
+                    <p class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i> আজিমপুর, ঢাকা-১২০৫</p>
+                    <p class="mb-2"><i class="fas fa-phone-alt mr-2"></i> +৮৮০১৯১১-৫৬৭৮৯০</p>
+                    <p class="mb-4"><i class="fas fa-envelope mr-2"></i> billaharif661@gmail.com</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-green-700 mt-8 pt-6 text-center text-sm">
+                <p>© ২০২৫ মাদ্রাসা শিক্ষা। সমস্ত অধিকার সংরক্ষিত।</p>
+                <div class="mt-2">
+                    <a href="#" class="mx-2 hover:text-green-300">প্রাইভেসি পলিসি</a>
+                    <a href="#" class="mx-2 hover:text-green-300">টার্মস অফ সার্ভিস</a>
+                    <a href="#" class="mx-2 hover:text-green-300">কোর্স নীতিমালা</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // মোবাইল মেনু টগল করার জন্য JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

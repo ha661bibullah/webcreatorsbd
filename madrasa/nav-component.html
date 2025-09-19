@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Component</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .desktop-menu .dropdown {
+            position: relative;
+        }
+        .desktop-menu .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 8px;
+            padding: 10px 0;
+        }
+        .desktop-menu .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content a {
+            display: block;
+            padding: 8px 16px;
+            color: #4B5563;
+            text-decoration: none;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+            color: #059669;
+        }
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            .desktop-menu {
+                display: none;
+            }
+            .mobile-dropdown-content {
+                display: none;
+                padding-left: 20px;
+            }
+            .mobile-dropdown.active .mobile-dropdown-content {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- নেভিগেশন বার -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="text-2xl font-bold text-green-600 flex items-center">
+                    মাদ্রাসা শিক্ষা
+                </a>
+            </div>
+            
+            <div class="desktop-menu hidden md:flex space-x-8">
+                <a href="index.html" class="text-green-600 font-semibold">হোম</a>
+                <div class="dropdown">
+                    <a href="courses.html" class="text-gray-600 hover:text-green-600">কোর্স <i class="fas fa-chevron-down ml-1 text-xs"></i></a>
+                    <div class="dropdown-content">
+                        <a href="courses.html">সকল কোর্স</a>
+                        <a href="live-courses.html">লাইভ কোর্স</a>
+                    </div>
+                </div>
+                <a href="books.html" class="text-gray-600 hover:text-green-600">বই</a>
+                <a href="teachers.html" class="text-gray-600 hover:text-green-600">শিক্ষক</a>
+                <a href="advisors.html" class="text-gray-600 hover:text-green-600">উপদেষ্টা</a>
+                <a href="blog.html" class="text-gray-600 hover:text-green-600">ব্লগ</a>
+                <a href="about.html" class="text-gray-600 hover:text-green-600">সম্পর্কে</a>
+                <a href="contact.html" class="text-gray-600 hover:text-green-600">যোগাযোগ</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="hidden md:block relative">
+                    <input type="text" placeholder="কোর্স বা বই খুঁজুন..." class="px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 w-64">
+                    <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+                </div>
+                <button class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">লগইন</button>
+                <button class="md:hidden text-gray-600" id="mobileMenuButton">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- মোবাইল মেনু -->
+        <div class="mobile-menu hidden bg-white border-t" id="mobileMenu">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="index.html" class="text-green-600 font-semibold py-2">হোম</a>
+                
+                <div class="mobile-dropdown">
+                    <div class="flex justify-between items-center py-2 cursor-pointer text-gray-600 hover:text-green-600 mobile-dropdown-toggle">
+                        <span>কোর্স</span>
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </div>
+                    <div class="mobile-dropdown-content">
+                        <a href="courses.html" class="block py-2 text-gray-600 hover:text-green-600">সকল কোর্স</a>
+                        <a href="live-courses.html" class="block py-2 text-gray-600 hover:text-green-600">লাইভ কোর্স</a>
+                    </div>
+                </div>
+                
+                <a href="books.html" class="text-gray-600 hover:text-green-600 py-2">বই</a>
+                <a href="teachers.html" class="text-gray-600 hover:text-green-600 py-2">শিক্ষক</a>
+                <a href="advisors.html" class="text-gray-600 hover:text-green-600 py-2">উপদেষ্টা</a>
+                <a href="blog.html" class="text-gray-600 hover:text-green-600 py-2">ব্লগ</a>
+                <a href="about.html" class="text-gray-600 hover:text-green-600 py-2">সম্পর্কে</a>
+                <a href="contact.html" class="text-gray-600 hover:text-green-600 py-2">যোগাযোগ</a>
+                
+                <div class="relative pt-2">
+                    <input type="text" placeholder="কোর্স বা বই খুঁজুন..." class="px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 w-full">
+                    <i class="fas fa-search absolute right-3 top-4 text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        // মোবাইল মেনু টগল করার জন্য JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+            
+            // মোবাইল ড্রপডাউন মেনু টগল
+            const mobileDropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
+            mobileDropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    this.parentElement.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+
+
+   <script>
+        // মোবাইল মেনু টগল করার জন্য JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // মোবাইল ড্রপডাউন মেনু টগল
+            const mobileDropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
+            mobileDropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    this.parentElement.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

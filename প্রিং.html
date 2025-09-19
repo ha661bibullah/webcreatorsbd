@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education - New Ways of Educating</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6a11cb',
+                        secondary: '#2575fc',
+                        accent: '#ffcc00',
+                        dark: '#2c3e50',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-bg {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        }
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.95);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 10px;
+            right: 0;
+        }
+        .language-dropdown a {
+            color: #2c3e50;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+        .language-dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+        .language-container:hover .language-dropdown {
+            display: block;
+        }
+        .login-modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .login-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+            color: #2c3e50;
+        }
+        .close-btn {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            color: #2c3e50;
+        }
+
+
+        @media (max-width: 1200px) {
+    .container {
+        max-width: 95%;
+    }
+    
+    nav {
+        padding: 15px 20px;
+    }
+    
+    .hero-bg {
+        padding: 20px 0;
+    }
+    
+    .feature-card {
+        margin-bottom: 20px;
+    }
+    
+    .hero-section h1 {
+        font-size: 2.8rem;
+    }
+    
+    .hero-section h2 {
+        font-size: 2rem;
+    }
+}
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 15px;
+    width: 100%;
+}
+    </style>
+</head>
+<body class="min-h-screen hero-bg text-white">
+
+    
+    
+    <div class="container mx-auto px-4 py-8">
+        <!-- Navigation -->
+<nav class="flex justify-between items-center py-5 mb-10 shadow-lg rounded-[50px] px-6 text-white"
+     style="background-color: #6B39D7;">
+    
+    <div class="flex items-center text-2xl md:text-3xl font-bold">
+        <i class="fas fa-graduation-cap text-yellow-300 mr-3"></i>
+        <span>EDUPLUS</span>
+    </div>
+    
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex">
+        <ul class="flex space-x-6 lg:space-x-8 text-lg">
+            <li><a href="#" class="hover:text-yellow-300 transition-colors duration-300 font-medium uppercase">HOME</a></li>
+            <li><a href="#" class="hover:text-yellow-300 transition-colors duration-300 font-medium uppercase">COURSES</a></li>
+            <li><a href="#" class="hover:text-yellow-300 transition-colors duration-300 font-medium uppercase">BLOG</a></li>
+            <li><a href="#" class="hover:text-yellow-300 transition-colors duration-300 font-medium uppercase">CONTACT</a></li>
+        </ul>
+    </div>
+    
+    <div class="hidden md:flex items-center">
+        <div class="flex items-center bg-white bg-opacity-20 rounded-full px-4 py-2 mr-5">
+            <input type="text" placeholder="SEARCH" class="bg-transparent border-none text-white placeholder-white placeholder-opacity-70 outline-none w-32">
+            <i class="fas fa-search text-white"></i>
+        </div>
+        
+        <!-- Language Selector -->
+        <div class="language-container relative mr-5">
+            <button class="flex items-center bg-white bg-opacity-20 rounded-full px-4 py-2 hover:bg-opacity-30 transition-colors">
+                <i class="fas fa-globe mr-2"></i>
+                <span>EN</span>
+                <i class="fas fa-chevron-down ml-2 text-xs"></i>
+            </button>
+            <div class="language-dropdown">
+                <a href="#" data-lang="en">English</a>
+                <a href="#" data-lang="bn">বাংলা</a>
+            </div>
+        </div>
+        
+        <button class="bg-yellow-300 text-dark font-semibold py-2 px-5 rounded-full hover:bg-yellow-200 transition-colors duration-300" id="loginBtn">SIGN IN</button>
+    </div>
+    
+    <!-- Mobile Menu Button -->
+    <button class="md:hidden text-2xl" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+</nav>
+
+        <!-- Mobile Navigation -->
+        <div class="hidden md:hidden bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl p-5 mt-5" id="mobileNav">
+            <div class="flex flex-col space-y-4">
+                 <a href="#" class="py-3 border-b border-white border-opacity-10">HOME</a>
+                 <a href="#" class="py-3 border-b border-white border-opacity-10">COURSES</a>
+                 <a href="#" class="py-3 border-b border-white border-opacity-10">BOOKS</a>
+                 <a href="#" class="py-3 border-b border-white border-opacity-10">TEACHERS</a>
+                 <a href="#" class="py-3 border-b border-white border-opacity-10">ADVISORS</a>
+                 <a href="#" class="py-3 border-b border-white border-opacity-10">BLOG</a>
+                 <a href="#" class="py-3 border-b border-white border-opacity-10">ABOUT</a>
+                 <a href="#" class="py-3 border-b border-white border-opacity-10">CONTACT</a>
+    
+                
+                <!-- Language Selector for Mobile -->
+                <div class="py-3 border-b border-white border-opacity-10">
+                    <span class="font-medium"><i class="fas fa-globe mr-2"></i>Language:</span>
+                    <select class="bg-transparent text-white mt-2 w-full p-2 border border-white border-opacity-30 rounded">
+                        <option value="en">English</option>
+                        <option value="bn">বাংলা</option>
+                    </select>
+                </div>
+                
+                <a href="#" class="py-3" id="mobileLoginBtn">SIGN IN</a>
+                <div class="flex items-center bg-white bg-opacity-10 rounded-full px-4 py-2 mt-3">
+                    <input type="text" placeholder="SEARCH" class="bg-transparent border-none text-white placeholder-white placeholder-opacity-70 outline-none w-full">
+                    <i class="fas fa-search text-white"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hero Section -->
+        <section class="flex flex-col lg:flex-row justify-between items-center mt-12 lg:mt-20">
+            <div class="lg:w-1/2 mb-12 lg:mb-0 px-4 text-center lg:text-left">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">EDUCATION</h1>
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-normal mb-8 text-accent">NEW WAYS OF EDUCATING</h2>
+                <p class="text-lg md:text-xl opacity-90 mb-8 leading-relaxed">
+                    Morbi a diaplus massa mauris lactus vitae ipsum quis vitam corper. In dignissim quam a nisi faucibus, eu lascius neque venenatis, donec faucibus cursus liscus sit amet vestibulum.
+                </p>
+                <div class="inline-block bg-white bg-opacity-10 px-5 py-2 rounded-md font-semibold text-lg">#NewNormality</div>
+            </div>
+            
+            <div class="lg:w-1/2 px-4 flex justify-center">
+                <img src="https://images.unsplash.com/photo-1522881193457-37ae97c905bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                     alt="Online Education" class="rounded-xl shadow-xl w-full max-w-md lg:max-w-lg">
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section class="mt-20 lg:mt-32">
+            <div class="flex flex-col md:flex-row justify-between gap-6 lg:gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card bg-white bg-opacity-10 p-6 lg:p-8 rounded-xl text-center flex-1 mb-6 md:mb-0">
+                    <i class="fas fa-video text-4xl text-accent mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-4">LIVE STREAMING</h3>
+                    <p class="opacity-80 leading-relaxed">
+                        Interactive live classes with expert instructors and real-time feedback.
+                    </p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card bg-white bg-opacity-10 p-6 lg:p-8 rounded-xl text-center flex-1 mb-6 md:mb-0">
+                    <i class="fas fa-users text-4xl text-accent mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-4">VIRTUAL CLASSROOMS</h3>
+                    <p class="opacity-80 leading-relaxed">
+                        Collaborative learning environments that simulate physical classrooms.
+                    </p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card bg-white bg-opacity-10 p-6 lg:p-8 rounded-xl text-center flex-1">
+                    <i class="fas fa-brain text-4xl text-accent mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-4">AI ASSISTANCE</h3>
+                    <p class="opacity-80 leading-relaxed">
+                        Smart algorithms that adapt to each student's learning pace and style.
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Newsletter Section -->
+        <section class="mt-20 lg:mt-32 bg-white bg-opacity-10 rounded-xl p-8 lg:p-12 text-center">
+            <h3 class="text-2xl lg:text-3xl font-semibold mb-6">Subscribe to Our Newsletter</h3>
+            <p class="opacity-90 mb-8 max-w-2xl mx-auto">
+                Stay updated with the latest educational methods and technologies
+            </p>
+            <form class="flex flex-col md:flex-row max-w-2xl mx-auto">
+                <input type="email" placeholder="Enter your email address" 
+                       class="flex-grow px-5 py-4 rounded-t-lg md:rounded-l-lg md:rounded-t-none outline-none text-dark">
+                <button type="submit" 
+                        class="bg-accent text-dark font-semibold px-8 py-4 rounded-b-lg md:rounded-r-lg md:rounded-l-none mt-2 md:mt-0">
+                    SUBSCRIBE
+                </button>
+            </form>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="mt-20 lg:mt-32 pt-12 border-t border-white border-opacity-10 pb-8 text-center">
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="text-xl hover:text-accent transition-colors duration-300"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-xl hover:text-accent transition-colors duration-300"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-xl hover:text-accent transition-colors duration-300"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-xl hover:text-accent transition-colors duration-300"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="text-xl hover:text-accent transition-colors duration-300"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p>&copy; 2023 EDUPLUS - All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="login-modal">
+        <div class="login-content">
+            <span class="close-btn" id="closeLogin">&times;</span>
+            <h2 class="text-2xl font-bold mb-6 text-center text-dark">Sign In to EDUPLUS</h2>
+            <form>
+                <div class="mb-4">
+                    <label class="block text-dark text-sm font-bold mb-2" for="email">
+                        Email Address
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-3 px-4 text-dark leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Email">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-dark text-sm font-bold mb-2" for="password">
+                        Password
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-3 px-4 text-dark mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Password">
+                    <a class="text-sm text-blue-500 hover:text-blue-800" href="#">Forgot Password?</a>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button class="bg-accent hover:bg-opacity-90 text-dark font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full" type="button">
+                        Sign In
+                    </button>
+                </div>
+            </form>
+            <p class="text-center text-dark text-sm mt-6">
+                Don't have an account? <a href="#" class="text-blue-500 hover:text-blue-800 font-bold">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileNav.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileNav.classList.add('hidden');
+            }
+        });
+        
+        // Login Modal functionality
+        const loginModal = document.getElementById('loginModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+        const closeLogin = document.getElementById('closeLogin');
+        
+        function openLoginModal() {
+            loginModal.style.display = 'block';
+        }
+        
+        function closeLoginModal() {
+            loginModal.style.display = 'none';
+        }
+        
+        loginBtn.addEventListener('click', openLoginModal);
+        mobileLoginBtn.addEventListener('click', openLoginModal);
+        closeLogin.addEventListener('click', closeLoginModal);
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                closeLoginModal();
+            }
+        });
+        
+        // Language selection functionality
+        const languageLinks = document.querySelectorAll('.language-dropdown a');
+        languageLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const selectedLang = e.target.getAttribute('data-lang');
+                alert(`Selected language: ${selectedLang}. This would change the site language in a real implementation.`);
+                
+                // Update the language button text
+                const langButton = document.querySelector('.language-container button span');
+                langButton.textContent = selectedLang.toUpperCase();
+            });
+        });
+        
+        // Mobile language selection
+        const mobileLanguageSelect = document.querySelector('select');
+        if (mobileLanguageSelect) {
+            mobileLanguageSelect.addEventListener('change', (e) => {
+                const selectedLang = e.target.value;
+                alert(`Selected language: ${selectedLang}. This would change the site language in a real implementation.`);
+            });
+        }
+    </script>
+</body>
+</html>

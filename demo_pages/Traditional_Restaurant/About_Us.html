@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আমাদের সম্পর্কে | বাংলা ট্র্যাডিশনাল রেস্টুরেন্ট | ঢাকা</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHxlbnwwfHwwfHw%3D&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .food-card {
+            transition: transform 0.3s ease;
+        }
+        .food-card:hover {
+            transform: translateY(-5px);
+        }
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: #d97706;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #d97706;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+     <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <h1 class="text-2xl md:text-3xl font-bold text-amber-600">ট্র্যাডিশনাল রেস্টুরেন্ট</h1>
+            </div>
+            
+            <!-- Desktop Navigation - Right aligned -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="Traditional_Restaurant.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">হোম</a>
+                <a href="Menu_Items.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">মেনু</a>
+                <a href="About_Us.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">আমাদের সম্পর্কে</a>
+                <a href="Contact.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">যোগাযোগ</a>
+                <a href="Order.html" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-medium transition duration-300">অর্ডার করুন</a>
+            </nav>
+            
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button class="text-gray-700 focus:outline-none" id="mobile-menu-button">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation (hidden by default) -->
+        <div class="md:hidden hidden bg-white shadow-lg" id="mobile-nav">
+            <div class="px-4 py-3 flex flex-col space-y-3">
+                <a href="Traditional_Restaurant.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">হোম</a>
+                <a href="Menu_Items.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">মেনু</a>
+                <a href="About_Us.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">আমাদের সম্পর্কে</a>
+                <a href="Contact.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">যোগাযোগ</a>
+                <a href="Contact.html" class="py-2 text-amber-600 font-medium">অর্ডার করুন</a>
+            </div>
+        </div>
+    </header>
+    <!-- Page Header -->
+    <section class="hero-bg py-16 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4">আমাদের সম্পর্কে</h2>
+            <p class="text-xl">১৯৯৫ সাল থেকে ঢাকায় ঐতিহ্যবাহী বাংলা খাবার পরিবেশন করে আসছি</p>
+        </div>
+    </section>
+
+    <!-- Our Story -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-10">
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cmVzdGF1cmFudHxlbnwwfHwwfHw%3D&w=1000&q=80" 
+                         alt="রেস্টুরেন্ট ইন্টেরিয়র" class="rounded-lg shadow-lg">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold mb-6">আমাদের গল্প</h2>
+                    <p class="text-gray-700 mb-4">
+                        বাংলা ট্র্যাডিশনাল রেস্টুরেন্ট ঢাকার হৃদয় থেকে আপনাকে পরিবেশন করে আসছে ১৯৯৫ সাল থেকে। আমাদের যাত্রা শুরু হয়েছিল একটি ছোট্ট রেস্টুরেন্ট হিসেবে, যেখানে আমরা শুধুমাত্র কয়েকটি ঐতিহ্যবাহী বাংলা খাবার পরিবেশন করতাম।
+                    </p>
+                    <p class="text-gray-700 mb-4">
+                        আজ, আমরা ঢাকার অন্যতম প্রধান বাংলা রেস্টুরেন্টে পরিণত হয়েছি, যেখানে প্রতিদিন শত শত মানুষ আসেন বাংলার স্বাদ অনুভব করতে। আমাদের এই সাফল্যের পেছনে রয়েছে আপনাদের অবিরত ভালোবাসা এবং সমর্থন।
+                    </p>
+                    <p class="text-gray-700 mb-6">
+                        আমরা ঐতিহ্যবাহী বাংলা রেসিপি আধুনিক রান্নার শৈলীর সাথে মিলিয়ে আপনাকে অনন্য স্বাদের অভিজ্ঞতা দিতে প্রতিশ্রুতিবদ্ধ। আমাদের দক্ষ শেফরা স্থানীয়ভাবে sourced তাজা উপাদান ব্যবহার করে রান্না করেন, যা প্রতিটি খাবারে বাংলার সমৃদ্ধ culinary heritage কে জীবন্ত করে তোলে।
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Values -->
+    <section class="py-16 bg-amber-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">আমাদের মূল্যবোধ</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6 bg-white rounded-lg shadow">
+                    <div class="text-amber-600 text-4xl mb-4">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">ঐতিহ্যবাহী স্বাদ</h3>
+                    <p class="text-gray-600">আমরা বাংলার ঐতিহ্যবাহী রেসিপিগুলোকে যথাযথভাবে সংরক্ষণ এবং পরিবেশন করি</p>
+                </div>
+                <div class="text-center p-6 bg-white rounded-lg shadow">
+                    <div class="text-amber-600 text-4xl mb-4">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">তাজা উপাদান</h3>
+                    <p class="text-gray-600">আমরা স্থানীয় কৃষকদের কাছ থেকে তাজা এবং organic উপাদান সংগ্রহ করি</p>
+                </div>
+                <div class="text-center p-6 bg-white rounded-lg shadow">
+                    <div class="text-amber-600 text-4xl mb-4">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">গ্রাহক সন্তুষ্টি</h3>
+                    <p class="text-gray-600">আমাদের প্রতিটি গ্রাহকের সন্তুষ্টিই আমাদের সর্বোচ্চ অগ্রাধিকার</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our History -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">আমাদের ইতিহাস</h2>
+            <div class="timeline max-w-3xl mx-auto">
+                <div class="timeline-item">
+                    <h3 class="text-xl font-semibold">১৯৯৫</h3>
+                    <p class="text-gray-700">ধানমন্ডিতে আমাদের প্রথম রেস্টুরেন্ট খোলা হয়। শুরুতে মাত্র ১০টি টেবিল এবং ৫টি আইটেম দিয়ে যাত্রা শুরু।</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-semibold">২০০২</h3>
+                    <p class="text-gray-700">গ্রাহকদের চাহিদা বৃদ্ধির সাথে সাথে আমরা আমাদের রেস্টুরেন্ট সম্প্রসারণ করি এবং মেনুতে নতুন আইটেম যোগ করি।</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-semibold">২০১০</h3>
+                    <p class="text-gray-700">ঢাকার গুলশানে আমাদের দ্বিতীয় শাখা খোলা হয়। একই বছর আমরা অনলাইন অর্ডার সিস্টেম চালু করি।</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-semibold">২০১৮</h3>
+                    <p class="text-gray-700">আমরা বাংলাদেশের culinary heritage সংরক্ষণের জন্য 'বাংলার স্বাদ' প্রকল্প চালু করি, যেখানে হারিয়ে যাওয়া রেসিপিগুলো পুনরুদ্ধার করা হয়।</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-semibold">২০২৩</h3>
+                    <p class="text-gray-700">আমাদের ২৮তম বছর উদযাপন এবং দেশের সেরা বাংলা রেস্টুরেন্ট হিসেবে স্বীকৃতি লাভ।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Team -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4">আমাদের টিম</h2>
+            <p class="text-gray-600 text-center mb-12">আমাদের দক্ষ এবং অভিজ্ঞ শেফরা যারা প্রতিদিন তৈরি করছেন অসাধারণ সব খাবার</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Team Member 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1583394293214-28ded15ee548?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGNoZWZ8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60" 
+                         alt="মাস্টার শেফ" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">শেফ রফিকুল ইসলাম</h3>
+                        <p class="text-amber-600 mb-2">মাস্টার শেফ ও প্রতিষ্ঠাতা</p>
+                        <p class="text-gray-700">২৮ বছরের অভিজ্ঞতাসম্পন্ন শেফ রফিকুল ইসলাম বাংলাদেশের traditional cuisine এর একজন living legend।</p>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Y2hlZnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" 
+                         alt="শেফ" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">শেফ আয়েশা সিদ্দিকা</h3>
+                        <p class="text-amber-600 mb-2">হেড শেফ</p>
+                        <p class="text-gray-700">১৫ বছর ধরে বাংলার traditional cuisine নিয়ে কাজ করছেন। তার বিশেষত্ব হচ্ছে সিলেটি এবং চট্টগ্রামের recipes।</p>
+                    </div>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1607631568261-37ce7a46c8f2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzV8fGNoZWZ8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60" 
+                         alt="শেফ" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">শেফ সজল দাস</h3>
+                        <p class="text-amber-600 mb-2">বেকারি শেফ</p>
+                        <p class="text-gray-700">বাংলার traditional sweets এবং baked items এর বিশেষজ্ঞ। তার হাতের তৈরি mishti এবং pitha বিখ্যাত।</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-16 bg-amber-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">আমাদের সাথে যোগ দিন</h2>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">ঐতিহ্যবাহী বাংলা খাবারের স্বাদ উপভোগ করতে আজই আমাদের রেস্টুরেন্টে আসুন অথবা অনলাইনে অর্ডার করুন</p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <button class="bg-white hover:bg-gray-100 text-amber-600 px-6 py-3 rounded-full text-lg font-semibold">মেনু দেখুন</button>
+                <button class="bg-gray-800 hover:bg-gray-900 text-white px-6 py-3 rounded-full text-lg font-semibold">অর্ডার করুন</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">ট্র্যাডিশনাল রেস্টুরেন্ট</h3>
+                    <p class="text-gray-400">ঢাকার সেরা বাংলা খাবার পরিবেশনকারী রেস্টুরেন্ট</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">লিংক</h3>
+                    <ul class="space-y-2">
+                        <li><a href="Traditional_Restaurant.html" class="text-gray-400 hover:text-white">হোম</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">মেনু</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white">আমাদের সম্পর্কে</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">যোগাযোগ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">যোগাযোগ</h3>
+                    <address class="text-gray-400 not-italic">
+                        <p>ধানমন্ডি লেক রোড, ঢাকা</p>
+                        <p class="mt-2">+৮৮০ ১৭১২ ৩৪৫ ৬৭৮</p>
+                        <p class="mt-2">info@traditionalrestaurant.com</p>
+                    </address>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">অনুসরণ করুন</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; ২০২৩ বাংলা ট্র্যাডিশনাল রেস্টুরেন্ট। সকল অধিকার সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.fa-bars').addEventListener('click', function() {
+            document.querySelector('.mobile-nav').classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

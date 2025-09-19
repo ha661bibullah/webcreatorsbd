@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বই - মাদ্রাসা শিক্ষা</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .book-card {
+            transition: transform 0.3s ease;
+        }
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+        .mobile-menu {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            .desktop-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- নেভিগেশন বার -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="text-2xl font-bold text-green-600">মাদ্রাসা শিক্ষা</a>
+            </div>
+            
+            <div class="desktop-menu hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-green-600">হোম</a>
+                <a href="#" class="text-gray-600 hover:text-green-600">কোর্স</a>
+                <a href="books.html" class="text-green-600 font-semibold">বই</a>
+                <a href="#" class="text-gray-600 hover:text-green-600">শিক্ষক</a>
+                <a href="#" class="text-gray-600 hover:text-green-600">উপদেষ্টা</a>
+                <a href="#" class="text-gray-600 hover:text-green-600">ব্লগ</a>
+                <a href="#" class="text-gray-600 hover:text-green-600">সম্পর্কে</a>
+                <a href="#" class="text-gray-600 hover:text-green-600">যোগাযোগ</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="hidden md:block relative">
+                    <input type="text" placeholder="বই খুঁজুন..." class="px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 w-64">
+                    <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+                </div>
+                <button class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">লগইন</button>
+                <button class="md:hidden text-gray-600" id="mobileMenuButton">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- মোবাইল মেনু -->
+        <div class="mobile-menu hidden bg-white border-t" id="mobileMenu">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="index.html" class="text-gray-600 hover:text-green-600 py-2">হোম</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 py-2">কোর্স</a>
+                <a href="books.html" class="text-green-600 font-semibold py-2">বই</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 py-2">শিক্ষক</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 py-2">উপদেষ্টা</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 py-2">ব্লগ</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 py-2">সম্পর্কে</a>
+                <a href="#" class="text-gray-600 hover:text-green-600 py-2">যোগাযোগ</a>
+                <div class="relative pt-2">
+                    <input type="text" placeholder="বই খুঁজুন..." class="px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 w-full">
+                    <i class="fas fa-search absolute right-3 top-4 text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- হিরো সেকশন -->
+    <section class="hero-bg text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">মাদ্রাসা শিক্ষা সামগ্রী</h1>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">উচ্চমানের ইসলামিক শিক্ষার জন্য নির্বাচিত বই সমূহ</p>
+        </div>
+    </section>
+
+    <!-- বইয়ের বিবরণ -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h2 class="text-3xl font-bold text-green-700 mb-4">আল-ফিকহুল আকবার</h2>
+                    <p class="text-gray-700 mb-6">ইমাম আবু হানিফা (রহ.) রচিত এই বইটি ইসলামিক আকিদা ও তাওহিদের মৌলিক বিষয়গুলো নিয়ে আলোচনা করে। এটি মাদ্রাসা শিক্ষার্থীদের জন্য একটি অপরিহার্য পাঠ্য বই যা আকিদা বিষয়ক জ্ঞানের ভিত্তি গঠন করে।</p>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-center">
+                            <span class="font-semibold text-gray-800 w-32">লেখক:</span>
+                            <span class="text-gray-700">ইমাম আবু হানিফা (রহ.)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="font-semibold text-gray-800 w-32">প্রকাশনী:</span>
+                            <span class="text-gray-700">আল-হেদায়া প্রকাশনী</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="font-semibold text-gray-800 w-32">পৃষ্ঠা:</span>
+                            <span class="text-gray-700">১৮০</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="font-semibold text-gray-800 w-32">মূল্য:</span>
+                            <span class="text-green-600 font-bold text-xl">৩৫০ টাকা</span>
+                        </div>
+                    </div>
+                    
+                    <button class="bg-green-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-green-700">ক্রয় করুন</button>
+                </div>
+                
+                <div>
+                    <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="আল-ফিকহুল আকবার" class="w-full h-auto rounded-lg shadow-md">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- নির্বাচিত কোর্স বইসমূহ -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-green-700">নির্বাচিত কোর্স বইসমূহ</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="book-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-48 bg-green-200">
+                        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="সহীহ বুখারী শরীফ" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">সহীহ বুখারী শরীফ</h3>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-green-600 font-bold text-lg">১২০০ টাকা</span>
+                            </div>
+                            <button class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700">বিস্তারিত দেখুন</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-48 bg-blue-200">
+                        <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="মিশকাতুল মাসাবিহ" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">মিশকাতুল মাসাবিহ</h3>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-green-600 font-bold text-lg">৮৫০ টাকা</span>
+                            </div>
+                            <button class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700">বিস্তারিত দেখুন</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-48 bg-yellow-200">
+                        <img src="https://images.unsplash.com/photo-1516937941344-00b4e0337589?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="নূরুল ইজাহ" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">নূরুল ইজাহ</h3>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-green-600 font-bold text-lg">৩০০ টাকা</span>
+                            </div>
+                            <button class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700">বিস্তারিত দেখুন</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-48 bg-purple-200">
+                        <img src="https://images.unsplash.com/photo-1517842645767-c639042777db?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="সরফ মীর" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">সরফ মীর</h3>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-green-600 font-bold text-lg">২২০ টাকা</span>
+                            </div>
+                            <button class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700">বিস্তারিত দেখুন</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button class="bg-green-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-green-700">আরো বই দেখুন</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- শিক্ষার্থীদের অভিমত -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-green-700">শিক্ষার্থীদের অভিমত</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-green-700 font-bold">মো</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">মোহাম্মদ আবদুল্লাহ</h4>
+                            <p class="text-gray-600 text-sm">দাওরায়ে হাদীস শিক্ষার্থী</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"আল-ফিকহুল আকবার" বইটি আমার আকিদা বিষয়ক জ্ঞানকে নতুন মাত্রা দিয়েছে। এই বইয়ের ব্যাখ্যাগুলো খুব সহজবোধ্য এবং গভীর চিন্তার জন্ম দেয়।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-blue-700 font-bold">আ</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">আবু বকর সিদ্দিক</h4>
+                            <p class="text-gray-600 text-sm">জামিয়া ইসলামিয়া</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"নূরুল ইজাহ" বইটি ফিকহ শিক্ষার জন্য অপরিহার্য। এই সাইট থেকে কেনা বইয়ের মানপ্রযুক্তিগত দিক থেকে অসাধারণ এবং দাম সাশ্রয়ী।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ফুটার -->
+    <footer class="bg-green-800 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">দ্রুত লিংক</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="hover:text-green-300">হোম</a></li>
+                        <li><a href="#" class="hover:text-green-300">আমাদের সম্পর্কে</a></li>
+                        <li><a href="#" class="hover:text-green-300">সকল কোর্স</a></li>
+                        <li><a href="#" class="hover:text-green-300">শিক্ষকমণ্ডলী</a></li>
+                        <li><a href="#" class="hover:text-green-300">ক্লাস সময়সূচি</a></li>
+                        <li><a href="#" class="hover:text-green-300">যোগাযোগ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">জনপ্রিয় কোর্স</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-green-300">কোরআন তেলাওয়াত</a></li>
+                        <li><a href="#" class="hover:text-green-300">হাদিস শিক্ষা</a></li>
+                        <li><a href="#" class="hover:text-green-300">আরবি ভাষা</a></li>
+                        <li><a href="#" class="hover:text-green-300">ফিকাহ শিক্ষা</a></li>
+                        <li><a href="#" class="hover:text-green-300">তাজবিদ</a></li>
+                        <li><a href="#" class="hover:text-green-300">ইসলামিক ইতিহাস</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">নিউজলেটার</h3>
+                    <p class="mb-4">নিউজলেটার সাবস্ক্রাইব করুন</p>
+                    <div class="flex">
+                        <input type="email" placeholder="আপনার ইমেইল" class="px-4 py-2 rounded-l-md w-full text-gray-800">
+                        <button class="bg-green-600 px-4 py-2 rounded-r-md hover:bg-green-500">সাবস্ক্রাইব</button>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">যোগাযোগ</h3>
+                    <p class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i> আজিমপুর, ঢাকা-১২০৫</p>
+                    <p class="mb-2"><i class="fas fa-phone-alt mr-2"></i> +৮৮০১৯১১-৫৬৭৮৯০</p>
+                    <p class="mb-4"><i class="fas fa-envelope mr-2"></i> billaharif661@gmail.com</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-green-700 mt-8 pt-6 text-center text-sm">
+                <p>© ২০২৫ মাদ্রাসা শিক্ষা। সমস্ত অধিকার সংরক্ষিত।</p>
+                <div class="mt-2">
+                    <a href="#" class="mx-2 hover:text-green-300">প্রাইভেসি পলিসি</a>
+                    <a href="#" class="mx-2 hover:text-green-300">টার্মস অফ সার্ভিস</a>
+                    <a href="#" class="mx-2 hover:text-green-300">কোর্স নীতিমালা</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // মোবাইল মেনু টগল করার জন্য JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

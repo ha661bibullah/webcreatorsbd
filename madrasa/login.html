@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>মাদ্রাসা শিক্ষা - লগইন</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #f9fafb;
+        }
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+        }
+        .login-header {
+            background: linear-gradient(to right, #16a34a, #22c55e);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .login-body {
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #374151;
+        }
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #16a34a;
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
+        }
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 42px;
+            cursor: pointer;
+            color: #6b7280;
+        }
+        .btn-primary {
+            background-color: #16a34a;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #15803d;
+        }
+        .login-footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+        .login-link {
+            color: #16a34a;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .login-link:hover {
+            text-decoration: underline;
+        }
+        .hidden {
+            display: none;
+        }
+        .otp-input {
+            text-align: center;
+            font-size: 18px;
+            letter-spacing: 10px;
+        }
+        .countdown {
+            color: #ef4444;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <!-- লগইন ফরম -->
+            <div id="loginForm">
+                <div class="login-header">
+                    <h2 class="text-2xl font-bold">লগইন করুন</h2>
+                </div>
+                <div class="login-body">
+                    <div class="form-group">
+                        <label class="form-label" for="email">ইমেইল</label>
+                        <input type="email" id="email" class="form-input" placeholder="আপনার ইমেইল লিখুন">
+                    </div>
+                    <div class="form-group" style="position: relative;">
+                        <label class="form-label" for="password">পাসওয়ার্ড</label>
+                        <input type="password" id="password" class="form-input" placeholder="আপনার পাসওয়ার্ড লিখুন">
+                        <span class="password-toggle" onclick="togglePassword('password')">
+                            <i class="far fa-eye"></i>
+                        </span>
+                    </div>
+                    <button class="btn-primary" onclick="login()">লগইন করুন</button>
+                    
+                    <div class="login-footer">
+                        <p>একাউন্ট নেই? <a href="#" class="login-link" onclick="showRegister()">নতুন একাউন্ট খুলুন</a></p>
+                        <p class="mt-2"><a href="#" class="login-link" onclick="showForgotPassword()">পাসওয়ার্ড ভুলে গেছেন?</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- পাসওয়ার্ড রিসেট ফরম -->
+            <div id="forgotPasswordForm" class="hidden">
+                <div class="login-header">
+                    <h2 class="text-2xl font-bold">পাসওয়ার্ড রিসেট করুন</h2>
+                </div>
+                <div class="login-body">
+                    <div class="form-group">
+                        <label class="form-label" for="resetEmail">আপনার রেজিস্টার্ড ইমেইল</label>
+                        <input type="email" id="resetEmail" class="form-input" placeholder="আপনার ইমেইল লিখুন">
+                    </div>
+                    <button class="btn-primary" onclick="sendOTP()">OTP পাঠান</button>
+                    
+                    <div class="login-footer">
+                        <p><a href="#" class="login-link" onclick="showLogin()">লগইন পৃষ্ঠায় ফিরে যান</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- রেজিস্ট্রেশন ফরম - প্রথম ধাপ -->
+            <div id="registerFormStep1" class="hidden">
+                <div class="login-header">
+                    <h2 class="text-2xl font-bold">নতুন একাউন্ট খুলুন</h2>
+                </div>
+                <div class="login-body">
+                    <div class="form-group">
+                        <label class="form-label" for="registerEmail">ইমেইল</label>
+                        <input type="email" id="registerEmail" class="form-input" placeholder="আপনার ইমেইল লিখুন">
+                    </div>
+                    <button class="btn-primary" onclick="registerStep1()">এগিয়ে যান</button>
+                    
+                    <div class="login-footer">
+                        <p>ইতিমধ্যে একাউন্ট আছে? <a href="#" class="login-link" onclick="showLogin()">লগইন করুন</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OTP যাচাইকরণ ফরম -->
+            <div id="otpVerificationForm" class="hidden">
+                <div class="login-header">
+                    <h2 class="text-2xl font-bold">অটিপি যাচাইকরণ</h2>
+                </div>
+                <div class="login-body">
+                    <p class="text-center mb-4">আপনার ইমেইলে (<span id="emailDisplay">billaharif661@gmail.com</span>) ৪ সংখ্যার অটিপি পাঠানো হয়েছে</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="otp">অটিপি দিন</label>
+                        <input type="text" id="otp" class="form-input otp-input" placeholder="XXXX" maxlength="4">
+                    </div>
+                    
+                    <p class="text-center mb-4">বাকি সময়: <span id="countdown" class="countdown">01:58</span></p>
+                    
+                    <button class="btn-primary" onclick="verifyOTP()">যাচাই করুন</button>
+                    
+                    <div class="login-footer">
+                        <p><a href="#" class="login-link" onclick="resendOTP()">পুনরায় অটিপি পাঠান</a></p>
+                        <p class="mt-2"><a href="#" class="login-link" onclick="showRegister()">ফিরে যান</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- রেজিস্ট্রেশন সম্পন্ন করুন ফরম -->
+            <div id="completeRegistrationForm" class="hidden">
+                <div class="login-header">
+                    <h2 class="text-2xl font-bold">রেজিস্ট্রেশন সম্পন্ন করুন</h2>
+                </div>
+                <div class="login-body">
+                    <div class="form-group">
+                        <label class="form-label" for="fullName">পূর্ণ নাম</label>
+                        <input type="text" id="fullName" class="form-input" placeholder="আপনার পূর্ণ নাম লিখুন">
+                    </div>
+                    
+                    <div class="form-group" style="position: relative;">
+                        <label class="form-label" for="newPassword">পাসওয়ার্ড</label>
+                        <input type="password" id="newPassword" class="form-input" placeholder="একটি শক্তিশালী পাসওয়ার্ড লিখুন">
+                        <span class="password-toggle" onclick="togglePassword('newPassword')">
+                            <i class="far fa-eye"></i>
+                        </span>
+                    </div>
+                    
+                    <div class="form-group" style="position: relative;">
+                        <label class="form-label" for="confirmPassword">পাসওয়ার্ড নিশ্চিত করুন</label>
+                        <input type="password" id="confirmPassword" class="form-input" placeholder="পাসওয়ার্ড আবার লিখুন">
+                        <span class="password-toggle" onclick="togglePassword('confirmPassword')">
+                            <i class="far fa-eye"></i>
+                        </span>
+                    </div>
+                    
+                    <button class="btn-primary" onclick="completeRegistration()">রেজিস্ট্রেশন সম্পন্ন করুন</button>
+                </div>
+            </div>
+
+            <!-- নতুন পাসওয়ার্ড সেট করুন ফরম -->
+            <div id="setNewPasswordForm" class="hidden">
+                <div class="login-header">
+                    <h2 class="text-2xl font-bold">নতুন পাসওয়ার্ড সেট করুন</h2>
+                </div>
+                <div class="login-body">
+                    <div class="form-group" style="position: relative;">
+                        <label class="form-label" for="resetPassword">নতুন পাসওয়ার্ড</label>
+                        <input type="password" id="resetPassword" class="form-input" placeholder="নতুন পাসওয়ার্ড লিখুন">
+                        <span class="password-toggle" onclick="togglePassword('resetPassword')">
+                            <i class="far fa-eye"></i>
+                        </span>
+                    </div>
+                    
+                    <div class="form-group" style="position: relative;">
+                        <label class="form-label" for="resetConfirmPassword">পাসওয়ার্ড নিশ্চিত করুন</label>
+                        <input type="password" id="resetConfirmPassword" class="form-input" placeholder="পাসওয়ার্ড আবার লিখুন">
+                        <span class="password-toggle" onclick="togglePassword('resetConfirmPassword')">
+                            <i class="far fa-eye"></i>
+                        </span>
+                    </div>
+                    
+                    <button class="btn-primary" onclick="setNewPassword()">পাসওয়ার্ড পরিবর্তন করুন</button>
+                    
+                    <div class="login-footer">
+                        <p><a href="#" class="login-link" onclick="showLogin()">লগইন পৃষ্ঠায় ফিরে যান</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ফরম ভিজিবিলিটি কন্ট্রোল ফাংশন
+        function showLogin() {
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('forgotPasswordForm').classList.add('hidden');
+            document.getElementById('registerFormStep1').classList.add('hidden');
+            document.getElementById('otpVerificationForm').classList.add('hidden');
+            document.getElementById('completeRegistrationForm').classList.add('hidden');
+            document.getElementById('setNewPasswordForm').classList.add('hidden');
+        }
+        
+        function showForgotPassword() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('forgotPasswordForm').classList.remove('hidden');
+            document.getElementById('registerFormStep1').classList.add('hidden');
+            document.getElementById('otpVerificationForm').classList.add('hidden');
+            document.getElementById('completeRegistrationForm').classList.add('hidden');
+            document.getElementById('setNewPasswordForm').classList.add('hidden');
+        }
+        
+        function showRegister() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('forgotPasswordForm').classList.add('hidden');
+            document.getElementById('registerFormStep1').classList.remove('hidden');
+            document.getElementById('otpVerificationForm').classList.add('hidden');
+            document.getElementById('completeRegistrationForm').classList.add('hidden');
+            document.getElementById('setNewPasswordForm').classList.add('hidden');
+        }
+        
+        function showOTPVerification(email, isPasswordReset = false) {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('forgotPasswordForm').classList.add('hidden');
+            document.getElementById('registerFormStep1').classList.add('hidden');
+            document.getElementById('otpVerificationForm').classList.remove('hidden');
+            document.getElementById('completeRegistrationForm').classList.add('hidden');
+            document.getElementById('setNewPasswordForm').classList.add('hidden');
+            
+            document.getElementById('emailDisplay').textContent = email;
+            startCountdown();
+            
+            // Store context for later use
+            currentEmail = email;
+            isPasswordResetContext = isPasswordReset;
+        }
+        
+        function showCompleteRegistration() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('forgotPasswordForm').classList.add('hidden');
+            document.getElementById('registerFormStep1').classList.add('hidden');
+            document.getElementById('otpVerificationForm').classList.add('hidden');
+            document.getElementById('completeRegistrationForm').classList.remove('hidden');
+            document.getElementById('setNewPasswordForm').classList.add('hidden');
+        }
+        
+        function showSetNewPassword() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('forgotPasswordForm').classList.add('hidden');
+            document.getElementById('registerFormStep1').classList.add('hidden');
+            document.getElementById('otpVerificationForm').classList.add('hidden');
+            document.getElementById('completeRegistrationForm').classList.add('hidden');
+            document.getElementById('setNewPasswordForm').classList.remove('hidden');
+        }
+        
+        // পাসওয়ার্ড ভিজিবিলিটি টগল
+        function togglePassword(inputId) {
+            const passwordInput = document.getElementById(inputId);
+            const toggleIcon = passwordInput.nextElementSibling.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+        
+        // OTP কাউন্টডাউন টাইমার
+        function startCountdown() {
+            let timeLeft = 118; // 1 minute 58 seconds in seconds
+            const countdownElement = document.getElementById('countdown');
+            
+            const countdownInterval = setInterval(function() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                
+                countdownElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.textContent = "00:00";
+                    countdownElement.classList.add('countdown');
+                }
+                
+                timeLeft--;
+            }, 1000);
+        }
+        
+        // লগইন ফাংশন
+        function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                alert('দয়া করে ইমেইল এবং পাসওয়ার্ড প্রদান করুন');
+                return;
+            }
+            
+            // এখানে লগইন লজিক যোগ করুন
+            alert('লগইন সফল!');
+            // লগইন সফল হলে ব্যবহারকারীকে মূল পৃষ্ঠায় রিডাইরেক্ট করুন
+            // window.location.href = "madrasa.html";
+        }
+        
+        // OTP পাঠান ফাংশন
+        function sendOTP() {
+            const email = document.getElementById('resetEmail').value;
+            
+            if (!email) {
+                alert('দয়া করে আপনার ইমেইল ঠিকানা লিখুন');
+                return;
+            }
+            
+            // এখানে OTP পাঠানোর লজিক যোগ করুন
+            showOTPVerification(email, true);
+        }
+        
+        // রেজিস্ট্রেশন ধাপ ১
+        let currentEmail = '';
+        let isPasswordResetContext = false;
+        
+        function registerStep1() {
+            const email = document.getElementById('registerEmail').value;
+            
+            if (!email) {
+                alert('দয়া করে একটি ইমেইল ঠিকানা লিখুন');
+                return;
+            }
+            
+            // এখানে ইমেইল ভেরিফিকেশন লজিক যোগ করুন
+            currentEmail = email;
+            showOTPVerification(email, false);
+        }
+        
+        // OTP যাচাই করুন
+        function verifyOTP() {
+            const otp = document.getElementById('otp').value;
+            
+            if (!otp || otp.length !== 4) {
+                alert('দয়া করে একটি বৈধ ৪ সংখ্যার OTP লিখুন');
+                return;
+            }
+            
+            // এখানে OTP যাচাই করার লজিক যোগ করুন
+            
+            if (isPasswordResetContext) {
+                showSetNewPassword();
+            } else {
+                showCompleteRegistration();
+            }
+        }
+        
+        // OTP পুনরায় পাঠান
+        function resendOTP() {
+            // এখানে OTP পুনরায় পাঠানোর লজিক যোগ করুন
+            alert('নতুন OTP পাঠানো হয়েছে');
+            startCountdown();
+        }
+        
+        // রেজিস্ট্রেশন সম্পন্ন করুন
+        function completeRegistration() {
+            const fullName = document.getElementById('fullName').value;
+            const password = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (!fullName || !password || !confirmPassword) {
+                alert('দয়া করে সকল তথ্য প্রদান করুন');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('পাসওয়ার্ড মেলে না');
+                return;
+            }
+            
+            // এখানে রেজিস্ট্রেশন সম্পন্ন করার লজিক যোগ করুন
+            alert('রেজিস্ট্রেশন সফল! আপনি এখন লগইন করতে পারেন');
+            showLogin();
+        }
+        
+        // নতুন পাসওয়ার্ড সেট করুন
+        function setNewPassword() {
+            const password = document.getElementById('resetPassword').value;
+            const confirmPassword = document.getElementById('resetConfirmPassword').value;
+            
+            if (!password || !confirmPassword) {
+                alert('দয়া করে সকল তথ্য প্রদান করুন');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('পাসওয়ার্ড মেলে না');
+                return;
+            }
+            
+            // এখানে পাসওয়ার্ড রিসেট করার লজিক যোগ করুন
+            alert('পাসওয়ার্ড সফলভাবে পরিবর্তন করা হয়েছে');
+            showLogin();
+        }
+    </script>
+</body>
+</html>

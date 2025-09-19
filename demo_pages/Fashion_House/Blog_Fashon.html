@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ব্লগ - বাংলা ফ্যাশন হাউস</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .collection-menu {
+            position: relative;
+        }
+        .collection-submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            z-index: 1000;
+            padding: 10px 0;
+        }
+        .collection-menu:hover .collection-submenu {
+            display: block;
+        }
+        .collection-submenu a {
+            display: block;
+            padding: 8px 20px;
+            color: #4a5568;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .collection-submenu a:hover {
+            background-color: #f7fafc;
+            color: #805ad5;
+        }
+        @media (max-width: 767px) {
+            .collection-submenu {
+                position: static;
+                box-shadow: none;
+                background-color: transparent;
+                padding-left: 20px;
+            }
+            .collection-submenu a {
+                color: white;
+                padding: 6px 0;
+            }
+            .collection-submenu a:hover {
+                background-color: rgba(255,255,255,0.1);
+            }
+        }
+        .blog-card {
+            transition: all 0.3s ease;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+     <!-- Header Section -->
+<div id="header-placeholder"></div>
+<script>
+fetch('header.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const closeMenu = document.getElementById('closeMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+
+    // Mobile menu open/close
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.remove('-translate-x-full');
+      overlay.classList.remove('hidden');
+    });
+
+    closeMenu.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    overlay.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    // Mobile collection toggle with arrow rotation
+    document.querySelectorAll('.collection-toggle').forEach(button => {
+      const arrow = button.querySelector('i'); // arrow icon
+      const submenu = button.nextElementSibling;
+
+      button.addEventListener('click', () => {
+        if (!submenu) return;
+
+        submenu.classList.toggle('hidden'); // সাবমেনু খোলে/বন্ধ হয়
+
+        // Arrow rotation
+        if (arrow) {
+          arrow.classList.toggle('rotate-180');
+        }
+      });
+    });
+
+    // Active menu highlight
+    const currentPage = window.location.pathname.split('/').pop(); // file name
+    // Desktop links
+    document.querySelectorAll('nav a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('text-yellow-300', 'font-bold');
+      } else {
+        link.classList.remove('text-yellow-300', 'font-bold');
+      }
+    });
+
+    // Mobile links
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('bg-purple-700', 'text-yellow-300', 'rounded');
+      } else {
+        link.classList.remove('bg-purple-700', 'text-yellow-300', 'rounded');
+      }
+    });
+  });
+</script>
+<style>
+body {
+  padding-top: 60px;
+}
+
+/* Desktop submenu hover only on link */
+.group-link + .submenu {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.group-link:hover + .submenu {
+  opacity: 1;
+  visibility: visible;
+}
+</style>
+
+
+
+
+    <!-- Blog Hero Section -->
+    <section class="relative bg-gradient-to-r from-purple-600 to-pink-500 py-16 md:py-24 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4">ব্লগ</h2>
+            <p class="text-xl md:text-2xl">বাংলাদেশী ফ্যাশন, ঐতিহ্যবাহী পোশাক এবং স্টাইল টিপস সম্পর্কে জানুন</p>
+        </div>
+    </section>
+
+    <!-- Blog Content Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Blog Sidebar -->
+                <div class="md:col-span-1">
+                    <!-- Search -->
+                    <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                        <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">খুঁজুন</h3>
+                        <div class="flex">
+                            <input type="text" placeholder="খুঁজুন..." class="w-full px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <button class="bg-pink-500 text-white px-4 rounded-r-lg">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Categories -->
+                    <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                        <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">বিষয়শ্রেণী</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-700 hover:text-pink-500 transition flex justify-between"><span>শাড়ি স্টাইল</span> <span>(১৫)</span></a></li>
+                            <li><a href="#" class="text-gray-700 hover:text-pink-500 transition flex justify-between"><span>পুরুষদের ফ্যাশন</span> <span>(১০)</span></a></li>
+                            <li><a href="#" class="text-gray-700 hover:text-pink-500 transition flex justify-between"><span>ঐতিহ্যবাহী পোশাক</span> <span>(৮)</span></a></li>
+                            <li><a href="#" class="text-gray-700 hover:text-pink-500 transition flex justify-between"><span>আধুনিক ডিজাইন</span> <span>(১২)</span></a></li>
+                            <li><a href="#" class="text-gray-700 hover:text-pink-500 transition flex justify-between"><span>ফ্যাব্রিক গাইড</span> <span>(৬)</span></a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Recent Posts -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">সাম্প্রতিক পোস্ট</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <img src="https://images.unsplash.com/photo-1581252584894-2f5be56f3878?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="শাড়ি স্টাইল" class="w-16 h-16 object-cover rounded">
+                                <div class="ml-4">
+                                    <a href="#" class="font-semibold hover:text-pink-500 transition">শাড়ি পরার আধুনিক স্টাইল</a>
+                                    <p class="text-sm text-gray-500">২ দিন আগে</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="পাঞ্জাবি" class="w-16 h-16 object-cover rounded">
+                                <div class="ml-4">
+                                    <a href="#" class="font-semibold hover:text-pink-500 transition">বিয়েতে পাঞ্জাবি স্টাইলিং</a>
+                                    <p class="text-sm text-gray-500">১ সপ্তাহ আগে</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="কুর্তা" class="w-16 h-16 object-cover rounded">
+                                <div class="ml-4">
+                                    <a href="#" class="font-semibold hover:text-pink-500 transition">গরমে সুতির কুর্তা</a>
+                                    <p class="text-sm text-gray-500">২ সপ্তাহ আগে</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Blog Posts -->
+                <div class="md:col-span-2">
+                    <!-- Featured Post -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8 blog-card">
+                        <img src="https://images.unsplash.com/photo-1581252584894-2f5be56f3878?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="শাড়ি স্টাইল" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <span class="text-pink-500 font-semibold">শাড়ি স্টাইল</span>
+                            <h3 class="text-2xl font-bold mt-2 mb-3">শাড়ি পরার আধুনিক স্টাইল গাইড</h3>
+                            <div class="flex items-center text-gray-500 text-sm mb-4">
+                                <span><i class="far fa-user mr-1"></i> ফাতেমা খাতুন</span>
+                                <span class="mx-3">|</span>
+                                <span><i class="far fa-calendar mr-1"></i> ২০ অক্টোবর, ২০২৩</span>
+                            </div>
+                            <p class="text-gray-700 mb-4">শাড়ি বাংলাদেশী নারীদের ঐতিহ্যবাহী পোশাক, কিন্তু আধুনিক যুগে শাড়ি পরার নানান স্টাইল এসেছে। এই ব্লগ পোস্টে আমরা শাড়ি পরার বিভিন্ন আধুনিক স্টাইল নিয়ে আলোচনা করব।</p>
+                            <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">আরও পড়ুন</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Blog Post Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Post 1 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden blog-card">
+                            <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="পাঞ্জাবি" class="w-full h-48 object-cover">
+                            <div class="p-5">
+                                <span class="text-pink-500 text-sm font-semibold">পুরুষদের ফ্যাশন</span>
+                                <h3 class="text-xl font-bold mt-2 mb-3">বিয়েতে পাঞ্জাবি স্টাইলিং টিপস</h3>
+                                <div class="flex items-center text-gray-500 text-xs mb-3">
+                                    <span><i class="far fa-calendar mr-1"></i> ১৫ অক্টোবর, ২০২৩</span>
+                                </div>
+                                <p class="text-gray-700 text-sm mb-4">বিয়ের সিজনে নিজেকে স্টাইলিশ করতে চান? জেনে নিন পাঞ্জাবি স্টাইলিং এর বিভিন্ন টিপস...</p>
+                                <a href="#" class="text-pink-500 hover:text-pink-600 font-semibold text-sm flex items-center">
+                                    আরও পড়ুন
+                                    <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Post 2 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden blog-card">
+                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="কুর্তা" class="w-full h-48 object-cover">
+                            <div class="p-5">
+                                <span class="text-pink-500 text-sm font-semibold">ঐতিহ্যবাহী পোশাক</span>
+                                <h3 class="text-xl font-bold mt-2 mb-3">গরমে সুতির কুর্তা: কেন পরবেন?</h3>
+                                <div class="flex items-center text-gray-500 text-xs mb-3">
+                                    <span><i class="far fa-calendar mr-1"></i> ১০ অক্টোবর, ২০২৩</span>
+                                </div>
+                                <p class="text-gray-700 text-sm mb-4">গ্রীষ্মের তাপদাহে সুতির কুর্তা কেন পরবেন এবং কিভাবে স্টাইল করবেন, জেনে নিন আমাদের এই ব্লগ পোস্টে...</p>
+                                <a href="#" class="text-pink-500 hover:text-pink-600 font-semibold text-sm flex items-center">
+                                    আরও পড়ুন
+                                    <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Post 3 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden blog-card">
+                            <img src="https://images.unsplash.com/photo-1581252584894-2f5be56f3878?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="জামদানি" class="w-full h-48 object-cover">
+                            <div class="p-5">
+                                <span class="text-pink-500 text-sm font-semibold">ঐতিহ্যবাহী পোশাক</span>
+                                <h3 class="text-xl font-bold mt-2 mb-3">জামদানি শাড়ির ইতিহাস ও বৈশিষ্ট্য</h3>
+                                <div class="flex items-center text-gray-500 text-xs mb-3">
+                                    <span><i class="far fa-calendar mr-1"></i> ৫ অক্টোবর, ২০২৩</span>
+                                </div>
+                                <p class="text-gray-700 text-sm mb-4">বাংলাদেশের ঐতিহ্যবাহী জামদানি শাড়ির ইতিহাস, বৈশিষ্ট্য এবং কেন এটি বিশ্বব্যাপী পরিচিত...</p>
+                                <a href="#" class="text-pink-500 hover:text-pink-600 font-semibold text-sm flex items-center">
+                                    আরও পড়ুন
+                                    <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Post 4 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden blog-card">
+                            <img src="https://images.unsplash.com/photo-1581252584894-2f5be56f3878?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="ফ্যাব্রিক" class="w-full h-48 object-cover">
+                            <div class="p-5">
+                                <span class="text-pink-500 text-sm font-semibold">ফ্যাব্রিক গাইড</span>
+                                <h3 class="text-xl font-bold mt-2 mb-3">বিভিন্ন ফ্যাব্রিকের ধরন ও যত্ন</h3>
+                                <div class="flex items-center text-gray-500 text-xs mb-3">
+                                    <span><i class="far fa-calendar mr-1"></i> ১ অক্টোবর, ২০২৩</span>
+                                </div>
+                                <p class="text-gray-700 text-sm mb-4">সুতি, রেশম, জর্জেট সহ বিভিন্ন ফ্যাব্রিকের ধরন এবং কিভাবে এসব ফ্যাব্রিকের পোশাকের যত্ন নেবেন...</p>
+                                <a href="#" class="text-pink-500 hover:text-pink-600 font-semibold text-sm flex items-center">
+                                    আরও পড়ুন
+                                    <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="flex justify-center mt-12">
+                        <nav class="flex items-center space-x-2">
+                            <a href="#" class="px-4 py-2 text-gray-500 bg-gray-100 rounded-md hover:bg-pink-500 hover:text-white transition">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <a href="#" class="px-4 py-2 text-white bg-pink-500 rounded-md hover:bg-pink-600 transition">১</a>
+                            <a href="#" class="px-4 py-2 text-gray-700 bg-gray-100 rounded-md hover:bg-pink-500 hover:text-white transition">২</a>
+                            <a href="#" class="px-4 py-2 text-gray-700 bg-gray-100 rounded-md hover:bg-pink-500 hover:text-white transition">৩</a>
+                            <a href="#" class="px-4 py-2 text-gray-700 bg-gray-100 rounded-md hover:bg-pink-500 hover:text-white transition">৪</a>
+                            <a href="#" class="px-4 py-2 text-gray-500 bg-gray-100 rounded-md hover:bg-pink-500 hover:text-white transition">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-12 bg-gradient-to-r from-purple-600 to-pink-500 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">আমাদের নিউজলেটার সাবস্ক্রাইব করুন</h2>
+            <p class="text-lg mb-6">ফ্যাশন টিপস, নতুন কালেকশন এবং এক্সক্লুসিভ অফার সম্পর্কে সর্বপ্রথম জানুন</p>
+            <form class="max-w-md mx-auto flex">
+                <input type="email" placeholder="আপনার ইমেইল ঠিকানা" class="flex-grow px-4 py-3 rounded-l-lg focus:outline-none text-gray-800">
+                <button type="submit" class="bg-yellow-400 text-purple-800 font-bold px-6 py-3 rounded-r-lg hover:bg-yellow-300 transition">সাবস্ক্রাইব</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-purple-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">বাংলা ফ্যাশন হাউস</h3>
+                    <p class="mb-4">বাংলাদেশের ঐতিহ্যবাহী ও আধুনিক ফ্যাশনের সমন্বয়ে সেরা পোশাক প্রদানকারী প্রতিষ্ঠান।</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-2xl hover:text-pink-500 transition"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-2xl hover:text-pink-500 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-2xl hover:text-pink-500 transition"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="text-2xl hover:text-pink-500 transition"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">দ্রুত লিংক</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-pink-500 transition">হোম</a></li>
+                        <li><a href="#" class="hover:text-pink-500 transition">আমাদের সম্পর্কে</a></li>
+                        <li><a href="#" class="hover:text-pink-500 transition">প্রাইভেসি পলিসি</a></li>
+                        <li><a href="#" class="hover:text-pink-500 transition">শর্তাবলী</a></li>
+                        <li><a href="#" class="hover:text-pink-500 transition">যোগাযোগ</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Collections -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">কালেকশন</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-pink-500 transition">নতুন পোষাক</a></li>
+                        <li><a href="#" class="hover:text-pink-500 transition">পুরুষদের পোশাক</a></li>
+                        <li><a href="#" class="hover:text-pink-500 transition">মহিলাদের পোশাক</a></li>
+                        <li><a href="#" class="hover:text-pink-500 transition">শিশুদের পোশাক</a></li>
+                        <li><a href="#" class="hover:text-pink-500 transition">এক্সেসরিজ</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">যোগাযোগ</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-pink-500"></i>
+                            <span>১২৩/বি, ধানমন্ডি, ঢাকা-১২০৫, বাংলাদেশ</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3 text-pink-500"></i>
+                            <span>+৮৮০ ১৭১২ ৩৪৫৬৭৮</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-pink-500"></i>
+                            <span>info@banglafashion.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="border-t border-purple-700 mt-10 pt-6 text-center">
+                <p>© ২০২৩ বাংলা ফ্যাশন হাউস। সকল স্বত্ব সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuButton').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.remove('-translate-x-full');
+            document.getElementById('overlay').classList.remove('hidden');
+        });
+        
+        document.getElementById('closeMenu').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.add('-translate-x-full');
+            document.getElementById('overlay').classList.add('hidden');
+        });
+        
+        document.getElementById('overlay').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.add('-translate-x-full');
+            document.getElementById('overlay').classList.add('hidden');
+        });
+        
+        // Mobile collection menu toggle
+        const collectionMenuMobile = document.querySelector('.collection-menu-mobile a');
+        if (collectionMenuMobile) {
+            collectionMenuMobile.addEventListener('click', function(e) {
+                e.preventDefault();
+                const submenu = this.nextElementSibling;
+                submenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>এক্সেসরিজ - বাংলা ফ্যাশন হাউস</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .collection-menu {
+            position: relative;
+        }
+        .collection-submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            z-index: 1000;
+            padding: 10px 0;
+        }
+        .collection-menu:hover .collection-submenu {
+            display: block;
+        }
+        .collection-submenu a {
+            display: block;
+            padding: 8px 20px;
+            color: #4a5568;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .collection-submenu a:hover {
+            background-color: #f7fafc;
+            color: #805ad5;
+        }
+        @media (max-width: 767px) {
+            .collection-submenu {
+                position: static;
+                box-shadow: none;
+                background-color: transparent;
+                padding-left: 20px;
+            }
+            .collection-submenu a {
+                color: white;
+                padding: 6px 0;
+            }
+            .collection-submenu a:hover {
+                background-color: rgba(255,255,255,0.1);
+            }
+        }
+        .category-filter {
+            transition: all 0.3s ease;
+        }
+        .category-filter.active {
+            background-color: #805ad5;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+
+<!-- Header Section -->
+<div id="header-placeholder"></div>
+<script>
+fetch('header.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const closeMenu = document.getElementById('closeMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+
+    // Mobile menu open/close
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.remove('-translate-x-full');
+      overlay.classList.remove('hidden');
+    });
+
+    closeMenu.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    overlay.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    // Mobile collection toggle with arrow rotation
+    document.querySelectorAll('.collection-toggle').forEach(button => {
+      const arrow = button.querySelector('i'); // arrow icon
+      const submenu = button.nextElementSibling;
+
+      button.addEventListener('click', () => {
+        if (!submenu) return;
+
+        submenu.classList.toggle('hidden'); // সাবমেনু খোলে/বন্ধ হয়
+
+        // Arrow rotation
+        if (arrow) {
+          arrow.classList.toggle('rotate-180');
+        }
+      });
+    });
+
+    // Active menu highlight
+    const currentPage = window.location.pathname.split('/').pop(); // file name
+    // Desktop links
+    document.querySelectorAll('nav a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('text-yellow-300', 'font-bold');
+      } else {
+        link.classList.remove('text-yellow-300', 'font-bold');
+      }
+    });
+
+    // Mobile links
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('bg-purple-700', 'text-yellow-300', 'rounded');
+      } else {
+        link.classList.remove('bg-purple-700', 'text-yellow-300', 'rounded');
+      }
+    });
+  });
+</script>
+<style>
+body {
+  padding-top: 60px;
+}
+
+/* Desktop submenu hover only on link */
+.group-link + .submenu {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.group-link:hover + .submenu {
+  opacity: 1;
+  visibility: visible;
+}
+</style>
+
+
+
+    <!-- Page Header -->
+    <section class="bg-gradient-to-r from-purple-700 to-purple-900 text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4">এক্সেসরিজ কালেকশন</h2>
+            <p class="text-xl">বাংলাদেশের ঐতিহ্যবাহী অলংকার ও ফ্যাশন এক্সেসরিজ</p>
+        </div>
+    </section>
+
+    <!-- Category Filter -->
+    <section class="py-8 bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-center gap-4">
+                <button class="category-filter active px-6 py-2 rounded-full border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white transition" data-category="all">
+                    সকল প্রকার
+                </button>
+                <button class="category-filter px-6 py-2 rounded-full border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white transition" data-category="jewelry">
+                    গহনা
+                </button>
+                <button class="category-filter px-6 py-2 rounded-full border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white transition" data-category="bag">
+                    ব্যাগ
+                </button>
+                <button class="category-filter px-6 py-2 rounded-full border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white transition" data-category="scarf">
+                    স্কার্ফ ও ওড়না
+                </button>
+                <button class="category-filter px-6 py-2 rounded-full border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white transition" data-category="footwear">
+                    ফুটওয়্যার
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Product 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition transform hover:-translate-y-2 product-item" data-category="jewelry">
+                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="ঐতিহ্যবাহী নেকলেস" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">ঐতিহ্যবাহী নেকলেস</h3>
+                        <p class="text-gray-600 mb-4">হাতে তৈরি রূপার নেকলেস</p>
+                        <p class="text-lg text-purple-700 font-bold mb-4">৳ ২,৫০০</p>
+                        <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">কিনুন</a>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition transform hover:-translate-y-2 product-item" data-category="bag">
+                    <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="কাঁথা স্টিচ ব্যাগ" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">কাঁথা স্টিচ ব্যাগ</h3>
+                        <p class="text-gray-600 mb-4">হাতে তৈরি ঐতিহ্যবাহী ডিজাইন</p>
+                        <p class="text-lg text-purple-700 font-bold mb-4">৳ ১,৮০০</p>
+                        <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">কিনুন</a>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition transform hover:-translate-y-2 product-item" data-category="jewelry">
+                    <img src="https://images.unsplash.com/photo-1596944943927-92b4a6281321?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="পায়ের নূপুর" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">পায়ের নূপুর</h3>
+                        <p class="text-gray-600 mb-4">ঐতিহ্যবাহী রূপার নূপুর</p>
+                        <p class="text-lg text-purple-700 font-bold mb-4">৳ ১,২০০</p>
+                        <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">কিনুন</a>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition transform hover:-translate-y-2 product-item" data-category="scarf">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="মসলিন ওড়না" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">মসলিন ওড়না</h3>
+                        <p class="text-gray-600 mb-4">সূক্ষ্ম মসলিন কাপড়ের ওড়না</p>
+                        <p class="text-lg text-purple-700 font-bold mb-4">৳ ১,১০০</p>
+                        <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">কিনুন</a>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition transform hover:-translate-y-2 product-item" data-category="footwear">
+                    <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="নাগরা জুতি" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">নাগরা জুতি</h3>
+                        <p class="text-gray-600 mb-4">ঐতিহ্যবাহী হাতে তৈরি জুতি</p>
+                        <p class="text-lg text-purple-700 font-bold mb-4">৳ ১,৬০০</p>
+                        <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">কিনুন</a>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition transform hover:-translate-y-2 product-item" data-category="jewelry">
+                    <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ad5e5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="চুড়ি" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">কাঁচের চুড়ি</h3>
+                        <p class="text-gray-600 mb-4">রঙিন কাঁচের ঐতিহ্যবাহী চুড়ি</p>
+                        <p class="text-lg text-purple-700 font-bold mb-4">৳ ৪০০</p>
+                        <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">কিনুন</a>
+                    </div>
+                </div>
+                
+                <!-- Product 7 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition transform hover:-translate-y-2 product-item" data-category="bag">
+                    <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="জামদানি পাউচ" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">জামদানি পাউচ</h3>
+                        <p class="text-gray-600 mb-4">ঐতিহ্যবাহী জামদানি কাপড়ের ব্যাগ</p>
+                        <p class="text-lg text-purple-700 font-bold mb-4">৳ ২,২০০</p>
+                        <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">কিনুন</a>
+                    </div>
+                </div>
+                
+                <!-- Product 8 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition transform hover:-translate-y-2 product-item" data-category="scarf">
+                    <img src="https://images.unsplash.com/photo-1529958030586-3aae4ca485ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="রেশমী স্কার্ফ" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">রেশমী স্কার্ফ</h3>
+                        <p class="text-gray-600 mb-4">হাতে বোনা রেশমী স্কার্ফ</p>
+                        <p class="text-lg text-purple-700 font-bold mb-4">৳ ১,৫০০</p>
+                        <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">কিনুন</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-16 bg-gradient-to-r from-purple-700 to-purple-900 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-4">আমাদের নিউজলেটার সাবস্ক্রাইব করুন</h2>
+            <p class="text-lg mb-8">নতুন পণ্য, অফার এবং এক্সক্লুসিভ ডিসকাউন্ট সম্পর্কে প্রথমে জানুন</p>
+            <form class="max-w-md mx-auto flex flex-col md:flex-row gap-4">
+                <input type="email" placeholder="আপনার ইমেইল ঠিকানা" class="flex-grow px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-pink-500">
+                <button type="submit" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition">সাবস্ক্রাইব</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">বাংলা ফ্যাশন হাউস</h3>
+                    <p class="text-gray-400">বাংলাদেশের ঐতিহ্যবাহী পোশাক ও অলংকারের এক অনন্য সংগ্রহশালা</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">গুরুত্বপূর্ণ লিংক</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">প্রাইভেসি পলিসি</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">রিটার্ন পলিসি</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">শিপিং পলিসি</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">টার্মস অ্যান্ড কন্ডিশনস</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">কাস্টমার সার্ভিস</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">আমাদের সম্পর্কে</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">যোগাযোগ করুন</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">এফএকিউ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">সাপোর্ট</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">যোগাযোগ</h3>
+                    <address class="text-gray-400 not-italic">
+                        <p><i class="fas fa-map-marker-alt mr-2"></i> ১২/৪, ধানমন্ডি, ঢাকা</p>
+                        <p class="my-2"><i class="fas fa-phone mr-2"></i> +৮৮০ ১৭১২ ৩৪৫৬৭৮</p>
+                        <p><i class="fas fa-envelope mr-2"></i> info@banglahouse.com</p>
+                    </address>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-youtube text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-pinterest text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; ২০২৩ বাংলা ফ্যাশন হাউস। সকল স্বত্ব সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const overlay = document.getElementById('overlay');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        // Mobile Collection Menu Toggle
+        const collectionMenuMobile = document.querySelector('.collection-menu-mobile');
+        const collectionSubmenuMobile = document.querySelector('.collection-submenu-mobile');
+        
+        collectionMenuMobile.addEventListener('click', (e) => {
+            e.preventDefault();
+            collectionSubmenuMobile.classList.toggle('hidden');
+        });
+        
+        // Category Filter
+        const categoryFilters = document.querySelectorAll('.category-filter');
+        const productItems = document.querySelectorAll('.product-item');
+        
+        categoryFilters.forEach(filter => {
+            filter.addEventListener('click', () => {
+                // Remove active class from all filters
+                categoryFilters.forEach(f => f.classList.remove('active', 'bg-purple-600', 'text-white'));
+                
+                // Add active class to clicked filter
+                filter.classList.add('active', 'bg-purple-600', 'text-white');
+                
+                const category = filter.getAttribute('data-category');
+                
+                // Show/hide products based on category
+                productItems.forEach(item => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

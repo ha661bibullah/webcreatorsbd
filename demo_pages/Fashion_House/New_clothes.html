@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>নতুন পোষাক - বাংলা ফ্যাশন হাউস</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .collection-menu {
+            position: relative;
+        }
+        .collection-submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            z-index: 1000;
+            padding: 10px 0;
+        }
+        .collection-menu:hover .collection-submenu {
+            display: block;
+        }
+        .collection-submenu a {
+            display: block;
+            padding: 8px 20px;
+            color: #4a5568;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .collection-submenu a:hover {
+            background-color: #f7fafc;
+            color: #805ad5;
+        }
+        @media (max-width: 767px) {
+            .collection-submenu {
+                position: static;
+                box-shadow: none;
+                background-color: transparent;
+                padding-left: 20px;
+            }
+            .collection-submenu a {
+                color: white;
+                padding: 6px 0;
+            }
+            .collection-submenu a:hover {
+                background-color: rgba(255,255,255,0.1);
+            }
+        }
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .filter-section {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header Section -->
+<div id="header-placeholder"></div>
+<script>
+fetch('header.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const closeMenu = document.getElementById('closeMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+
+    // Mobile menu open/close
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.remove('-translate-x-full');
+      overlay.classList.remove('hidden');
+    });
+
+    closeMenu.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    overlay.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    // Mobile collection toggle with arrow rotation
+    document.querySelectorAll('.collection-toggle').forEach(button => {
+      const arrow = button.querySelector('i'); // arrow icon
+      const submenu = button.nextElementSibling;
+
+      button.addEventListener('click', () => {
+        if (!submenu) return;
+
+        submenu.classList.toggle('hidden'); // সাবমেনু খোলে/বন্ধ হয়
+
+        // Arrow rotation
+        if (arrow) {
+          arrow.classList.toggle('rotate-180');
+        }
+      });
+    });
+
+    // Active menu highlight
+    const currentPage = window.location.pathname.split('/').pop(); // file name
+    // Desktop links
+    document.querySelectorAll('nav a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('text-yellow-300', 'font-bold');
+      } else {
+        link.classList.remove('text-yellow-300', 'font-bold');
+      }
+    });
+
+    // Mobile links
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('bg-purple-700', 'text-yellow-300', 'rounded');
+      } else {
+        link.classList.remove('bg-purple-700', 'text-yellow-300', 'rounded');
+      }
+    });
+  });
+</script>
+<style>
+body {
+  padding-top: 60px;
+}
+
+/* Desktop submenu hover only on link */
+.group-link + .submenu {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.group-link:hover + .submenu {
+  opacity: 1;
+  visibility: visible;
+}
+</style>
+
+
+
+    <!-- Page Header -->
+    <section class="bg-gradient-to-r from-purple-700 to-purple-900 text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">নতুন পোষাক কালেকশন</h2>
+            <p class="text-xl">সবচেয়ে নতুন এবং জনপ্রিয় ফ্যাশন আইটেম এক্সপ্লোর করুন</p>
+        </div>
+    </section>
+
+    <!-- Filter and Products Section -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-8">
+                <!-- Filter Sidebar -->
+                <div class="w-full md:w-1/4">
+                    <div class="bg-white p-6 rounded-lg shadow-md filter-section">
+                        <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">ফিল্টার</h3>
+                        
+                        <!-- Category Filter -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-3">ক্যাটেগরি</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-purple-600 rounded" checked>
+                                    <span class="ml-2">শাড়ি</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-purple-600 rounded" checked>
+                                    <span class="ml-2">পাঞ্জাবি</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-purple-600 rounded">
+                                    <span class="ml-2">কুর্তা</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-purple-600 rounded">
+                                    <span class="ml-2">সালোয়ার কামিজ</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-purple-600 rounded">
+                                    <span class="ml-2">এক্সেসরিজ</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Price Filter -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-3">দাম</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="price" class="form-radio text-purple-600" checked>
+                                    <span class="ml-2">সব</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="price" class="form-radio text-purple-600">
+                                    <span class="ml-2">৳ ৫০০ - ৳ ২০০০</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="price" class="form-radio text-purple-600">
+                                    <span class="ml-2">৳ ২০০০ - ৳ ৫০০০</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="price" class="form-radio text-purple-600">
+                                    <span class="ml-2">৳ ৫০০০+</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Size Filter -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-3">সাইজ</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <button class="px-3 py-1 bg-gray-200 rounded-full hover:bg-purple-600 hover:text-white transition">S</button>
+                                <button class="px-3 py-1 bg-gray-200 rounded-full hover:bg-purple-600 hover:text-white transition">M</button>
+                                <button class="px-3 py-1 bg-purple-600 text-white rounded-full transition">L</button>
+                                <button class="px-3 py-1 bg-gray-200 rounded-full hover:bg-purple-600 hover:text-white transition">XL</button>
+                                <button class="px-3 py-1 bg-gray-200 rounded-full hover:bg-purple-600 hover:text-white transition">XXL</button>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded transition">
+                            ফিল্টার প্রয়োগ করুন
+                        </button>
+                    </div>
+                    
+                    <!-- New Arrivals Banner -->
+                    <div class="mt-8 bg-gradient-to-r from-pink-400 to-pink-300 rounded-lg shadow-lg p-6 text-center">
+                        <h3 class="text-xl font-bold mb-2">বিশেষ অফার!</h3>
+                        <p class="mb-4">নতুন কালেকশন থেকে প্রথম অর্ডারে ১৫% ছাড়</p>
+                        <button class="bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded transition">
+                            কুপন নিন
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Products Grid -->
+                <div class="w-full md:w-3/4">
+                    <!-- Sort and View Options -->
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                        <p class="text-gray-600 mb-4 md:mb-0">মোট ১২টি পণ্য দেখানো হচ্ছে</p>
+                        <div class="flex items-center">
+                            <span class="mr-2 text-gray-600">সাজান:</span>
+                            <select class="border rounded p-2">
+                                <option>নতুনতম প্রথম</option>
+                                <option>দাম: কম থেকে বেশি</option>
+                                <option>দাম: বেশি থেকে কম</option>
+                                <option>জনপ্রিয়তা</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Products Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Product 1 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden product-card">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1581252584894-2f5be56f3878?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="নতুন ডিজাইনের শাড়ি" class="w-full h-64 object-cover">
+                                <span class="absolute top-2 right-2 bg-pink-500 text-white text-xs font-bold px-2 py-1 rounded">নতুন</span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold mb-2">নতুন ডিজাইনের শাড়ি</h3>
+                                <div class="flex items-center mb-2">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="text-gray-600 text-sm ml-2">(১২ রিভিউ)</span>
+                                </div>
+                                <p class="text-lg text-purple-700 font-bold mb-4">৳ ৪,২০০</p>
+                                <div class="flex justify-between">
+                                    <a href="#" class="flex-1 mr-2 bg-pink-500 hover:bg-pink-600 text-white text-center font-bold py-2 px-4 rounded transition">কার্টে যোগ</a>
+                                    <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-200 hover:bg-purple-200 rounded transition">
+                                        <i class="far fa-heart"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 2 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden product-card">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="এমব্রয়ডারি পাঞ্জাবি" class="w-full h-64 object-cover">
+                                <span class="absolute top-2 right-2 bg-pink-500 text-white text-xs font-bold px-2 py-1 rounded">নতুন</span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold mb-2">এমব্রয়ডারি পাঞ্জাবি</h3>
+                                <div class="flex items-center mb-2">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <span class="text-gray-600 text-sm ml-2">(৮ রিভিউ)</span>
+                                </div>
+                                <p class="text-lg text-purple-700 font-bold mb-4">৳ ৩,৫০০</p>
+                                <div class="flex justify-between">
+                                    <a href="#" class="flex-1 mr-2 bg-pink-500 hover:bg-pink-600 text-white text-center font-bold py-2 px-4 rounded transition">কার্টে যোগ</a>
+                                    <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-200 hover:bg-purple-200 rounded transition">
+                                        <i class="far fa-heart"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 3 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden product-card">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="ট্রাডিশনাল কুর্তা" class="w-full h-64 object-cover">
+                                <span class="absolute top-2 right-2 bg-pink-500 text-white text-xs font-bold px-2 py-1 rounded">নতুন</span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold mb-2">ট্রাডিশনাল কুর্তা</h3>
+                                <div class="flex items-center mb-2">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="text-gray-600 text-sm ml-2">(১৫ রিভিউ)</span>
+                                </div>
+                                <p class="text-lg text-purple-700 font-bold mb-4">৳ ২,৮০০</p>
+                                <div class="flex justify-between">
+                                    <a href="#" class="flex-1 mr-2 bg-pink-500 hover:bg-pink-600 text-white text-center font-bold py-2 px-4 rounded transition">কার্টে যোগ</a>
+                                    <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-200 hover:bg-purple-200 rounded transition">
+                                        <i class="far fa-heart"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 4 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden product-card">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1581252584894-2f5be56f3878?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="ডিজাইনার সালোয়ার কামিজ" class="w-full h-64 object-cover">
+                                <span class="absolute top-2 right-2 bg-pink-500 text-white text-xs font-bold px-2 py-1 rounded">নতুন</span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold mb-2">ডিজাইনার সালোয়ার কামিজ</h3>
+                                <div class="flex items-center mb-2">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="text-gray-600 text-sm ml-2">(১০ রিভিউ)</span>
+                                </div>
+                                <p class="text-lg text-purple-700 font-bold mb-4">৳ ৫,২০০</p>
+                                <div class="flex justify-between">
+                                    <a href="#" class="flex-1 mr-2 bg-pink-500 hover:bg-pink-600 text-white text-center font-bold py-2 px-4 rounded transition">কার্টে যোগ</a>
+                                    <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-200 hover:bg-purple-200 rounded transition">
+                                        <i class="far fa-heart"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 5 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden product-card">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="সিল্ক স্কার্ফ" class="w-full h-64 object-cover">
+                                <span class="absolute top-2 right-2 bg-pink-500 text-white text-xs font-bold px-2 py-1 rounded">নতুন</span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold mb-2">সিল্ক স্কার্ফ</h3>
+                                <div class="flex items-center mb-2">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <span class="text-gray-600 text-sm ml-2">(৭ রিভিউ)</span>
+                                </div>
+                                <p class="text-lg text-purple-700 font-bold mb-4">৳ ১,২০০</p>
+                                <div class="flex justify-between">
+                                    <a href="#" class="flex-1 mr-2 bg-pink-500 hover:bg-pink-600 text-white text-center font-bold py-2 px-4 rounded transition">কার্টে যোগ</a>
+                                    <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-200 hover:bg-purple-200 rounded transition">
+                                        <i class="far fa-heart"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 6 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden product-card">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="ট্রাডিশনাল জুয়েলারী সেট" class="w-full h-64 object-cover">
+                                <span class="absolute top-2 right-2 bg-pink-500 text-white text-xs font-bold px-2 py-1 rounded">নতুন</span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold mb-2">ট্রাডিশনাল জুয়েলারী সেট</h3>
+                                <div class="flex items-center mb-2">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="text-gray-600 text-sm ml-2">(২০ রিভিউ)</span>
+                                </div>
+                                <p class="text-lg text-purple-700 font-bold mb-4">৳ ৬,৫০০</p>
+                                <div class="flex justify-between">
+                                    <a href="#" class="flex-1 mr-2 bg-pink-500 hover:bg-pink-600 text-white text-center font-bold py-2 px-4 rounded transition">কার্টে যোগ</a>
+                                    <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-200 hover:bg-purple-200 rounded transition">
+                                        <i class="far fa-heart"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="mt-12 flex justify-center">
+                        <nav class="flex items-center space-x-2">
+                            <a href="#" class="px-3 py-1 bg-gray-200 rounded hover:bg-purple-600 hover:text-white transition">&laquo;</a>
+                            <a href="#" class="px-3 py-1 bg-purple-600 text-white rounded">১</a>
+                            <a href="#" class="px-3 py-1 bg-gray-200 rounded hover:bg-purple-600 hover:text-white transition">২</a>
+                            <a href="#" class="px-3 py-1 bg-gray-200 rounded hover:bg-purple-600 hover:text-white transition">৩</a>
+                            <a href="#" class="px-3 py-1 bg-gray-200 rounded hover:bg-purple-600 hover:text-white transition">&raquo;</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="bg-purple-100 py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">আমাদের নিউজলেটার সাবস্ক্রাইব করুন</h2>
+            <p class="text-lg mb-6">নতুন পণ্য, এক্সক্লুসিভ অফার এবং বিশেষ ডিসকাউন্ট সম্পর্কে সর্বপ্রথম জানুন</p>
+            <form class="max-w-md mx-auto flex flex-col md:flex-row gap-2">
+                <input type="email" placeholder="আপনার ইমেইল ঠিকানা" class="flex-1 px-4 py-3 rounded-lg border border-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <button type="submit" class="bg-pink-500 hover:bg-pink-600 text-white font-bold px-6 py-3 rounded-lg transition">সাবস্ক্রাইব</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-purple-900 to-purple-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- About -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">বাংলা ফ্যাশন হাউস</h3>
+                    <p class="mb-4">বাংলাদেশের ঐতিহ্যবাহী ও আধুনিক ফ্যাশনের মেলবন্ধন। আমরা আপনাদের জন্য নিয়ে আসছি সর্বোচ্চ মানের পোশাক ও এক্সেসরিজ।</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-2xl hover:text-pink-400 transition"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-2xl hover:text-pink-400 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-2xl hover:text-pink-400 transition"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="text-2xl hover:text-pink-400 transition"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">দ্রুত লিংক</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-pink-400 transition">হোম</a></li>
+                        <li><a href="new-arrivals.html" class="hover:text-pink-400 transition">নতুন পোষাক</a></li>
+                        <li><a href="#" class="hover:text-pink-400 transition">ব্র্যান্ড স্টোরি</a></li>
+                        <li><a href="#" class="hover:text-pink-400 transition">প্রাইভেসি পলিসি</a></li>
+                        <li><a href="#" class="hover:text-pink-400 transition">রিটার্ন পলিসি</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Customer Service -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">গ্রাহক সেবা</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-pink-400 transition">আমার অ্যাকাউন্ট</a></li>
+                        <li><a href="#" class="hover:text-pink-400 transition">অর্ডার ট্র্যাক করুন</a></li>
+                        <li><a href="#" class="hover:text-pink-400 transition">সাহায্য কেন্দ্র</a></li>
+                        <li><a href="#" class="hover:text-pink-400 transition">যোগাযোগ</a></li>
+                        <li><a href="#" class="hover:text-pink-400 transition">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">যোগাযোগ</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-pink-400"></i>
+                            <span>১২৩/বি, গুলশান, ঢাকা-১২১২, বাংলাদেশ</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3 text-pink-400"></i>
+                            <span>+৮৮০ ১৭১২ ৩৪৫৬৭৮</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-pink-400"></i>
+                            <span>info@banglafashion.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-clock mr-3 text-pink-400"></i>
+                            <span>শনি-বৃহস্পতি: সকাল ১০টা - রাত ১০টা</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="border-t border-purple-700 mt-10 pt-6 text-center">
+                <p>&copy; ২০২৩ বাংলা ফ্যাশন হাউস। সকল অধিকার সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('overlay');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        // Mobile collection submenu toggle
+        const collectionMenuMobile = document.querySelector('.collection-menu-mobile > a');
+        const collectionSubmenuMobile = document.querySelector('.collection-submenu-mobile');
+        
+        collectionMenuMobile.addEventListener('click', (e) => {
+            e.preventDefault();
+            collectionSubmenuMobile.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

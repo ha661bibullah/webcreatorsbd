@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সম্পর্কে - মাদ্রাসা শিক্ষা</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .mobile-menu {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            .desktop-menu {
+                display: none;
+            }
+        } 
+    </style> 
+      <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .mobile-menu {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            .desktop-menu {
+                display: none;
+            }
+        }
+        
+        /* Language-specific styles */
+        [lang="bn"] {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        [lang="en"] {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+    </style>   
+</head>
+<body class="bg-gray-50">
+   
+<!-- Navbar will be loaded here -->
+<div id="navbar-container"></div>
+
+<script>
+// Load navbar
+fetch('navbar.html')
+  .then(response => response.text())
+  .then(data => {
+    const container = document.getElementById('navbar-container');
+    container.innerHTML = data;
+    
+    // Execute scripts inside the loaded navbar
+    const scripts = container.getElementsByTagName('script');
+    const scriptPromises = [];
+    
+    for (let i = 0; i < scripts.length; i++) {
+      const script = scripts[i];
+      
+      // Create a new script element
+      const newScript = document.createElement('script');
+      
+      // Copy attributes
+      if (script.src) {
+        // External script
+        newScript.src = script.src;
+        const promise = new Promise((resolve, reject) => {
+          newScript.onload = resolve;
+          newScript.onerror = reject;
+        });
+        scriptPromises.push(promise);
+      } else {
+        // Inline script
+        newScript.text = script.innerText;
+      }
+      
+      // Copy all attributes from the original script
+      for (let attr of script.attributes) {
+        newScript.setAttribute(attr.name, attr.value);
+      }
+      
+      document.head.appendChild(newScript);
+    }
+    
+    // Wait for all scripts to load
+    return Promise.all(scriptPromises);
+  })
+  .then(() => {
+    // Now manually initialize the navbar functionality
+    initializeNavbarAfterLoad();
+  })
+  .catch(error => console.error('Error loading navbar:', error));
+
+// Function to initialize navbar after it's loaded
+function initializeNavbarAfterLoad() {
+  // Check if login module exists and initialize it
+  if (typeof LoginModule !== 'undefined') {
+    LoginModule.initLoginForms();
+    LoginModule.checkLoginStatus();
+  }
+  
+  // Initialize other modules if they exist
+  if (typeof DropdownModule !== 'undefined') {
+    DropdownModule.setupDropdownCloseListeners();
+  }
+  
+  if (typeof ScrollModule !== 'undefined') {
+    ScrollModule.initScrollHide();
+    ScrollModule.initNavbarScrollEffect();
+  }
+  
+  if (typeof NavigationModule !== 'undefined') {
+    NavigationModule.initNavLinks();
+  }
+  
+  // Add profile dropdown event listeners
+  const desktopProfileIcon = document.getElementById('desktopProfileIcon');
+  if (desktopProfileIcon) {
+    desktopProfileIcon.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const dropdown = document.getElementById('desktopDropdownContent');
+      if (dropdown) dropdown.classList.toggle('show-dropdown');
+    });
+  }
+
+  const desktopLogoutButton = document.getElementById('desktopLogoutButton');
+  if (desktopLogoutButton) {
+    desktopLogoutButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (typeof LoginModule !== 'undefined') {
+        LoginModule.handleLogout();
+      }
+    });
+  }
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function() {
+    const dropdown = document.getElementById('desktopDropdownContent');
+    if (dropdown && dropdown.classList.contains('show-dropdown')) {
+      dropdown.classList.remove('show-dropdown');
+    }
+  });
+
+  // Prevent dropdown from closing when clicking inside
+  const dropdownContent = document.getElementById('desktopDropdownContent');
+  if (dropdownContent) {
+    dropdownContent.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+  }
+  
+  console.log('Navbar initialized successfully');
+}
+
+</script>
+
+
+
+    <!-- হিরো সেকশন -->
+    <section class="hero-bg text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6" data-bn="মাদ্রাসা শিক্ষা সম্পর্কে" data-en="About Madrasa Education">মাদ্রাসা শিক্ষা সম্পর্কে</h1>
+            <p class="text-xl mb-8 max-w-3xl mx-auto" data-bn="মাদ্রাসার ক্লাস কোর্সের মাধ্যমে বিক্রি - শিক্ষার মাধ্যমে সফল বিক্রয় কৌশল। আধুনিক পদ্ধতিতে মাদ্রাসা শিক্ষার নতুন দিগন্ত" data-en="Selling through Madrasa class courses - successful sales strategies through education. New horizons of Madrasa education with modern methods.">মাদ্রাসার ক্লাস কোর্সের মাধ্যমে বিক্রি - শিক্ষার মাধ্যমে সফল বিক্রয় কৌশল। আধুনিক পদ্ধতিতে মাদ্রাসা শিক্ষার নতুন দিগন্ত</p>
+        </div>
+    </section>
+
+    <!-- মূল কন্টেন্ট -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12 text-green-700" data-bn="মাদ্রাসা শিক্ষার মাধ্যমে বিক্রয় কৌশলের নতুন দিগন্ত" data-en="New horizons of sales strategy through Madrasa education">মাদ্রাসা শিক্ষার মাধ্যমে বিক্রয় কৌশলের নতুন দিগন্ত</h2>
+                <p class="text-gray-700 text-lg mb-8 text-justify" data-bn="মাদ্রাসা শিক্ষা ব্যবস্থাকে আধুনিক বিপণন কৌশলের সাথে সমন্বয় করে আমরা উন্নত করেছি একটি অভিনব পদ্ধতি। ঐতিহ্যবাহী জ্ঞান ও আধুনিক বিক্রয় কৌশলের সমন্বয়ে আমাদের কোর্সগুলি শিক্ষার্থীদেরকে দক্ষ বিক্রয় পেশাজীবী হিসেবে গড়ে তুলতে সহায়তা করে।" data-en="We have developed an innovative method by integrating the Madrasa education system with modern marketing strategies. Our courses combine traditional knowledge with modern sales techniques to help students become skilled sales professionals.">মাদ্রাসা শিক্ষা ব্যবস্থাকে আধুনিক বিপণন কৌশলের সাথে সমন্বয় করে আমরা উন্নত করেছি একটি অভিনব পদ্ধতি। ঐতিহ্যবাহী জ্ঞান ও আধুনিক বিক্রয় কৌশলের সমন্বয়ে আমাদের কোর্সগুলি শিক্ষার্থীদেরকে দক্ষ বিক্রয় পেশাজীবী হিসেবে গড়ে তুলতে সহায়তা করে।</p>
+                <p class="text-gray-700 text-lg mb-8 text-justify" data-bn="মাদ্রাসা ভিত্তিক শিক্ষা পদ্ধতির মূল্যবোধ ও নৈতিকতার সাথে বাণিজ্যিক দক্ষতার সমন্বয় করে আমরা তৈরি করেছি একটি অনন্য শিক্ষা ব্যবস্থা, যা শিক্ষার্থীদের বর্তমান বাজারে প্রতিযোগিতা করতে সক্ষম করে তোলে।" data-en="We have created a unique education system by combining the values and ethics of Madrasa-based education with commercial skills, which enables students to compete in the current market.">মাদ্রাসা ভিত্তিক শিক্ষা পদ্ধতির মূল্যবোধ ও নৈতিকতার সাথে বাণিজ্যিক দক্ষতার সমন্বয় করে আমরা তৈরি করেছি একটি অনন্য শিক্ষা ব্যবস্থা, যা শিক্ষার্থীদের বর্তমান বাজারে প্রতিযোগিতা করতে সক্ষম করে তোলে।</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- বৈশিষ্ট্য সেকশন -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-green-700" data-bn="আমাদের বিশেষত্ব" data-en="Our Specialties">আমাদের বিশেষত্ব</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-handshake text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3 text-green-700" data-bn="১. নৈতিক বিক্রয় কৌশল" data-en="1. Ethical Sales Strategy">১. নৈতিক বিক্রয় কৌশল</h3>
+                    <p class="text-gray-700 text-justify" data-bn="ঐতিহ্যগত মূল্যবোধের ভিত্তিতে আধুনিক বিক্রয় কৌশল শেখানো হয় যাতে নৈতিকতা বজায় রেখে সফল বিক্রয় সম্ভব হয়।" data-en="Modern sales techniques are taught based on traditional values so that successful sales can be achieved while maintaining ethics.">ঐতিহ্যগত মূল্যবোধের ভিত্তিতে আধুনিক বিক্রয় কৌশল শেখানো হয় যাতে নৈতিকতা বজায় রেখে সফল বিক্রয় সম্ভব হয়।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-comments text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3 text-green-700" data-bn="২. যোগাযোগ দক্ষতা" data-en="2. Communication Skills">২. যোগাযোগ দক্ষতা</h3>
+                    <p class="text-gray-700 text-justify" data-bn="উন্নত যোগাযোগ দক্ষতা অর্জনের মাধ্যমে বিভিন্ন ধরণের ক্রেতাদের সাথে কার্যকরভাবে সংযোগ স্থাপন করতে শেখানো হয়।" data-en="Through improved communication skills, students learn to effectively connect with different types of customers.">উন্নত যোগাযোগ দক্ষতা অর্জনের মাধ্যমে বিভিন্ন ধরণের ক্রেতাদের সাথে কার্যকরভাবে সংযোগ স্থাপন করতে শেখানো হয়।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-laptop text-yellow-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3 text-green-700" data-bn="৩. ডিজিটাল মার্কেটিং" data-en="3. Digital Marketing">৩. ডিজিটাল মার্কেটিং</h3>
+                    <p class="text-gray-700 text-justify" data-bn="আধুনিক ডিজিটাল মার্কেটিং কৌশল ও সোশ্যাল মিডিয়া ব্যবহার করে বিক্রয় বৃদ্ধি করার পদ্ধতি শেখানো হয়।" data-en="Methods to increase sales using modern digital marketing techniques and social media are taught.">আধুনিক ডিজিটাল মার্কেটিং কৌশল ও সোশ্যাল মিডিয়া ব্যবহার করে বিক্রয় বৃদ্ধি করার পদ্ধতি শেখানো হয়।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-user-shield text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3 text-green-700" data-bn="৪. বিশ্বাসযোগ্যতা অর্জন" data-en="4. Gaining Credibility">৪. বিশ্বাসযোগ্যতা অর্জন</h3>
+                    <p class="text-gray-700 text-justify" data-bn="ক্রেতার বিশ্বাস অর্জন ও দীর্ঘমেয়াদি সম্পর্ক গড়ে তোলার কৌশল শেখানো হয় যা টেকসই ব্যবসা গড়তে সাহায্য করে।" data-en="Strategies to gain customer trust and build long-term relationships are taught, which help build sustainable business.">ক্রেতার বিশ্বাস অর্জন ও দীর্ঘমেয়াদি সম্পর্ক গড়ে তোলার কৌশল শেখানো হয় যা টেকসই ব্যবসা গড়তে সাহায্য করে।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-lightbulb text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3 text-green-700" data-bn="৫. সমস্যা সমাধান দক্ষতা" data-en="5. Problem Solving Skills">৫. সমস্যা সমাধান দক্ষতা</h3>
+                    <p class="text-gray-700 text-justify" data-bn="ক্রেতার সমস্যা চিহ্নিত করে তার সমাধান প্রদানের মাধ্যমে বিক্রয় বৃদ্ধির কৌশল শেখানো হয়।" data-en="Strategies to increase sales by identifying customer problems and providing solutions are taught.">ক্রেতার সমস্যা চিহ্নিত করে তার সমাধান প্রদানের মাধ্যমে বিক্রয় বৃদ্ধির কৌশল শেখানো হয়।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-users text-indigo-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3 text-green-700" data-bn="৬. টিমওয়ার্ক ও নেতৃত্ব" data-en="6. Teamwork and Leadership">৬. টিমওয়ার্ক ও নেতৃত্ব</h3>
+                    <p class="text-gray-700 text-justify" data-bn="দলগত কাজ ও নেতৃত্বের গুণাবলী বিকাশের মাধ্যমে সফল বিক্রয় টিম গঠনের দক্ষতা অর্জন করা যায়।" data-en="Skills to build successful sales teams through teamwork and leadership qualities development can be acquired.">দলগত কাজ ও নেতৃত্বের গুণাবলী বিকাশের মাধ্যমে সফল বিক্রয় টিম গঠনের দক্ষতা অর্জন করা যায়。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- শিক্ষার্থীদের অভিজ্ঞতা -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-green-700" data-bn="আমাদের সফল শিক্ষার্থীদের অভিজ্ঞতা" data-en="Experiences of Our Successful Students">আমাদের সফল শিক্ষার্থীদের অভিজ্ঞতা</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-green-700 font-bold">আ</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold" data-bn="আবদুল্লাহ হাসান" data-en="Abdullah Hasan">আবদুল্লাহ হাসান</h4>
+                            <p class="text-gray-600 text-sm" data-bn="সফল ব্যবসায়ী" data-en="Successful Businessman">সফল ব্যবসায়ী</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic" data-bn="&quot;মাদ্রাসা ভিত্তিক বিক্রয় কোর্স আমার জীবনে অভাবনীয় পরিবর্তন এনেছে। নৈতিক মূল্যবোধ বজায় রেখে বাণিজ্যিক সাফল্য অর্জন করতে পেরেছি যা আমি কখনো ভাবিনি।&quot;" data-en="&quot;Madrasa-based sales course has brought incredible changes in my life. I have achieved commercial success while maintaining ethical values which I never thought possible.&quot;">"মাদ্রাসা ভিত্তিক বিক্রয় কোর্স আমার জীবনে অভাবনীয় পরিবর্তন এনেছে। নৈতিক মূল্যবোধ বজায় রেখে বাণিজ্যিক সাফল্য অর্জন করতে পেরেছি যা আমি কখনো ভাবিনি।"</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-blue-700 font-bold">ফ</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold" data-bn="ফারহানা আক্তার" data-en="Farhana Akter">ফারহানা আক্তার</h4>
+                            <p class="text-gray-600 text-sm" data-bn="মার্কেটিং প্রফেশনাল" data-en="Marketing Professional">মার্কেটিং প্রফেশনাল</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic" data-bn="&quot;এই কোর্সের মাধ্যমে আমি শিখেছি কিভাবে ঐতিহ্যগত মূল্যবোধ ও আধুনিক বিক্রয় কৌশল একসাথে ব্যবহার করে সাফল্য অর্জন করা যায়। এটি আমার ক্যারিয়ারে নতুন দিগন্ত খুলে দিয়েছে।&quot;" data-en="&quot;Through this course, I learned how to achieve success by using traditional values and modern sales techniques together. It has opened new horizons in my career.&quot;">"এই কোর্সের মাধ্যমে আমি শিখেছি কিভাবে ঐতিহ্যগত মূল্যবোধ ও আধুনিক বিক্রয় কৌশল একসাথে ব্যবহার করে সাফল্য অর্জন করা যায়। এটি আমার ক্যারিয়ারে নতুন দিগন্ত খুলে দিয়েছে।"</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-yellow-200 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-yellow-700 font-bold">ম</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold" data-bn="মোহাম্মদ রাফি" data-en="Mohammad Rafi">মোহাম্মদ রাফি</h4>
+                            <p class="text-gray-600 text-sm" data-bn="সেলস এক্সিকিউটিভ" data-en="Sales Executive">সেলস এক্সিকিউটিভ</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic" data-bn="&quot;সেলস ক্ষেত্রে আমার দক্ষতা বহুগুণে বৃদ্ধি পেয়েছে এই কোর্সের মাধ্যমে। বিশেষ করে নৈতিক উপায়ে ক্রেতার আস্থা অর্জন করতে শিখেছি যা দীর্ঘমেয়াদী সাফল্য নিয়ে এসেছে।&quot;" data-en="&quot;My skills in sales have multiplied through this course. Especially, I learned to gain customer trust in ethical ways which has brought long-term success.&quot;">"সেলস ক্ষেত্রে আমার দক্ষতা বহুগুণে বৃদ্ধি পেয়েছে এই কোর্সের মাধ্যমে। বিশেষ করে নৈতিক উপায়ে ক্রেতার আস্থা অর্জন করতে শিখেছি যা দীর্ঘমেয়াদী সাফল্য নিয়ে এসেছে।"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA সেকশন -->
+    <section class="py-16 bg-green-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6" data-bn="আজই যোগ দিন আমাদের অভিনব কোর্সে" data-en="Join our innovative course today">আজই যোগ দিন আমাদের অভিনব কোर्सে</h2>
+            <p class="text-xl mb-8 max-w-3xl mx-auto" data-bn="মাদ্রাসা ভিত্তিক বিক্রয় কোর্সের মাধ্যমে নৈতিক মূল্যবোধ ও আধুনিক বিক্রয় কৌশল একসাথে শিখুন। আমাদের বিশেষজ্ঞ শিক্ষকদের মাধ্যমে আপনার ক্যারিয়ারে নতুন উচ্চতা অর্জন করুন।" data-en="Learn ethical values and modern sales techniques together through Madrasa-based sales courses. Achieve new heights in your career through our expert teachers.">মাদ্রাসা ভিত্তিক বিক্রয় কোর্সের মাধ্যমে নৈতিক মূল্যবোধ ও আধুনিক বিক্রয় কৌশল একসাথে শিখুন। আমাদের বিশেষজ্ঞ শিক্ষকদের মাধ্যমে আপনার ক্যারিয়ারে নতুন উচ্চতা অর্জন করুন।</p>
+            <button class="bg-white text-green-600 px-8 py-3 rounded-md font-semibold text-lg hover:bg-gray-100" data-bn="এখনই নিবন্ধন করুন" data-en="Register Now">এখনই নিবন্ধন করুন</button>
+        </div>
+    </section>
+
+    <!-- ফুটার -->
+    <footer class="bg-green-800 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4" data-bn="দ্রুত লিংক" data-en="Quick Links">দ্রুত লিংক</h3>
+                    <ul class="space-y-2">
+                        <li><a href="madrasa.html" class="hover:text-green-300" data-bn="হোম" data-en="Home">হোম</a></li>
+                        <li><a href="about.html" class="hover:text-green-300" data-bn="আমাদের সম্পর্কে" data-en="About Us">আমাদের সম্পর্কে</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="সকল কোর্স" data-en="All Courses">সকল কোর্স</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="শিক্ষকমণ্ডলী" data-en="Faculty">শিক্ষকমণ্ডলী</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="ক্লাস সময়সূচি" data-en="Class Schedule">ক্লাস সময়সূচি</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="যোগাযোগ" data-en="Contact">যোগাযোগ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4" data-bn="জনপ্রিয় কোর্স" data-en="Popular Courses">জনপ্রিয় কোর্স</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-green-300" data-bn="কোরআন তেলাওয়াত" data-en="Quran Recitation">কোরআন তেলাওয়াত</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="হাদিস শিক্ষা" data-en="Hadith Studies">হাদিস শিক্ষা</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="আরবি ভাষা" data-en="Arabic Language">আরবি ভাষা</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="ফিকাহ শিক্ষা" data-en="Fiqh Studies">ফিকাহ শিক্ষা</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="তাজবিদ" data-en="Tajweed">তাজবিদ</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="ইসলামিক ইতিহাস" data-en="Islamic History">ইসলামিক ইতিহাস</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4" data-bn="নিউজলেটার" data-en="Newsletter">নিউজলেটার</h3>
+                    <p class="mb-4" data-bn="নিউজলেটার সাবস্ক্রাইব করুন" data-en="Subscribe to our newsletter">নিউজলেটার সাবスク্রাইব করুন</p>
+                    <div class="flex">
+                        <input type="email" placeholder="আপনার ইমেইল" class="px-4 py-2 rounded-l-md w-full text-gray-800" data-bn-placeholder="আপনার ইমেইল" data-en-placeholder="Your Email">
+                        <button class="bg-green-600 px-4 py-2 rounded-r-md hover:bg-green-500" data-bn="সাবস্ক্রাইব" data-en="Subscribe">সাবস্ক্রাইব</button>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4" data-bn="যোগাযোগ" data-en="Contact">যোগাযোগ</h3>
+                    <p class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i> <span data-bn="আজিমপুর, ঢাকা-১২০৫" data-en="Azimpur, Dhaka-1205">আজিমপুর, ঢাকা-১২০৫</span></p>
+                    <p class="mb-2"><i class="fas fa-phone-alt mr-2"></i> +৮৮০১৯১১-৫৬৭৮৯০</p>
+                    <p class="mb-4"><i class="fas fa-envelope mr-2"></i> billaharif661@gmail.com</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-green-700 mt-8 pt-6 text-center text-sm">
+                <p data-bn="© ২০২৫ মাদ্রাসা শিক্ষা। সমস্ত অধিকার সংরক্ষিত।" data-en="© 2025 Madrasa Education. All rights reserved.">© ২০২৫ মাদ্রাসা শিক্ষা। সমস্ত অধিকার সংরক্ষিত।</p>
+                <div class="mt-2">
+                    <a href="#" class="mx-2 hover:text-green-300" data-bn="প্রাইভেসি পলিসি" data-en="Privacy Policy">প্রাইভেসি পলিসি</a>
+                    <a href="#" class="mx-2 hover:text-green-300" data-bn="টার্মস অফ সার্ভিস" data-en="Terms of Service">টার্মস অফ সার্ভিস</a>
+                    <a href="#" class="mx-2 hover:text-green-300" data-bn="কোর্স নীতিমালা" data-en="Course Policies">কোর্স নীতিমালা</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+   <script>
+(function(){
+  const STORAGE_KEY = 'preferredLanguage';
+  let currentLanguage = localStorage.getItem(STORAGE_KEY) || 'bn';
+
+  function updateFlagAndLabel(lang){
+    const flag = document.getElementById('flag');
+    const langLabel = document.getElementById('lang');
+    if(flag){
+      flag.src = lang === 'bn' ? 
+        'https://flagcdn.com/w40/bd.png' : 
+        'https://flagcdn.com/w40/gb.png';
+      flag.alt = lang === 'bn' ? 'বাংলা' : 'English';
+    }
+    if(langLabel){
+      langLabel.textContent = lang === 'bn' ? 'বাংলা' : 'English';
+    }
+  }
+
+  function applyLanguage(lang){
+    // Apply to all elements with data attributes
+    document.querySelectorAll('[data-bn][data-en]').forEach(el => {
+      if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA'){
+        if(el.hasAttribute('data-bn-placeholder') && el.hasAttribute('data-en-placeholder')){
+          el.placeholder = lang === 'bn' ? 
+            el.getAttribute('data-bn-placeholder') : 
+            el.getAttribute('data-en-placeholder');
+        } else {
+          el.value = lang === 'bn' ? 
+            el.getAttribute('data-bn') : 
+            el.getAttribute('data-en');
+        }
+      } else {
+        el.textContent = lang === 'bn' ? 
+          el.getAttribute('data-bn') : 
+          el.getAttribute('data-en');
+      }
+    });
+
+    // Apply placeholders separately
+    document.querySelectorAll('[data-bn-placeholder][data-en-placeholder]').forEach(input => {
+      input.placeholder = lang === 'bn' ? 
+        input.getAttribute('data-bn-placeholder') : 
+        input.getAttribute('data-en-placeholder');
+    });
+
+    // Apply titles
+    document.querySelectorAll('[data-bn-title][data-en-title]').forEach(el => {
+      el.title = lang === 'bn' ? 
+        el.getAttribute('data-bn-title') : 
+        el.getAttribute('data-en-title');
+    });
+
+    // Set HTML attributes
+    document.documentElement.lang = lang;
+    document.documentElement.dir = 'ltr';
+
+    updateFlagAndLabel(lang);
+  }
+
+  // Public functions
+  window.changeLanguage = function(lang){
+    if(!['bn', 'en'].includes(lang)) return;
+    currentLanguage = lang;
+    applyLanguage(lang);
+    localStorage.setItem(STORAGE_KEY, lang);
+  };
+
+  window.toggleLanguage = function(){
+    changeLanguage(currentLanguage === 'bn' ? 'en' : 'bn');
+  };
+
+  // Initialize immediately when script loads
+  if(['bn', 'en'].includes(currentLanguage)) {
+    applyLanguage(currentLanguage);
+  } else {
+    // Fallback if invalid language stored
+    currentLanguage = 'bn';
+    applyLanguage('bn');
+    localStorage.setItem(STORAGE_KEY, 'bn');
+  }
+
+  // Also set up event listeners for DOMContentLoaded as backup
+  if(document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      applyLanguage(currentLanguage);
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+

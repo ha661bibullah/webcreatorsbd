@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অর্ডার করুন - বাংলা ফ্যাশন হাউস</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .collection-menu {
+            position: relative;
+        }
+        .collection-submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            z-index: 1000;
+            padding: 10px 0;
+        }
+        .collection-menu:hover .collection-submenu {
+            display: block;
+        }
+        .collection-submenu a {
+            display: block;
+            padding: 8px 20px;
+            color: #4a5568;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .collection-submenu a:hover {
+            background-color: #f7fafc;
+            color: #805ad5;
+        }
+        @media (max-width: 767px) {
+            .collection-submenu {
+                position: static;
+                box-shadow: none;
+                background-color: transparent;
+                padding-left: 20px;
+            }
+            .collection-submenu a {
+                color: white;
+                padding: 6px 0;
+            }
+            .collection-submenu a:hover {
+                background-color: rgba(255,255,255,0.1);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header Section -->
+<div id="header-placeholder"></div>
+<script>
+fetch('header.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const closeMenu = document.getElementById('closeMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+
+    // Mobile menu open/close
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.remove('-translate-x-full');
+      overlay.classList.remove('hidden');
+    });
+
+    closeMenu.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    overlay.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    // Mobile collection toggle with arrow rotation
+    document.querySelectorAll('.collection-toggle').forEach(button => {
+      const arrow = button.querySelector('i'); // arrow icon
+      const submenu = button.nextElementSibling;
+
+      button.addEventListener('click', () => {
+        if (!submenu) return;
+
+        submenu.classList.toggle('hidden'); // সাবমেনু খোলে/বন্ধ হয়
+
+        // Arrow rotation
+        if (arrow) {
+          arrow.classList.toggle('rotate-180');
+        }
+      });
+    });
+
+    // Active menu highlight
+    const currentPage = window.location.pathname.split('/').pop(); // file name
+    // Desktop links
+    document.querySelectorAll('nav a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('text-yellow-300', 'font-bold');
+      } else {
+        link.classList.remove('text-yellow-300', 'font-bold');
+      }
+    });
+
+    // Mobile links
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('bg-purple-700', 'text-yellow-300', 'rounded');
+      } else {
+        link.classList.remove('bg-purple-700', 'text-yellow-300', 'rounded');
+      }
+    });
+  });
+</script>
+<style>
+body {
+  padding-top: 60px;
+}
+
+/* Desktop submenu hover only on link */
+.group-link + .submenu {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.group-link:hover + .submenu {
+  opacity: 1;
+  visibility: visible;
+}
+</style>
+
+
+
+    <!-- Order Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-8 relative pb-2 after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-purple-600 after:to-purple-800">
+                পণ্য অর্ডার করুন
+            </h2>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8 max-w-4xl mx-auto">
+                <form id="orderForm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Personal Information -->
+                        <div class="md:col-span-2">
+                            <h3 class="text-xl font-semibold mb-4 text-purple-700">ব্যক্তিগত তথ্য</h3>
+                        </div>
+                        
+                        <div>
+                            <label for="name" class="block text-gray-700 mb-2">পুরো নাম <span class="text-red-500">*</span></label>
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        
+                        <div>
+                            <label for="phone" class="block text-gray-700 mb-2">মোবাইল নম্বর <span class="text-red-500">*</span></label>
+                            <input type="tel" id="phone" name="phone" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-gray-700 mb-2">ইমেইল ঠিকানা</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        
+                        <div>
+                            <label for="district" class="block text-gray-700 mb-2">জেলা <span class="text-red-500">*</span></label>
+                            <select id="district" name="district" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <option value="">জেলা নির্বাচন করুন</option>
+                                <option value="dhaka">ঢাকা</option>
+                                <option value="chattogram">চট্টগ্রাম</option>
+                                <option value="khulna">খুলনা</option>
+                                <option value="rajshahi">রাজশাহী</option>
+                                <option value="sylhet">সিলেট</option>
+                                <option value="barishal">বরিশাল</option>
+                                <option value="rangpur">রংপুর</option>
+                                <option value="mymensingh">ময়মনসিংহ</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Delivery Address -->
+                        <div class="md:col-span-2 mt-6">
+                            <h3 class="text-xl font-semibold mb-4 text-purple-700">ডেলিভারির ঠিকানা</h3>
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <label for="address" class="block text-gray-700 mb-2">পূর্ণ ঠিকানা <span class="text-red-500">*</span></label>
+                            <textarea id="address" name="address" rows="3" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+                        </div>
+                        
+                        <!-- Product Selection -->
+                        <div class="md:col-span-2 mt-6">
+                            <h3 class="text-xl font-semibold mb-4 text-purple-700">পণ্য নির্বাচন</h3>
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <label for="product" class="block text-gray-700 mb-2">পণ্য নির্বাচন করুন <span class="text-red-500">*</span></label>
+                            <select id="product" name="product" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <option value="">পণ্য নির্বাচন করুন</option>
+                                <option value="saree">বাংলাদেশী হ্যান্ডলুম শাড়ি - ৳ ৩,৫০০</option>
+                                <option value="panjabi">পুরুষদের পাঞ্জাবি - ৳ ২,২০০</option>
+                                <option value="kurti">মহিলাদের কুর্তা - ৳ ১,৮০০</option>
+                                <option value="children">শিশুদের পোশাক - ৳ ১,২০০</option>
+                                <option value="accessory">এক্সেসরিজ - ৳ ৫০০-১,৫০০</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="quantity" class="block text-gray-700 mb-2">পরিমাণ <span class="text-red-500">*</span></label>
+                            <input type="number" id="quantity" name="quantity" min="1" value="1" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        
+                        <div>
+                            <label for="size" class="block text-gray-700 mb-2">সাইজ (যদি প্রযোজ্য হয়)</label>
+                            <select id="size" name="size" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <option value="">সাইজ নির্বাচন করুন</option>
+                                <option value="s">ছোট (S)</option>
+                                <option value="m">মাধ্যম (M)</option>
+                                <option value="l">বড় (L)</option>
+                                <option value="xl">অতিবড় (XL)</option>
+                                <option value="xxl">ডাবল এক্সএল (XXL)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <label for="notes" class="block text-gray-700 mb-2">অতিরিক্ত নোট (যদি থাকে)</label>
+                            <textarea id="notes" name="notes" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+                        </div>
+                        
+                        <!-- Payment Method -->
+                        <div class="md:col-span-2 mt-6">
+                            <h3 class="text-xl font-semibold mb-4 text-purple-700">পেমেন্ট পদ্ধতি</h3>
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <div class="flex flex-wrap gap-4">
+                                <label class="flex items-center">
+                                    <input type="radio" name="payment" value="cash" checked class="mr-2">
+                                    ক্যাশ অন ডেলিভারি
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="payment" value="bkash" class="mr-2">
+                                    bKash
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="payment" value="nagad" class="mr-2">
+                                    Nagad
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="payment" value="bank" class="mr-2">
+                                    ব্যাংক ট্রান্সফার
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Terms and Conditions -->
+                        <div class="md:col-span-2 mt-6">
+                            <label class="flex items-start">
+                                <input type="checkbox" required class="mr-2 mt-1">
+                                <span>আমি <a href="#" class="text-purple-600 hover:underline">শর্তাবলী</a> এবং <a href="#" class="text-purple-600 hover:underline">গোপনীয়তা নীতি</a> পড়েছি এবং সম্মতি দিচ্ছি <span class="text-red-500">*</span></span>
+                            </label>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <div class="md:col-span-2 mt-8">
+                            <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-purple-800 text-white py-3 px-6 rounded-md font-semibold hover:from-purple-700 hover:to-purple-900 transition duration-300 shadow-md">
+                                অর্ডার নিশ্চিত করুন
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Process Info -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">কিভাবে অর্ডার করবেন</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl text-purple-600">1</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">পণ্য নির্বাচন করুন</h3>
+                    <p class="text-gray-600">আপনার পছন্দের পণ্য এবং পরিমাণ নির্বাচন করুন</p>
+                </div>
+                
+                <div class="text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl text-purple-600">2</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">ঠিকানা দিন</h3>
+                    <p class="text-gray-600">আপনার ডেলিভারি ঠিকানা এবং যোগাযোগের তথ্য দিন</p>
+                </div>
+                
+                <div class="text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl text-purple-600">3</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">পেমেন্ট করুন</h3>
+                    <p class="text-gray-600">পছন্দের পেমেন্ট পদ্ধতিতে পেমেন্ট সম্পন্ন করুন</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-purple-900 to-purple-700 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">বাংলা ফ্যাশন হাউস</h3>
+                    <p class="mb-4">বাংলাদেশের ঐতিহ্যবাহী ও আধুনিক ফ্যাশনের এক অনন্য সমন্বয়।</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-yellow-300 transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="hover:text-yellow-300 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="hover:text-yellow-300 transition"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="hover:text-yellow-300 transition"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">গুরুত্বপূর্ণ লিংক</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-yellow-300 transition">প্রাইভেসি পলিসি</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">রিটার্ন পলিসি</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">শিপিং পলিসি</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">টার্মস অ্যান্ড কন্ডিশনস</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">গ্রাহক সেবা</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-yellow-300 transition">সচরাচর জিজ্ঞাসা</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">কন্টাক্ট আস</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">সাইজ গাইড</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">ট্র্যাক অর্ডার</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">যোগাযোগ</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span>১২/৩, সেগুনবাগিচা, ঢাকা - ১০০০</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-2"></i>
+                            <span>+৮৮০ ১৭XX-XXXXXX</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span>info@banglafashion.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-purple-500 mt-8 pt-8 text-center">
+                <p>&copy; ২০২৩ বাংলা ফ্যাশন হাউস। সকল অধিকার সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const overlay = document.getElementById('overlay');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        // Mobile Collection Submenu Toggle
+        const collectionMenuMobile = document.querySelector('.collection-menu-mobile a');
+        const collectionSubmenuMobile = document.querySelector('.collection-submenu-mobile');
+        
+        collectionMenuMobile.addEventListener('click', (e) => {
+            e.preventDefault();
+            collectionSubmenuMobile.classList.toggle('hidden');
+        });
+        
+        // Form Validation
+        const orderForm = document.getElementById('orderForm');
+        
+        orderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Basic validation
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const district = document.getElementById('district').value;
+            const address = document.getElementById('address').value;
+            const product = document.getElementById('product').value;
+            
+            if (!name || !phone || !district || !address || !product) {
+                alert('দয়া করে সকল প্রয়োজনীয় তথ্য প্রদান করুন।');
+                return;
+            }
+            
+            // If validation passes
+            alert('আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে! আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।');
+            orderForm.reset();
+        });
+    </script>
+</body>
+</html>

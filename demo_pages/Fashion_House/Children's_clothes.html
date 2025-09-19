@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>শিশুদের পোশাক - বাংলা ফ্যাশন হাউস</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .collection-menu {
+            position: relative;
+        }
+        .collection-submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            z-index: 1000;
+            padding: 10px 0;
+        }
+        .collection-menu:hover .collection-submenu {
+            display: block;
+        }
+        .collection-submenu a {
+            display: block;
+            padding: 8px 20px;
+            color: #4a5568;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .collection-submenu a:hover {
+            background-color: #f7fafc;
+            color: #805ad5;
+        }
+        @media (max-width: 767px) {
+            .collection-submenu {
+                position: static;
+                box-shadow: none;
+                background-color: transparent;
+                padding-left: 20px;
+            }
+            .collection-submenu a {
+                color: white;
+                padding: 6px 0;
+            }
+            .collection-submenu a:hover {
+                background-color: rgba(255,255,255,0.1);
+            }
+        }
+        .category-filter {
+            transition: all 0.3s ease;
+        }
+        .category-filter.active {
+            background-color: #805ad5;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+     <!-- Header Section -->
+<div id="header-placeholder"></div>
+<script>
+fetch('header.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const closeMenu = document.getElementById('closeMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+
+    // Mobile menu open/close
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.remove('-translate-x-full');
+      overlay.classList.remove('hidden');
+    });
+
+    closeMenu.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    overlay.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    // Mobile collection toggle with arrow rotation
+    document.querySelectorAll('.collection-toggle').forEach(button => {
+      const arrow = button.querySelector('i'); // arrow icon
+      const submenu = button.nextElementSibling;
+
+      button.addEventListener('click', () => {
+        if (!submenu) return;
+
+        submenu.classList.toggle('hidden'); // সাবমেনু খোলে/বন্ধ হয়
+
+        // Arrow rotation
+        if (arrow) {
+          arrow.classList.toggle('rotate-180');
+        }
+      });
+    });
+
+    // Active menu highlight
+    const currentPage = window.location.pathname.split('/').pop(); // file name
+    // Desktop links
+    document.querySelectorAll('nav a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('text-yellow-300', 'font-bold');
+      } else {
+        link.classList.remove('text-yellow-300', 'font-bold');
+      }
+    });
+
+    // Mobile links
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('bg-purple-700', 'text-yellow-300', 'rounded');
+      } else {
+        link.classList.remove('bg-purple-700', 'text-yellow-300', 'rounded');
+      }
+    });
+  });
+</script>
+<style>
+body {
+  padding-top: 60px;
+}
+
+/* Desktop submenu hover only on link */
+.group-link + .submenu {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.group-link:hover + .submenu {
+  opacity: 1;
+  visibility: visible;
+}
+</style>
+
+
+
+
+    <!-- Page Header -->
+    <section class="bg-gradient-to-r from-purple-700 to-purple-900 text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4">শিশুদের পোশাক</h2>
+            <p class="text-xl">আমাদের বিশেষভাবে ডিজাইনকৃত শিশুদের জন্য সুন্দর ও আরামদায়ক পোশাক</p>
+        </div>
+    </section>
+
+    <!-- Category Filter -->
+    <section class="py-8 bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-center gap-4">
+                <button class="category-filter active px-6 py-2 rounded-full border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white transition" data-category="all">
+                    সকল পোশাক
+                </button>
+                <button class="category-filter px-6 py-2 rounded-full border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white transition" data-category="boys">
+                    ছেলেদের পোশাক
+                </button>
+                <button class="category-filter px-6 py-2 rounded-full border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white transition" data-category="girls">
+                    মেয়েদের পোশাক
+                </button>
+                <button class="category-filter px-6 py-2 rounded-full border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white transition" data-category="babies">
+                    শিশুদের পোশাক
+                </button>
+                <button class="category-filter px-6 py-2 rounded-full border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white transition" data-category="accessories">
+                    আনুষাঙ্গিক
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="products-container">
+                <!-- Product 1 -->
+                <div class="product bg-white rounded-lg shadow-md overflow-hidden transition transform hover:-translate-y-2" data-category="boys">
+                    <img src="https://images.unsplash.com/photo-1519457431-44ccd64a579b?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80" alt="ছেলেদের পাঞ্জাবি" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">ছেলেদের পাঞ্জাবি</h3>
+                        <p class="text-gray-600 mb-3">উচ্চ মানের সুতি কাপড়ে তৈরি, আরামদায়ক এবং মজবুত</p>
+                        <p class="text-lg text-purple-700 font-bold mb-4">৳ ১,২০০</p>
+                        <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">কিনুন</a>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product bg-white rounded-lg shadow-md overflow-hidden transition transform hover:-translate-y-2" data-category="girls">
+                    <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="মেয়েদের ফ্রক" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">মেয়েদের ফ্রক</h3>
+                        <p class="text-gray-600 mb-3">রঙিন এবং নকশাদার ফ্রক, বিশেষ উপলক্ষ্যে পরার জন্য উপযোগী</p>
+                        <p class="text-lg text-purple-700 font-bold mb-4">৳ ১,৫০০</p>
+                        <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">কিনুন</a>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product bg-white rounded-lg shadow-md overflow-hidden transition transform hover:-translate-y-2" data-category="babies">
+                    <img src="https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="শিশুর রোম্পার" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">শিশুর রোম্পার</h3>
+                        <p class="text-gray-600 mb-3">নরম ও আরামদায়ক কাপড়ে তৈরি, শিশুর ত্বকের জন্য উপযোগী</p>
+                        <p class="text-lg text-purple-700 font-bold mb-4">৳ ৮০০</p>
+                        <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">কিনুন</a>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product bg-white rounded-lg shadow-md overflow-hidden transition transform hover:-translate-y-2" data-category="boys">
+                    <img src="https://images.unsplash.com/photo-1503449377594-32dd9ac4467c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" alt="ছেলেদের জামা" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">ছেলেদের ফরমাল শার্ট</h3>
+                        <p class="text-gray-600 mb-3">বিশেষ অনুষ্ঠানের জন্য উপযোগী ফরমাল শার্ট</p>
+                        <p class="text-lg text-purple-700 font-bold mb-4">৳ ১,১০০</p>
+                        <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">কিনুন</a>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product bg-white rounded-lg shadow-md overflow-hidden transition transform hover:-translate-y-2" data-category="girls">
+                    <img src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="মেয়েদের সালোয়ার কামিজ" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">মেয়েদের সালোয়ার কামিজ</h3>
+                        <p class="text-gray-600 mb-3">ঐতিহ্যবাহী নকশায় তৈরি সালোয়ার কামিজ, উৎসবের জন্য বিশেষ</p>
+                        <p class="text-lg text-purple-700 font-bold mb-4">৳ ২,২০০</p>
+                        <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">কিনুন</a>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="product bg-white rounded-lg shadow-md overflow-hidden transition transform hover:-translate-y-2" data-category="accessories">
+                    <img src="https://images.unsplash.com/photo-1563241527-3004b7be0ffd?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="শিশুদের টুপি" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">শিশুদের টুপি</h3>
+                        <p class="text-gray-600 mb-3">সুন্দর ও আরামদায়ক টুপি, রোদ থেকে সুরক্ষা দেয়</p>
+                        <p class="text-lg text-purple-700 font-bold mb-4">৳ ৩৫০</p>
+                        <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">কিনুন</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Offers -->
+    <section class="py-16 bg-gradient-to-r from-purple-50 to-pink-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">বিশেষ অফার</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="md:flex">
+                        <div class="md:flex-shrink-0">
+                            <img class="h-48 w-full md:w-56 object-cover" src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="পরিবার প্যাকেজ">
+                        </div>
+                        <div class="p-8">
+                            <div class="uppercase tracking-wide text-sm text-pink-500 font-semibold">বিশেষ ছাড়</div>
+                            <h3 class="mt-2 text-xl font-semibold">পরিবার প্যাকেজ</h3>
+                            <p class="mt-2 text-gray-500">পরিবারের জন্য ৩টি পোশাক কিনুন, পেয়ে যান ২০% ছাড়</p>
+                            <div class="mt-4">
+                                <span class="text-2xl font-bold text-purple-700">৳ ৪,৫০০</span>
+                                <span class="ml-2 text-gray-500 line-through">৳ ৫,৬০০</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="md:flex">
+                        <div class="md:flex-shrink-0">
+                            <img class="h-48 w-full md:w-56 object-cover" src="https://images.unsplash.com/photo-1519457431-44ccd64a579b?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80" alt="ঈদের বিশেষ কালেকশন">
+                        </div>
+                        <div class="p-8">
+                            <div class="uppercase tracking-wide text-sm text-pink-500 font-semibold">ঈদ অফার</div>
+                            <h3 class="mt-2 text-xl font-semibold">ঈদের বিশেষ কালেকশন</h3>
+                            <p class="mt-2 text-gray-500">ঈদ উপলক্ষ্যে বিশেষ ডিজাইনের পোশাক, ১৫% ছাড়ে</p>
+                            <div class="mt-4">
+                                <span class="text-2xl font-bold text-purple-700">৳ ১,৭০০</span>
+                                <span class="ml-2 text-gray-500 line-through">৳ ২,০০০</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-purple-900 to-purple-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">বাংলা ফ্যাশন হাউস</h3>
+                    <p class="mb-4">আমরা বাংলাদেশের ঐতিহ্যবাহী পোশাকের সাথে আধুনিকতার মেলবন্ধন ঘটাই</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-2xl hover:text-pink-400 transition"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-2xl hover:text-pink-400 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-2xl hover:text-pink-400 transition"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">গুরুত্বপূর্ণ লিংক</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-pink-400 transition">আমাদের সম্পর্কে</a></li>
+                        <li><a href="#" class="hover:text-pink-400 transition">শর্তাবলী</a></li>
+                        <li><a href="#" class="hover:text-pink-400 transition">গোপনীয়তা নীতি</a></li>
+                        <li><a href="#" class="hover:text-pink-400 transition">রিটার্ন পলিসি</a></li>
+                        <li><a href="#" class="hover:text-pink-400 transition">যোগাযোগ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">গ্রাহক সেবা</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-pink-400 transition">সাহায্য কেন্দ্র</a></li>
+                        <li><a href="#" class="hover:text-pink-400 transition">অর্ডার ট্র্যাক করুন</a></li>
+                        <li><a href="#" class="hover:text-pink-400 transition">ডেলিভারি তথ্য</a></li>
+                        <li><a href="#" class="hover:text-pink-400 transition">রিটার্ন নীতি</a></li>
+                        <li><a href="#" class="hover:text-pink-400 transition">প্রায়ই জিজ্ঞাসিত প্রশ্ন</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">যোগাযোগ</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <span>১২৩ ফ্যাশন স্ট্রিট, গুলশান, ঢাকা</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3"></i>
+                            <span>+৮৮০ ১৭১২ ৩৪৫৬৭৮</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3"></i>
+                            <span>info@banglafashion.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-purple-700 mt-8 pt-8 text-center">
+                <p>&copy; ২০২৩ বাংলা ফ্যাশন হাউস। সকল স্বত্ব সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('overlay');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        // Mobile Collection Submenu Toggle
+        const collectionMenuMobile = document.querySelector('.collection-menu-mobile a');
+        const collectionSubmenuMobile = document.querySelector('.collection-submenu-mobile');
+        
+        collectionMenuMobile.addEventListener('click', (e) => {
+            e.preventDefault();
+            collectionSubmenuMobile.classList.toggle('hidden');
+        });
+        
+        // Category Filter
+        const categoryFilters = document.querySelectorAll('.category-filter');
+        const products = document.querySelectorAll('.product');
+        
+        categoryFilters.forEach(filter => {
+            filter.addEventListener('click', () => {
+                // Remove active class from all filters
+                categoryFilters.forEach(f => f.classList.remove('active', 'bg-purple-600', 'text-white'));
+                
+                // Add active class to clicked filter
+                filter.classList.add('active', 'bg-purple-600', 'text-white');
+                
+                const category = filter.getAttribute('data-category');
+                
+                products.forEach(product => {
+                    if (category === 'all' || product.getAttribute('data-category') === category) {
+                        product.classList.remove('hidden');
+                    } else {
+                        product.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

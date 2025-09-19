@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Course - Learn English</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: #2c3e50;
+        }
+        
+        .logo span {
+            color: #3498db;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #3498db;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: #fff;
+            margin-top: 70px;
+            text-align: left;
+        }
+        
+        .hero-content {
+            max-width: 700px;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            max-width: 600px;
+            line-height: 1.8;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background-color 0.3s, transform 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-button:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+        
+        /* Courses Section */
+        .courses {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: #7f8c8d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .course-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .course-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .course-content {
+            padding: 20px;
+        }
+        
+        .course-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .course-content p {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        /* Programs Section */
+        .programs {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+        
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .program-card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .program-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        /* Partners Section */
+        .partners {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+        
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .partner-logo {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #2c3e50;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: #3498db;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">LANGUAGE <span>COURSE</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#">HOME</a></li>
+                    <li><a href="#">COURSES</a></li>
+                    <li><a href="#">PROGRAMS & DEGREES</a></li>
+                    <li><a href="#">SCHOOLS & PARTNERS</a></li>
+                    <li><a href="#">8Q</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Let's<br>learn some<br>english</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea com.</p>
+            <a href="#" class="cta-button">Enroll Now</a>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Courses</h2>
+                <p>Explore our wide range of English language courses</p>
+            </div>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-image" style="background-image: url('https://images.unsplash.com/photo-1513546493312-0066d7de3fd2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="course-content">
+                        <h3>Beginner English</h3>
+                        <p>Start your English learning journey with our comprehensive beginner course.</p>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-image" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="course-content">
+                        <h3>Business English</h3>
+                        <p>Master professional communication for the workplace and business environments.</p>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-image" style="background-image: url('https://images.unsplash.com/photo-1522881193457-37ae97c905bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="course-content">
+                        <h3>Conversational English</h3>
+                        <p>Improve your speaking and listening skills for everyday conversations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="programs">
+        <div class="container">
+            <div class="section-title">
+                <h2>Programs & Degrees</h2>
+                <p>Take your English to the next level with our certified programs</p>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <h3>Diploma in English Studies</h3>
+                    <p>Comprehensive program covering all aspects of English language and literature.</p>
+                </div>
+                <div class="program-card">
+                    <h3>TESOL Certification</h3>
+                    <p>Become a certified English teacher with our internationally recognized program.</p>
+                </div>
+                <div class="program-card">
+                    <h3>Advanced Writing Program</h3>
+                    <p>Master the art of professional and creative writing in English.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners">
+        <div class="container">
+            <div class="section-title">
+                <h2>Schools & Partners</h2>
+                <p>We collaborate with leading educational institutions worldwide</p>
+            </div>
+            <div class="partners-grid">
+                <div class="partner-logo">OXFORD</div>
+                <div class="partner-logo">CAMBRIDGE</div>
+                <div class="partner-logo">HARVARD</div>
+                <div class="partner-logo">STANFORD</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About Us</h3>
+                    <p>We are dedicated to providing high-quality English language education to students worldwide.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Courses</a></li>
+                        <li><a href="#">Programs</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li>Email: info@languagecourse.com</li>
+                        <li>Phone: +1 (123) 456-7890</li>
+                        <li>Address: 123 Education St, Learning City</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Language Course. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

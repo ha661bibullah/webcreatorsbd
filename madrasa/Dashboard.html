@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>মাদ্রাসা ড্যাশবোর্ড - কন্টেন্ট ম্যানেজমেন্ট</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: #065f46;
+            color: white;
+            padding-top: 20px;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        .main-content {
+            margin-left: 250px;
+            margin-right: 300px; /* স্কলবারের জন্য জায়গা */
+            flex: 1;
+            transition: all 0.3s ease;
+        }
+        .scholbar {
+            width: 300px;
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            background-color: #f8fafc;
+            border-left: 1px solid #e2e8f0;
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 900;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .content-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .preview-area {
+            border: 1px dashed #ccc;
+            min-height: 200px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f9fafb;
+        }
+        .edit-btn {
+            cursor: pointer;
+            color: #059669;
+            margin-left: 5px;
+        }
+        .mobile-menu-btn {
+            display: none;
+        }
+        .scholbar-section {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .stat-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 1200px) {
+            .scholbar {
+                width: 250px;
+            }
+            .main-content {
+                margin-right: 250px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .scholbar {
+                display: none;
+            }
+            .main-content {
+                margin-right: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 80%;
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .mobile-menu-btn {
+                display: block;
+                position: fixed;
+                top: 15px;
+                left: 15px;
+                z-index: 1001;
+                background: #065f46;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                padding: 8px 12px;
+            }
+            .mobile-scholbar-btn {
+                display: block;
+                position: fixed;
+                top: 15px;
+                right: 15px;
+                z-index: 1001;
+                background: #1e40af;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                padding: 8px 12px;
+            }
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            }
+            .overlay.active {
+                display: block;
+            }
+            .scholbar.active {
+                display: block;
+                width: 85%;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <button class="mobile-menu-btn" id="mobileMenuButton">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <button class="mobile-scholbar-btn" id="mobileScholbarButton">
+        <i class="fas fa-chart-bar"></i>
+    </button>
+    
+    <div class="overlay" id="overlay"></div>
+    
+    <div class="dashboard-container">
+        <!-- সাইডবার -->
+        <div class="sidebar" id="sidebar">
+            <div class="px-4 py-6 text-center">
+                <h1 class="text-xl font-bold">মাদ্রাসা ড্যাশবোর্ড</h1>
+                <p class="text-sm mt-2">কন্টেন্ট ম্যানেজমেন্ট সিস্টেম</p>
+            </div>
+            
+            <nav class="mt-8">
+                <ul>
+                    <li class="mb-2">
+                        <a href="#hero" class="block py-2 px-4 hover:bg-green-700">হিরো সেকশন</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#quote" class="block py-2 px-4 hover:bg-green-700">উদ্ধৃতি সেকশন</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#categories" class="block py-2 px-4 hover:bg-green-700">বিভাগ সমূহ</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#popular" class="block py-2 px-4 hover:bg-green-700">জনপ্রিয় কোর্স</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#special" class="block py-2 px-4 hover:bg-green-700">বিশেষ কোর্স</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#all-courses" class="block py-2 px-4 hover:bg-green-700">সকল কোর্স</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#stats" class="block py-2 px-4 hover:bg-green-700">পরিসংখ্যান</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#learning" class="block py-2 px-4 hover:bg-green-700">শিখন বিষয়</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#why-us" class="block py-2 px-4 hover:bg-green-700">কেন বেছে নিবেন</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#testimonials" class="block py-2 px-4 hover:bg-green-700">শিক্ষার্থীর মন্তব্য</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#video" class="block py-2 px-4 hover:bg-green-700">ভিডিও সেকশন</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#footer" class="block py-2 px-4 hover:bg-green-700">ফুটার</a>
+                    </li>
+                    <li class="mb-2 mt-8">
+                        <a href="#" class="block py-2 px-4 bg-green-500 hover:bg-green-600" id="saveAllBtn">সব পরিবর্তন সেভ করুন</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="madrasa.html" target="_blank" class="block py-2 px-4 bg-blue-500 hover:bg-blue-600">লাইভ প্রিভিউ দেখুন</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        
+        <!-- স্কলবার -->
+        <div class="scholbar" id="scholbar">
+            <div class="text-center mb-6">
+                <h2 class="text-xl font-bold text-green-700">ড্যাশবোর্ড স্ট্যাটাস</h2>
+                <p class="text-sm text-gray-600">সর্বশেষ আপডেট: আজ ০৩:৪৫ PM</p>
+            </div>
+            
+            <div class="scholbar-section">
+                <h3 class="font-semibold mb-3 text-green-700 flex items-center">
+                    <i class="fas fa-chart-line mr-2"></i> সাইট পরিসংখ্যান
+                </h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span>মোট ভিজিটর</span>
+                        <span class="font-bold">১২,৪৫৬ <span class="stat-badge bg-green-100 text-green-800">+১২%</span></span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span>নিবন্ধিত ব্যবহারকারী</span>
+                        <span class="font-bold">৮,১৬০ <span class="stat-badge bg-blue-100 text-blue-800">+৫%</span></span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span>কোর্স এনরোলমেন্ট</span>
+                        <span class="font-bold">৩,৪২১ <span class="stat-badge bg-purple-100 text-purple-800">+৮%</span></span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span>সম্পূর্ণ কোর্স</span>
+                        <span class="font-bold">১,২৩৪ <span class="stat-badge bg-yellow-100 text-yellow-800">+৩%</span></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="scholbar-section">
+                <h3 class="font-semibold mb-3 text-green-700 flex items-center">
+                    <i class="fas fa-bell mr-2"></i> সাম্প্রতিক সক্রিয়তা
+                </h3>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="bg-green-100 p-2 rounded-full mr-3">
+                            <i class="fas fa-user-plus text-green-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium">নতুন ব্যবহারকারী নিবন্ধন</p>
+                            <p class="text-xs text-gray-500">রহিম আহমেদ ১৫ মিনিট আগে</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 p-2 rounded-full mr-3">
+                            <i class="fas fa-shopping-cart text-blue-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium">নতুন কোর্স কিনেছেন</p>
+                            <p class="text-xs text-gray-500">ফাতিমা খাতুন ১ ঘন্টা আগে</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-purple-100 p-2 rounded-full mr-3">
+                            <i class="fas fa-comment text-purple-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium">নতুন মন্তব্য</p>
+                            <p class="text-xs text-gray-500">কোরআন শিক্ষা কোর্সে ২ ঘন্টা আগে</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="scholbar-section">
+                <h3 class="font-semibold mb-3 text-green-700 flex items-center">
+                    <i class="fas fa-fire mr-2"></i> জনপ্রিয় কন্টেন্ট
+                </h3>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center text-sm">
+                        <span>কোরআন শিক্ষা কোর্স</span>
+                        <span class="font-bold">৪৫৬ Views</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <span>তালিমুল ইসলাম ১ম খন্ড</span>
+                        <span class="font-bold">৩৮৯ Views</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <span>উর্দু কায়দা</span>
+                        <span class="font-bold">৩২১ Views</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <span>হাদিস শিক্ষা ব্লগ</span>
+                        <span class="font-bold">২৯৮ Views</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="scholbar-section">
+                <h3 class="font-semibold mb-3 text-green-700 flex items-center">
+                    <i class="fas fa-tasks mr-2"></i> দ্রুত কাজ
+                </h3>
+                <div class="space-y-3">
+                    <button class="w-full bg-green-600 text-white py-2 rounded-md text-sm flex items-center justify-center">
+                        <i class="fas fa-plus mr-2"></i> নতুন কোর্স যোগ করুন
+                    </button>
+                    <button class="w-full bg-blue-600 text-white py-2 rounded-md text-sm flex items-center justify-center">
+                        <i class="fas fa-user-plus mr-2"></i> ব্যবহারকারী যুক্ত করুন
+                    </button>
+                    <button class="w-full bg-purple-600 text-white py-2 rounded-md text-sm flex items-center justify-center">
+                        <i class="fas fa-file-alt mr-2"></i> রিপোর্ট জেনারেট করুন
+                    </button>
+                </div>
+            </div>
+            
+            <div class="scholbar-section">
+                <h3 class="font-semibold mb-3 text-green-700 flex items-center">
+                    <i class="fas fa-info-circle mr-2"></i> সিস্টেম স্ট্যাটাস
+                </h3>
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between items-center">
+                        <span>সিপিইউ ব্যবহার</span>
+                        <span class="font-bold">৪২%</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span>মেমরি ব্যবহার</span>
+                        <span class="font-bold">৬৪%</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span>ডিস্ক স্পেস</span>
+                        <span class="font-bold">৩২%</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span>সাইট গতি</span>
+                        <span class="font-bold">৮৭%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- মূল কন্টেন্ট -->
+        <div class="main-content p-4 md:p-8">
+            <h1 class="text-2xl font-bold text-green-700 mb-6">মাদ্রাসা শিক্ষা - কন্টেন্ট ম্যানেজমেন্ট ড্যাশবোর্ড</h1>
+            
+            <!-- হিরো সেকশন এডিট -->
+            <div class="content-card" id="hero">
+                <h2 class="text-xl font-semibold mb-4 text-green-700">হিরো সেকশন</h2>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                    <input type="text" class="w-full px-4 py-2 border rounded-md" value="সর্বাধুনিক পদ্ধতিতে মাদ্রাসা শিক্ষা গ্রহণ করুন অনলাইনে" data-target="hero-title">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">বর্ণনা</label>
+                    <textarea class="w-full px-4 py-2 border rounded-md h-32" data-target="hero-desc">ঘরে বসেই ইসলামের বিষয়ভিত্তিক কোর্সে অংশ নিতে পারবেন সকল শ্রেণির পেশাজীবি। তালিমুল ইসলাম একাডেমি নিয়ে এসেছে সহজ, নিরাপদ ও মানসম্মত শিক্ষণ পদ্ধতি, যোগ্য উস্তাদদের তত্ত্বাবধানে।</textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">ব্যাকগ্রাউন্ড ইমেজ URL</label>
+                    <input type="text" class="w-full px-4 py-2 border rounded-md" value="https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" data-target="hero-bg">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">বাম বাটন টেক্সট</label>
+                    <input type="text" class="w-full px-4 py-2 border rounded-md" value="ফ্রি কোর্স" data-target="hero-btn1">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">ডান বутন টেক্সট</label>
+                    <input type="text" class="w-full px-4 py-2 border rounded-md" value="পেইড কোর্স" data-target="hero-btn2">
+                </div>
+            </div>
+            
+            <!-- উদ্ধৃতি সেকশন এডিট -->
+            <div class="content-card" id="quote">
+                <h2 class="text-xl font-semibold mb-4 text-green-700">উদ্ধৃতি সেকশন</h2>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-medium mb-2">প্রথম উদ্ধৃতি</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-4 py-2 border rounded-md" value="কুরআন বুঝলে জীবনের মানে বদলে যায়" data-target="quote1-title">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">বর্ণনা</label>
+                            <textarea class="w-full px-4 py-2 border rounded-md h-32" data-target="quote1-desc">আপনি হয়তো কুরআন পড়েন, কিন্তু বুঝেন না। আজ থেকে প্রতিটি আয়াত বোঝার চেষ্টা করুন। কারণ, কুরআন শুধু তিলাওয়াতের জন্য নয়, বাঁচার পথ শেখার জন্য।</textarea>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-medium mb-2">দ্বিতীয় উদ্ধৃতি</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-4 py-2 border rounded-md" value="কুরআন না শিখে بেঁচে থাকা মানে, অন্ধকারে হাঁটা" data-target="quote2-title">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">বর্ণনা</label>
+                            <textarea class="w-full px-4 py-2 border rounded-md h-32" data-target="quote2-desc">যেমন একজন পথিক মানচিত্র ছাড়া পথ হারায়, তেমনই কুরআন ছাড়া মানুষ জীবনের মূল উদ্দেশ্য হারিয়ে ফেলে। কুরআন জানলে আপনি জানবেন—কেন আপনি এই পৃথিবীতে?</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- বিভাগ সমূহ এডিট -->
+            <div class="content-card" id="categories">
+                <h2 class="text-xl font-semibold mb-4 text-green-700">বিভাগ সমূহ</h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="border p-3 rounded">
+                        <label class="block text-gray-700 mb-2">কওমী মাদ্রাসা</label>
+                        <input type="text" class="w-full px-3 py-1 border rounded-md mb-2" value="কওমী মাদ্রাসা" data-target="cat1-text">
+                        <input type="text" class="w-full px-3 py-1 border rounded-md" value="fas fa-graduation-cap" data-target="cat1-icon">
+                    </div>
+                    
+                    <div class="border p-3 rounded">
+                        <label class="block text-gray-700 mb-2">আলিয়া মад্রাসা</label>
+                        <input type="text" class="w-full px-3 py-1 border rounded-md mb-2" value="আলিয়া মাদ্রাসা" data-target="cat2-text">
+                        <input type="text" class="w-full px-3 py-1 border rounded-md" value="fas fa-book-open" data-target="cat2-icon">
+                    </div>
+                    
+                    <div class="border p-3 rounded">
+                        <label class="block text-gray-700 mb-2">মহিলা মাদ্রাসা</label>
+                        <input type="text" class="w-full px-3 py-1 border rounded-md mb-2" value="মহিলা মাদ্রাসা" data-target="cat3-text">
+                        <input type="text" class="w-full px-3 py-1 border rounded-md" value="fas fa-female" data-target="cat3-icon">
+                    </div>
+                    
+                    <div class="border p-3 rounded">
+                        <label class="block text-gray-700 mb-2">মক্তব আফটার স্কুল</label>
+                        <input type="text" class="w-full px-3 py-1 border rounded-md mb-2" value="মক্তব আফটার স্কুল" data-target="cat4-text">
+                        <input type="text" class="w-full px-3 py-1 border rounded-md" value="fas fa-school" data-target="cat4-icon">
+                    </div>
+                    
+                    <div class="border p-3 rounded">
+                        <label class="block text-gray-700 mb-2">নৈশ্য মাদ্রাসা</label>
+                        <input type="text" class="w-full px-3 py-1 border rounded-md mb-2" value="নৈশ্য মাদ্রাসা" data-target="cat5-text">
+                        <input type="text" class="w-full px-3 py-1 border rounded-md" value="fas fa-moon" data-target="cat5-icon">
+                    </div>
+                    
+                    <div class="border p-3 rounded">
+                        <label class="block text-gray-700 mb-2">মাদানী নেসাব</label>
+                        <input type="text" class="w-full px-3 py-1 border rounded-md mb-2" value="মাদানী নেসাব" data-target="cat6-text">
+                        <input type="text" class="w-full px-3 py-1 border rounded-md" value="fas fa-star" data-target="cat6-icon">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- জনপ্রিয় কোর্স এডিট -->
+            <div class="content-card" id="popular">
+                <h2 class="text-xl font-semibold mb-4 text-green-700">জনপ্রিয় কোর্স</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">কোর্স ১: কোরআন শিক্ষা</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="কোরআন শিক্ষা" data-target="pop-course1-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">বর্ণনা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="সহীহ উচ্চারণে কুরআন পড়া শিখুন" data-target="pop-course1-desc">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1518331647614-7a4d4c5be0c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="pop-course1-img">
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">কোর্স ২: উর্দু কায়দা</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="উর্দু কায়দা" data-target="pop-course2-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">বর্ণনা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="সহজ ভাষায় উর্দু শিখুন" data-target="pop-course2-desc">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="pop-course2-img">
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">কোর্স ৩: তালিমুল ইসলাম ১ম খন্ড</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="তালিমুল ইসলাম ১ম খন্ড" data-target="pop-course3-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">বর্ণনা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="সহজ ভাষায় শিখুন" data-target="pop-course3-desc">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="pop-course3-img">
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">কোর্স ৪: উর্দু কি পেহেলি কিতাব</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="উর্দু কি পেহেলি কিতাব" data-target="pop-course4-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">বর্ণনা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="সহজ ভাষায় শিখুন" data-target="pop-course4-desc">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="pop-course4-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- বিশেষ কোর্স এডিট -->
+            <div class="content-card" id="special">
+                <h2 class="text-xl font-semibold mb-4 text-green-700">বিশেষ কোর্স</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">কোর্স ১: কোরআন শিক্ষা</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="কোরআন শিক্ষা" data-target="spec-course1-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">বর্ণনা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="कुरআন তিলাওয়াতের নিয়মকানুন" data-target="spec-course1-desc">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1603302576837-37561b2e2302?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="spec-course1-img">
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">কোর্স ২: তালিমুল ইসলাম ২য় খন্ড</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="তালিমুল ইসলাম ২য় খন্ড" data-target="spec-course2-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">বর্ণনা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="সহজ ভাষায় শিখুন" data-target="spec-course2-desc">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="spec-course2-img">
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">কোর্স ৩: তালিমুল ইসলাম ৩য় খন্ড</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="তালিমুল ইসলাম ৩য় খন্ড" data-target="spec-course3-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">বর্ণনা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="সহজ ভাষায় শিখুন" data-target="spec-course3-desc">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="spec-course3-img">
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">কোর্স ৪: উর্দু কায়দা</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="উর্দু কায়দা" data-target="spec-course4-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">বর্ণনা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="সহজ উর্দু শিখুন" data-target="spec-course4-desc">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="spec-course4-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- আমাদের কোর্সসমূহ -->
+            <div class="content-card" id="all-courses">
+                <h2 class="text-xl font-semibold mb-4 text-green-700">আমাদের কোর্সসমূহ</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">কোর্স ১: বিশুদ্ধ কুরআন শিক্ষা</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="বিশুদ্ধ কুরআন শিক্ষা" data-target="all-course1-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ক্লাস সংখ্যা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="২৪ ক্লাস" data-target="all-course1-classes">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">সময়</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৭ ঘন্টা" data-target="all-course1-time">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">নোট সংখ্যা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="১ টি নোট" data-target="all-course1-notes">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">দাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৳৯৯" data-target="all-course1-price">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">পুরাতন দাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৳১২০" data-target="all-course1-oldprice">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="all-course1-img">
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">কোর্স ২: উর্দু কায়দা</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="উর্দু কায়দা" data-target="all-course2-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ক্লাস সংখ্যা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="১৮ ক্লাস" data-target="all-course2-classes">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">সময়</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৫ ঘন্টা" data-target="all-course2-time">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">নোট সংখ্যা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="২ টি নোট" data-target="all-course2-notes">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">দাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৳৯৯" data-target="all-course2-price">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">পুরাতন দাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৳۱২০" data-target="all-course2-oldprice">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="all-course2-img">
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">কোর্স ৩: তালিমুল ইসলাম ১ম খন্ড</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="তালিমুল ইসলাম ১ম খন্ড" data-target="all-course3-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ক্লাস সংখ্যা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৩০ ক্লাস" data-target="all-course3-classes">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">সময়</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="১০ ঘন্টা" data-target="all-course3-time">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">নোট সংখ্যা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৩ টি নোট" data-target="all-course3-notes">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">দাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৳৯৯" data-target="all-course3-price">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">পুরাতন দাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৳۱২০" data-target="all-course3-oldprice">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="all-course3-img">
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">কোর্স ৪: তালিমুল ইসলাম ২য় খন্ড</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="তালিমুল ইসলাম ২য় খন্ড" data-target="all-course4-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ক্লাস সংখ্যা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="২০ ক্লাস" data-target="all-course4-classes">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">সময়</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৮ ঘন্টা" data-target="all-course4-time">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">নোট সংখ্যা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="২ টি নোট" data-target="all-course4-notes">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">দাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৳৯৯" data-target="all-course4-price">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">পুরাতন দাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৳۱২০" data-target="all-course4-oldprice">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1516937941344-00b4e0337589?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="all-course4-img">
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">কোর্স ৫: তালিমুল ইসলাম ৩য় খন্ড</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="তালিমুল ইসলাম ৩য় খন্ড" data-target="all-course5-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ক্লাস সংখ্যা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="২২ ক্লাস" data-target="all-course5-classes">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">সময়</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৯ ঘন্টা" data-target="all-course5-time">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">নোট সংখ্যা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="১ টি নোট" data-target="all-course5-notes">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">দাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৳৯৯" data-target="all-course5-price">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">পুরাতন দাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৳۱২০" data-target="all-course5-oldprice">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1517842645767-c639042777db?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="all-course5-img">
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">কোর্স ৬: নতুন কোরআন কোর্স</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="নতুন কোরআন কোর্স" data-target="all-course6-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ক্লাস সংখ্যা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="২৫ ক্লাস" data-target="all-course6-classes">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">সময়</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="১০ ঘন্টা" data-target="all-course6-time">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">নোট সংখ্যা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৩ টি নোট" data-target="all-course6-notes">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">দাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৳১২৯" data-target="all-course6-price">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">পুরাতন দাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="৳১৫০" data-target="all-course6-oldprice">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="all-course6-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- পরিসংখ্যান -->
+            <div class="content-card" id="stats">
+                <h2 class="text-xl font-semibold mb-4 text-green-700">পরিসংখ্যান</h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="border p-4 rounded text-center">
+                        <label class="block text-gray-700 mb-2">শিক্ষার্থী সংখ্যা</label>
+                        <input type="text" class="w-full px-3 py-1 border rounded-md text-center" value="৮,১৬০+" data-target="stat1">
+                    </div>
+                    
+                    <div class="border p-4 rounded text-center">
+                        <label class="block text-gray-700 mb-2">শিক্ষক সংখ্যা</label>
+                        <input type="text" class="w-full px-3 py-1 border rounded-md text-center" value="১৮" data-target="stat2">
+                    </div>
+                    
+                    <div class="border p-4 rounded text-center">
+                        <label class="block text-gray-700 mb-2">ফ্রি কোর্স</label>
+                        <input type="text" class="w-full px-3 py-1 border rounded-md text-center" value="১১" data-target="stat3">
+                    </div>
+                    
+                    <div class="border p-4 rounded text-center">
+                        <label class="block text-gray-700 mb-2">পেইড কোর্স</label>
+                        <input type="text" class="w-full px-3 py-1 border rounded-md text-center" value="৮" data-target="stat4">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- আপনি কি শিখতে চান? -->
+            <div class="content-card" id="learning">
+                <h2 class="text-xl font-semibold mb-4 text-green-700">আপনি কি শিখতে চান?</h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="border p-4 rounded text-center">
+                        <label class="block text-gray-700 mb-2">কুরআন</label>
+                        <input type="text" class="w-full px-3 py-1 border rounded-md mb-2 text-center" value="কুরআন" data-target="learn1-title">
+                        <input type="text" class="w-full px-3 py-1 border rounded-md text-center" value="১২০ কোর্স" data-target="learn1-count">
+                    </div>
+                    
+                    <div class="border p-4 rounded text-center">
+                        <label class="block text-gray-700 mb-2">হাদিস</label>
+                        <input type="text" class="w-full px-3 py-1 border rounded-md mb-2 text-center" value="হাদিস" data-target="learn2-title">
+                        <input type="text" class="w-full px-3 py-1 border rounded-md text-center" value="৮৫ কোর্স" data-target="learn2-count">
+                    </div>
+                    
+                    <div class="border p-4 rounded text-center">
+                        <label class="block text-gray-700 mb-2">ফিকহ</label>
+                        <input type="text" class="w-full px-3 py-1 border rounded-md mb-2 text-center" value="ফিকহ" data-target="learn3-title">
+                        <input type="text" class="w-full px-3 py-1 border rounded-md text-center" value="৬৫ কোর্স" data-target="learn3-count">
+                    </div>
+                    
+                    <div class="border p-4 rounded text-center">
+                        <label class="block text-gray-700 mb-2">আরবি</label>
+                        <input type="text" class="w-full px-3 py-1 border rounded-md mb-2 text-center" value="আরবি" data-target="learn4-title">
+                        <input type="text" class="w-full px-3 py-1 border rounded-md text-center" value="৪২ কোর্স" data-target="learn4-count">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- কেন মাদ্রাসা অনলাইন বেছে নিবেন -->
+            <div class="content-card" id="why-us">
+                <h2 class="text-xl font-semibold mb-4 text-green-700">কেন মাদ্রাসা অনলাইন বেছে নিবেন</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">১. সম্পূর্ণ পাঠ্যক্রম</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="সম্পূর্ণ পাঠ্যক্রম" data-target="why1-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">বর্ণনা</label>
+                            <textarea class="w-full px-3 py-1 border rounded-md h-24" data-target="why1-desc">১ম শ্রেণী থেকে দাওরায়ে হাদীস পর্যন্ত সম্পূর্ণ মাদ্রাসা পাঠ্যক্রমে প্রবেশাধিকার পান।</textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="why1-img">
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">২. যোগ্য শিক্ষকগণ</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="যোগ্য শিক্ষকগণ" data-target="why2-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">বর্ণনা</label>
+                            <textarea class="w-full px-3 py-1 border rounded-md h-24" data-target="why2-desc">অভিজ্ঞ এবং প্রত্যয়িত শিক্ষকদের কাছ থেকে শিখুন যাদের শিক্ষাদান অভিজ্ঞতা বছরের পর বছর।</textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="why2-img">
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">৩. নমনীয় শিক্ষা</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="নমনীয় শিক্ষা" data-target="why3-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">বর্ণনা</label>
+                            <textarea class="w-full px-3 py-1 border rounded-md h-24" data-target="why3-desc">আপনার নিজের গতিতে নিজের সময়ে অধ্যয়ন করুন। ক্রয়কৃত কোর্সগুলিতে আজীবন অ্যাক্সেস।</textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="why3-img">
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">৪. সহায়ক সম্প্রদায়</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="সহায়ক সম্প্রদায়" data-target="why4-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">বর্ণনা</label>
+                            <textarea class="w-full px-3 py-1 border rounded-md h-24" data-target="why4-desc">আপনার শিক্ষা সম্প্রদায়ে অন্যান্য শিক্ষার্থী এবং শিক্ষকদের সাথে সংযোগ করুন।</textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="why4-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- শিক্ষার্থীদের মন্তব্য -->
+            <div class="content-card" id="testimonials">
+                <h2 class="text-xl font-semibold mb-4 text-green-700">শিক্ষার্থীদের মন্তব্য</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">১. আহমেদ র.</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">নাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="আহমেদ র." data-target="test1-name">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">পদবী</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="হিফজ কোর্স শিক্ষার্থী" data-target="test1-role">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">মন্তব্য</label>
+                            <textarea class="w-full px-3 py-1 border rounded-md h-24" data-target="test1-comment">"পাঠ্যক্রমটি ব্যাপক এবং সুসংহত। আমি পূর্ণ সময়ের কাজ করার সময় আমার কোরআন শিক্ষা চালিয়ে যেতে পারি। শিক্ষকরা অত্যন্ত জ্ঞানী এবং সহায়ক।"</textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">২. ফাতিমা হ.</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">নাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="ফাতিমা হ." data-target="test2-name">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">পদবী</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="আরবি ভাষা শিক্ষার্থী" data-target="test2-role">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">মন্তব্য</label>
+                            <textarea class="w-full px-3 py-1 border rounded-md h-24" data-target="test2-comment">"নিয়মিত স্কুলের একজন শিক্ষার্থী হিসাবে, আমি এখন আমার একাডেমিক পড়াশুনার পাশাপাশি দ্বীনও শিখতে পারি। প্লাটফর্মটি ব্যবহার করা খুব সহজ!"</textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">৩. মোহাম্মদ র.</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">নাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="মোহাম্মদ র." data-target="test3-name">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">পদবী</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="দাওরায়ে হাদীস শিক্ষার্থী" data-target="test3-role">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">মন্তব্য</label>
+                            <textarea class="w-full px-3 py-1 border rounded-md h-24" data-target="test3-comment">"দাওরা শ্রেণীর পাঠ্যক্রম অসাধারণ। জ্ঞানের গভীরতা এবং শিক্ষার গুণমান এমন যে আমি ভৌত ক্লাসরুমে যে উপকার পেতাম তা আমি এখানে পাচ্ছি।"</textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">৪. রাফিয়া আ.</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">নাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="রাফিয়া আ." data-target="test4-name">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">পদবী</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="ফিকাহ কোর্স শিক্ষার্থী" data-target="test4-role">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">মন্তব্য</label>
+                            <textarea class="w-full px-3 py-1 border rounded-md h-24" data-target="test4-comment">"অনলাইন কোর্সগুলি আমার দ্বীনি শিক্ষার যাত্রায় অপরিহার্য হয়ে উঠেছে। ঘরে বসে এরকম গুণমান সম্পন্ন শিক্ষা পাওয়া অসাধারণ।"</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ভিডিও সেকশন -->
+            <div class="content-card" id="video">
+                <h2 class="text-xl font-semibold mb-4 text-green-700">ভিডিও সেকশন</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">১. কোর্স কিভাবে কিনবেন?</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="কোর্স কিভাবে কিনবেন?" data-target="video1-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">বর্ণনা</label>
+                            <textarea class="w-full px-3 py-1 border rounded-md h-24" data-target="video1-desc">পছন্দের কোর্সে ক্লিক করে "কিনুন" বাটনে চাপ দিন এবং নির্দিষ্ট পেমেন্ট পদ্ধতিতে টাকা পাঠিয়ে রেজিস্ট্রেশন সম্পন্ন করুন। ✅</textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="video1-img">
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">২. ক্লাস কিভাবে করবেন?</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">শিরোনাম</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="ক্লাস কিভাবে করবেন?" data-target="video2-title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">বর্ণনা</label>
+                            <textarea class="w-full px-3 py-1 border rounded-md h-24" data-target="video2-desc">কোর্স কিনে নিলে আপনার অ্যাকাউন্টে অ্যাক্সেস চলে আসবে। সেখান থেকে ভিডিও দেখে এবং নোট ডাউনলোড করে পড়ালেখা করতে পারবেন।</textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ছবি URL</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" data-target="video2-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ফুটার -->
+            <div class="content-card" id="footer">
+                <h2 class="text-xl font-semibold mb-4 text-green-700">ফুটার</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">যোগাযোগ তথ্য</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ঠিকানা</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="আজিমপুর, ঢাকা-১২০৫" data-target="footer-address">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ফোন</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="+৮৮০১৯১১-৫৬৭৮৯০" data-target="footer-phone">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">ইমেইল</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="billaharif661@gmail.com" data-target="footer-email">
+                        </div>
+                    </div>
+                    
+                    <div class="border p-4 rounded">
+                        <h3 class="font-medium mb-3">কপিরাইট</h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">কপিরাইট টেক্সট</label>
+                            <input type="text" class="w-full px-3 py-1 border rounded-md" value="© ২০২৫ মাদ্রাসা শিক্ষা। সমস্ত অধিকার সংরক্ষিত।" data-target="footer-copyright">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuButton').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+        });
+        
+        // Mobile scholbar toggle
+        document.getElementById('mobileScholbarButton').addEventListener('click', function() {
+            document.getElementById('scholbar').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+        });
+        
+        // Overlay click to close both sidebars
+        document.getElementById('overlay').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('scholbar').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+        });
+        
+        // Save all button functionality
+        document.getElementById('saveAllBtn').addEventListener('click', function() {
+            alert('সব পরিবর্তন সফলভাবে সেভ করা হয়েছে!');
+        });
+        
+        // Smooth scrolling for sidebar links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Close sidebar on mobile after clicking
+                    if (window.innerWidth <= 768) {
+                        document.getElementById('sidebar').classList.remove('active');
+                        document.getElementById('overlay').classList.remove('active');
+                    }
+                }
+            });
+        });
+
+
+
+
+
+        // Dashboard থেকে Madrasa.html কন্টেন্ট আপডেট সিস্টেম
+document.addEventListener('DOMContentLoaded', function() {
+    // সব পরিবর্তন সেভ করার ফাংশন
+    document.getElementById('saveAllBtn').addEventListener('click', function() {
+        // সব ইনপুট ফিল্ড থেকে ডেটা সংগ্রহ করুন
+        const formData = {};
+        const inputs = document.querySelectorAll('input, textarea');
+        
+        inputs.forEach(input => {
+            if (input.dataset.target) {
+                formData[input.dataset.target] = input.value;
+            }
+        });
+        
+        // লোকাল স্টোরেজে ডেটা সেভ করুন
+        localStorage.setItem('madrasaContent', JSON.stringify(formData));
+        
+        alert('সব পরিবর্তন সফলভাবে সেভ করা হয়েছে! Madrasa.html পৃষ্ঠাটি রিফ্রেশ করুন আপডেট দেখতে।');
+    });
+    
+    // পূর্বে সেভ করা ডেটা লোড করুন (যদি থাকে)
+    const savedData = localStorage.getItem('madrasaContent');
+    if (savedData) {
+        const data = JSON.parse(savedData);
+        const inputs = document.querySelectorAll('input, textarea');
+        
+        inputs.forEach(input => {
+            if (input.dataset.target && data[input.dataset.target]) {
+                input.value = data[input.dataset.target];
+            }
+        });
+    }
+});
+
+
+
+
+
+
+// Dashboard থেকে Madrasa.html কন্টেন্ট আপডেট সিস্টেম
+document.addEventListener('DOMContentLoaded', function() {
+    // সব পরিবর্তন সেভ করার ফাংশন
+    document.getElementById('saveAllBtn').addEventListener('click', function() {
+        // সব ইনপুট ফিল্ড থেকে ডেটা সংগ্রহ করুন
+        const formData = {};
+        const inputs = document.querySelectorAll('input, textarea');
+        
+        inputs.forEach(input => {
+            if (input.dataset.target) {
+                formData[input.dataset.target] = input.value;
+            }
+        });
+        
+        // লোকাল স্টোরেজে ডেটা সেভ করুন
+        localStorage.setItem('madrasaContent', JSON.stringify(formData));
+        
+        alert('সব পরিবর্তন সফলভাবে সেভ করা হয়েছে! Madrasa.html পৃষ্ঠাটি রিফ্রেশ করুন আপডেট দেখতে।');
+    });
+    
+    // পূর্বে সেভ করা ডেটা লোড করুন (যদি থাকে)
+    const savedData = localStorage.getItem('madrasaContent');
+    if (savedData) {
+        const data = JSON.parse(savedData);
+        const inputs = document.querySelectorAll('input, textarea');
+        
+        inputs.forEach(input => {
+            if (input.dataset.target && data[input.dataset.target]) {
+                input.value = data[input.dataset.target];
+            }
+        });
+    }
+});
+    </script> 
+</body>
+</html>

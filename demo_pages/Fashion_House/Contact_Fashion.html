@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>যোগাযোগ - বাংলা ফ্যাশন হাউস</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .collection-menu {
+            position: relative;
+        }
+        .collection-submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            z-index: 1000;
+            padding: 10px 0;
+        }
+        .collection-menu:hover .collection-submenu {
+            display: block;
+        }
+        .collection-submenu a {
+            display: block;
+            padding: 8px 20px;
+            color: #4a5568;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .collection-submenu a:hover {
+            background-color: #f7fafc;
+            color: #805ad5;
+        }
+        @media (max-width: 767px) {
+            .collection-submenu {
+                position: static;
+                box-shadow: none;
+                background-color: transparent;
+                padding-left: 20px;
+            }
+            .collection-submenu a {
+                color: white;
+                padding: 6px 0;
+            }
+            .collection-submenu a:hover {
+                background-color: rgba(255,255,255,0.1);
+            }
+        }
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header Section -->
+<div id="header-placeholder"></div>
+<script>
+fetch('header.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const closeMenu = document.getElementById('closeMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+
+    // Mobile menu open/close
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.remove('-translate-x-full');
+      overlay.classList.remove('hidden');
+    });
+
+    closeMenu.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    overlay.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    // Mobile collection toggle with arrow rotation
+    document.querySelectorAll('.collection-toggle').forEach(button => {
+      const arrow = button.querySelector('i'); // arrow icon
+      const submenu = button.nextElementSibling;
+
+      button.addEventListener('click', () => {
+        if (!submenu) return;
+
+        submenu.classList.toggle('hidden'); // সাবমেনু খোলে/বন্ধ হয়
+
+        // Arrow rotation
+        if (arrow) {
+          arrow.classList.toggle('rotate-180');
+        }
+      });
+    });
+
+    // Active menu highlight
+    const currentPage = window.location.pathname.split('/').pop(); // file name
+    // Desktop links
+    document.querySelectorAll('nav a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('text-yellow-300', 'font-bold');
+      } else {
+        link.classList.remove('text-yellow-300', 'font-bold');
+      }
+    });
+
+    // Mobile links
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('bg-purple-700', 'text-yellow-300', 'rounded');
+      } else {
+        link.classList.remove('bg-purple-700', 'text-yellow-300', 'rounded');
+      }
+    });
+  });
+</script>
+<style>
+body {
+  padding-top: 60px;
+}
+
+/* Desktop submenu hover only on link */
+.group-link + .submenu {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.group-link:hover + .submenu {
+  opacity: 1;
+  visibility: visible;
+}
+</style>
+
+
+
+    <!-- Contact Hero Section -->
+    <section class="relative bg-gradient-to-r from-purple-700 to-purple-900 py-16 md:py-24 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">আমাদের সাথে যোগাযোগ করুন</h2>
+            <p class="text-xl md:text-2xl max-w-3xl mx-auto">আপনার যে কোন প্রশ্ন, মতামত বা পরামর্শ আমাদের জানান। আমরা আপনার কথা শুনতে আগ্রহী।</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-16 after:h-1 after:bg-pink-500">বার্তা পাঠান</h3>
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-gray-700 mb-2">আপনার নাম</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-700 mb-2">ইমেইল ঠিকানা</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-gray-700 mb-2">ফোন নম্বর</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-gray-700 mb-2">বিষয়</label>
+                            <select id="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <option value="">বিষয় নির্বাচন করুন</option>
+                                <option value="product">পণ্য সম্পর্কিত প্রশ্ন</option>
+                                <option value="order">অর্ডার সম্পর্কিত</option>
+                                <option value="return">প্রত্যাবর্তন/বিনিময়</option>
+                                <option value="feedback">মতামত</option>
+                                <option value="other">অন্যান্য</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-700 mb-2">আপনার বার্তা</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+                        </div>
+                        <button type="submit" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-lg shadow-md transition w-full md:w-auto">বার্তা পাঠান</button>
+                    </form>
+                </div>
+                
+                <!-- Contact Information -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-16 after:h-1 after:bg-pink-500">যোগাযোগের তথ্য</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-map-marker-alt text-purple-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">ঠিকানা</h4>
+                                <p class="text-gray-600">১২/৩, ধানমন্ডি, ঢাকা-১২০৯, বাংলাদেশ</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-phone text-purple-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">ফোন নম্বর</h4>
+                                <p class="text-gray-600">+৮৮০ ১৭১২ ৩৪৫ ৬৭৮</p>
+                                <p class="text-gray-600">+৮৮০ ১৯১২ ৩৪৫ ৬৭৯</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-envelope text-purple-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">ইমেইল ঠিকানা</h4>
+                                <p class="text-gray-600">info@banglafashion.com</p>
+                                <p class="text-gray-600">support@banglafashion.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-clock text-purple-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">কর্মঘণ্টা</h4>
+                                <p class="text-gray-600">শনি-বৃহস্পতিবার: সকাল ১০টা - রাত ১০টা</p>
+                                <p class="text-gray-600">শুক্রবার: বন্ধ</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Media -->
+                    <div class="mt-10">
+                        <h4 class="font-semibold text-lg mb-4">সামাজিক যোগাযোগ মাধ্যমে অনুসরণ করুন</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-purple-600 hover:bg-pink-500 text-white w-12 h-12 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="bg-purple-600 hover:bg-pink-500 text-white w-12 h-12 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="bg-purple-600 hover:bg-pink-500 text-white w-12 h-12 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <a href="#" class="bg-purple-600 hover:bg-pink-500 text-white w-12 h-12 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h3 class="text-2xl font-bold text-center mb-8">আমাদের অবস্থান</h3>
+            <div id="map" class="bg-gray-300">
+                <!-- Google Map Embed -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d116744.78999165313!2d90.33386729999999!3d23.810332!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b087026b81%3A0x8fa563bbdd5904c2!2sDhaka!5e0!3m2!1sen!2sbd!4v1652341157294!5m2!1sen!2sbd" width="100%" height="100%" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h3 class="text-2xl font-bold text-center mb-12">সচরাচর জিজ্ঞাসিত প্রশ্নাবলী</h3>
+            
+            <div class="max-w-3xl mx-auto space-y-6">
+                <div class="border-b border-gray-200 pb-6">
+                    <button class="flex justify-between items-center w-full text-left font-semibold text-lg">
+                        <span>আমার অর্ডারটি কতদিনে পৌঁছাবে?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="mt-4 text-gray-600 hidden">
+                        ঢাকা শহরের ভিতরে অর্ডার সাধারণত ২৪-৪৮ ঘণ্টার মধ্যে ডেলিভারি করা হয়। বিভাগীয় শহরগুলোতে ৩-৫ কার্যদিবস এবং অন্যান্য জেলায় ৫-৭ কার্যদিবস সময় লাগতে পারে।
+                    </div>
+                </div>
+                
+                <div class="border-b border-gray-200 pb-6">
+                    <button class="flex justify-between items-center w-full text-left font-semibold text-lg">
+                        <span>পণ্য বিনিময় বা ফেরতের নীতিমালা কি?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="mt-4 text-gray-600 hidden">
+                        কেনা পণ্য গ্রহণের ৭ দিনের মধ্যে বিনিময় বা ফেরত করা যাবে, শর্ত থাকে যে পণ্যটি অপরিবর্তিত ও ট্যাগসহ থাকতে হবে। সেল ফেরতযোগ্য নয়।
+                    </div>
+                </div>
+                
+                <div class="border-b border-gray-200 pb-6">
+                    <button class="flex justify-between items-center w-full text-left font-semibold text-lg">
+                        <span>পেমেন্টের কোন পদ্ধতি গ্রহণ করা হয়?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="mt-4 text-gray-600 hidden">
+                        আমরা বিকাশ, নগদ, রকেট, কার্ড (ভিসা/মাস্টারকার্ড) এবং ক্যাশ অন ডেলিভারি (COD) পেমেন্ট গ্রহণ করি।
+                    </div>
+                </div>
+                
+                <div class="border-b border-gray-200 pb-6">
+                    <button class="flex justify-between items-center w-full text-left font-semibold text-lg">
+                        <span>কাস্টমাইজড অর্ডার করা সম্ভব?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="mt-4 text-gray-600 hidden">
+                        হ্যাঁ, আমরা কাস্টমাইজড অর্ডার গ্রহণ করি। অনুগ্রহ করে আমাদের সাথে সরাসরি যোগাযোগ করে আপনার প্রয়োজনীয়তা জানান।
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-purple-800 to-purple-900 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h4 class="text-xl font-bold mb-4">বাংলা ফ্যাশন হাউস</h4>
+                    <p class="mb-4">আমরা বাংলাদেশের ঐতিহ্য ও আধুনিকতার সমন্বয়ে তৈরি ফ্যাশন হাউস। আমাদের পণ্য আপনার ব্যক্তিত্বকে প্রকাশ করবে।</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="bg-purple-700 hover:bg-pink-500 w-10 h-10 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="bg-purple-700 hover:bg-pink-500 w-10 h-10 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="bg-purple-700 hover:bg-pink-500 w-10 h-10 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-bold mb-4">গুরুত্বপূর্ণ লিংক</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-yellow-300 transition">হোম</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">কালেকশন</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">আমাদের সম্পর্কে</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">যোগাযোগ</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">প্রাইভেসি পলিসি</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">রিটার্ন পলিসি</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-bold mb-4">যোগাযোগ</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mr-3 mt-1"></i>
+                            <span>১২/৩, ধানমন্ডি, ঢাকা-১২০৯</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone mr-3 mt-1"></i>
+                            <span>+৮৮০ ১৭১২ ৩৪৫ ৬৭৮</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mr-3 mt-1"></i>
+                            <span>info@banglafashion.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-bold mb-4">নিউজলেটার</h4>
+                    <p class="mb-4">সবচেয়ে নতুন অফার এবং পণ্য সম্পর্কে জানতে সাবস্ক্রাইব করুন</p>
+                    <form class="flex">
+                        <input type="email" placeholder="আপনার ইমেইল" class="px-4 py-2 w-full rounded-l-lg focus:outline-none text-gray-800">
+                        <button type="submit" class="bg-pink-500 hover:bg-pink-600 px-4 rounded-r-lg transition">সাবমিট</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-purple-700 pt-6 text-center">
+                <p>&copy; ২০২৩ বাংলা ফ্যাশন হাউস। সকল স্বত্ব সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('overlay');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        // Mobile Collection Menu Toggle
+        const collectionMenuMobile = document.querySelector('.collection-menu-mobile > a');
+        const collectionSubmenuMobile = document.querySelector('.collection-submenu-mobile');
+        
+        collectionMenuMobile.addEventListener('click', (e) => {
+            e.preventDefault();
+            collectionSubmenuMobile.classList.toggle('hidden');
+        });
+        
+        // FAQ Accordion
+        const faqButtons = document.querySelectorAll('.border-b button');
+        
+        faqButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                content.classList.toggle('hidden');
+                
+                const icon = button.querySelector('i');
+                if (content.classList.contains('hidden')) {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                } else {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

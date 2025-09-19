@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বাংলা ফ্যাশন হাউস - ঐতিহ্যবাহী বাংলা পোশাক</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .collection-menu {
+            position: relative;
+        }
+        .collection-submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            z-index: 1000;
+            padding: 10px 0;
+        }
+        .collection-menu:hover .collection-submenu {
+            display: block;
+        }
+        .collection-submenu a {
+            display: block;
+            padding: 8px 20px;
+            color: #4a5568;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .collection-submenu a:hover {
+            background-color: #f7fafc;
+            color: #805ad5;
+        }
+        @media (max-width: 767px) {
+            .collection-submenu {
+                position: static;
+                box-shadow: none;
+                background-color: transparent;
+                padding-left: 20px;
+            }
+            .collection-submenu a {
+                color: white;
+                padding: 6px 0;
+            }
+            .collection-submenu a:hover {
+                background-color: rgba(255,255,255,0.1);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+
+<div id="header-placeholder"></div>
+<script>
+fetch('header.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const closeMenu = document.getElementById('closeMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+
+    // Mobile menu open/close
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.remove('-translate-x-full');
+      overlay.classList.remove('hidden');
+    });
+
+    closeMenu.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    overlay.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    // Mobile collection toggle with arrow rotation
+    document.querySelectorAll('.collection-toggle').forEach(button => {
+      const arrow = button.querySelector('i'); // arrow icon
+      const submenu = button.nextElementSibling;
+
+      button.addEventListener('click', () => {
+        if (!submenu) return;
+
+        submenu.classList.toggle('hidden'); // সাবমেনু খোলে/বন্ধ হয়
+
+        // Arrow rotation
+        if (arrow) {
+          arrow.classList.toggle('rotate-180');
+        }
+      });
+    });
+
+    // Active menu highlight
+    const currentPage = window.location.pathname.split('/').pop(); // file name
+    // Desktop links
+    document.querySelectorAll('nav a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('text-yellow-300', 'font-bold');
+      } else {
+        link.classList.remove('text-yellow-300', 'font-bold');
+      }
+    });
+
+    // Mobile links
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('bg-purple-700', 'text-yellow-300', 'rounded');
+      } else {
+        link.classList.remove('bg-purple-700', 'text-yellow-300', 'rounded');
+      }
+    });
+  });
+</script>
+<style>
+body {
+  padding-top: 60px;
+}
+
+/* Desktop submenu hover only on link */
+.group-link + .submenu {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.group-link:hover + .submenu {
+  opacity: 1;
+  visibility: visible;
+}
+</style>
+
+
+
+
+
+    <!-- Hero Section -->
+    <section class="relative bg-[url('https://images.unsplash.com/photo-1520006403909-838d6b92c22e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center h-96 md:h-[600px] flex items-center">
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+        <div class="container mx-auto px-4 text-center text-white relative z-10">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4">ঐতিহ্যবাহী বাংলা পোশাকে আপনাকে স্বাগতম</h2>
+            <p class="text-xl md:text-2xl mb-8">বাংলাদেশের সেরা ঐতিহ্যবাহী পোশাকের অনলাইন শপিং প্ল্যাটফর্ম</p>
+            <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:-translate-y-1">শপিং শুরু করুন</a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Stat 1 -->
+                <div class="bg-gradient-to-r from-pink-400 to-pink-300 rounded-lg shadow-lg p-8 text-center transform transition hover:-translate-y-2">
+                    <div class="text-5xl font-bold mb-2">৬০%</div>
+                    <div class="text-xl font-semibold">অনলাইন সেল</div>
+                </div>
+                
+                <!-- Stat 2 -->
+                <div class="bg-gradient-to-r from-blue-400 to-blue-300 rounded-lg shadow-lg p-8 text-center transform transition hover:-translate-y-2">
+                    <div class="text-5xl font-bold mb-2">৫০%</div>
+                    <div class="text-xl font-semibold">কাস্টমার বেস</div>
+                </div>
+                
+                <!-- Stat 3 -->
+                <div class="bg-gradient-to-r from-amber-400 to-amber-300 rounded-lg shadow-lg p-8 text-center transform transition hover:-translate-y-2">
+                    <div class="text-5xl font-bold mb-2">৯২%</div>
+                    <div class="text-xl font-semibold">কনভার্শন রেট</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Client Section -->
+    <section class="py-16 bg-gradient-to-r from-purple-700 to-purple-900 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="ফাতেমা খাতুন" class="w-32 h-32 rounded-full border-4 border-white mx-auto shadow-lg mb-6">
+            <h2 class="text-3xl font-bold mb-2">ফাতেমা খাতুন</h2>
+            <p class="text-xl mb-6">ব্যবসা মালিক</p>
+            <blockquote class="text-xl italic max-w-3xl mx-auto">
+                "আমাদের লক্ষ্য হলো বাংলাদেশের ঐতিহ্যবাহী পোশাককে আধুনিক প্রজন্মের কাছে পৌঁছে দেওয়া এবং বিশ্বব্যাপী বাংলার সংস্কৃতি প্রচার করা।"
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 relative pb-2 after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-gradient-to-r after:from-purple-600 after:to-purple-800">
+                আমাদের জনপ্রিয় পণ্য
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition transform hover:-translate-y-2">
+                    <img src="https://images.unsplash.com/photo-1581252584894-2f5be56f3878?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="শাড়ি" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">বাংলাদেশী হ্যান্ডলুম শাড়ি</h3>
+                        <p class="text-lg text-purple-700 font-bold mb-4">৳ ৩,৫০০</p>
+                        <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">কিনুন</a>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition transform hover:-translate-y-2">
+                    <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="পাঞ্জাবি" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">পুরুষদের পাঞ্জাবি</h3>
+                        <p class="text-lg text-purple-700 font-bold mb-4">৳ ২,২০০</p>
+                        <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">কিনুন</a>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition transform hover:-translate-y-2">
+                    <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="কুর্তা" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">মহিলাদের কুর্তা</h3>
+                        <p class="text-lg text-purple-700 font-bold mb-4">৳ ১,৮০০</p>
+                        <a href="#" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">কিনুন</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition">আরও পণ্য দেখুন</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- About -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">বাংলা ফ্যাশন হাউস</h3>
+                    <p class="mb-4">ঐতিহ্যবাহী বাংলা পোশাকের একটি সম্পূর্ণ অনলাইন শপিং প্ল্যাটফর্ম।</p>
+                </div>
+                
+                <!-- Contact -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">যোগাযোগ</h3>
+                    <p class="mb-2">ইমেইল: info@banglafashion.com</p>
+                    <p class="mb-2">ফোন: +৮৮০ ১৭১২ ৩৪৫ ৬৭৮</p>
+                    <p>ঠিকানা: ১২/৩, ধানমন্ডি, ঢাকা</p>
+                </div>
+                
+                <!-- Social -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">সামাজিক যোগাযোগ</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="bg-gray-700 hover:bg-pink-500 w-10 h-10 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="bg-gray-700 hover:bg-pink-500 w-10 h-10 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="bg-gray-700 hover:bg-pink-500 w-10 h-10 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="bg-gray-700 hover:bg-pink-500 w-10 h-10 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>&copy; ২০২৩ বাংলা ফ্যাশন হাউস - সর্বস্বত্ব সংরক্ষিত</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('overlay');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        // Mobile Collection Menu Toggle
+        const collectionMenuMobile = document.querySelector('.collection-menu-mobile > a');
+        const collectionSubmenuMobile = document.querySelector('.collection-submenu-mobile');
+        
+        collectionMenuMobile.addEventListener('click', (e) => {
+            e.preventDefault();
+            collectionSubmenuMobile.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

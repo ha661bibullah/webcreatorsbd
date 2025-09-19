@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>যোগাযোগ | বাংলা ট্র্যাডিশনাল রেস্টুরেন্ট | ঢাকা</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHxlbnwwfHwwfHw%3D&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .food-card {
+            transition: transform 0.3s ease;
+        }
+        .food-card:hover {
+            transform: translateY(-5px);
+        }
+        .map-container {
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+     <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <h1 class="text-2xl md:text-3xl font-bold text-amber-600">ট্র্যাডিশনাল রেস্টুরেন্ট</h1>
+            </div>
+            
+            <!-- Desktop Navigation - Right aligned -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="Traditional_Restaurant.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">হোম</a>
+                <a href="Menu_Items.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">মেনু</a>
+                <a href="About_Us.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">আমাদের সম্পর্কে</a>
+                <a href="Contact.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">যোগাযোগ</a>
+                <a href="Order.html" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-medium transition duration-300">অর্ডার করুন</a>
+            </nav>
+            
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button class="text-gray-700 focus:outline-none" id="mobile-menu-button">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation (hidden by default) -->
+        <div class="md:hidden hidden bg-white shadow-lg" id="mobile-nav">
+            <div class="px-4 py-3 flex flex-col space-y-3">
+                <a href="Traditional_Restaurant.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">হোম</a>
+                <a href="Menu_Items.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">মেনু</a>
+                <a href="About_Us.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">আমাদের সম্পর্কে</a>
+                <a href="Contact.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">যোগাযোগ</a>
+                <a href="Contact.html" class="py-2 text-amber-600 font-medium">অর্ডার করুন</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg py-16 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">যোগাযোগ করুন</h2>
+            <p class="text-xl md:text-2xl mb-8">আমাদের সাথে যোগাযোগ করতে নিচের ফর্মটি পূরণ করুন বা সরাসরি ফোন করুন</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row gap-10">
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl font-bold mb-6">আমাদের সাথে যোগাযোগ করুন</h2>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-gray-700 mb-2">আপনার নাম *</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-700 mb-2">ইমেইল ঠিকানা *</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500" required>
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-gray-700 mb-2">ফোন নম্বর</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-gray-700 mb-2">বিষয় *</label>
+                            <select id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500" required>
+                                <option value="">বিষয় নির্বাচন করুন</option>
+                                <option value="reservation">রিজার্ভেশন</option>
+                                <option value="complaint">অভিযোগ</option>
+                                <option value="compliment">প্রশংসা</option>
+                                <option value="suggestion">পরামর্শ</option>
+                                <option value="catering">ক্যাটারিং সার্ভিস</option>
+                                <option value="other">অন্যান্য</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-700 mb-2">বার্তা *</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500" required></textarea>
+                        </div>
+                        <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-full font-semibold">
+                            পাঠান
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-gray-100 p-6 rounded-lg mb-8">
+                        <h3 class="text-xl font-semibold mb-4">আমাদের ঠিকানা</h3>
+                        <p class="text-gray-700 mb-4">
+                            <i class="fas fa-map-marker-alt text-amber-600 mr-2"></i>
+                            ধানমন্ডি রোড ১২, ঢাকা ১২০৯
+                        </p>
+                        <p class="text-gray-700 mb-4">
+                            <i class="fas fa-phone text-amber-600 mr-2"></i>
+                            +৮৮০ ১৭১২ ৩৪৫ ৬৭৮
+                        </p>
+                        <p class="text-gray-700 mb-4">
+                            <i class="fas fa-envelope text-amber-600 mr-2"></i>
+                            info@bengalirestaurant.com
+                        </p>
+                        
+                        <h3 class="text-xl font-semibold mt-6 mb-4">খোলার সময়</h3>
+                        <p class="text-gray-700 mb-2">রবি-বৃহঃ: সকাল ১১টা - রাত ১০টা</p>
+                        <p class="text-gray-700">শুক্র: বিকাল ২টা - রাত ১০টা</p>
+                    </div>
+
+                    <!-- Map Section -->
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d116834.00977741619!2d90.3492857678555!3d23.78077774449031!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b087026b81%3A0x8fa563bbdd5904c2!2sDhaka!5e0!3m2!1sen!2sbd!4v1679281017061!5m2!1sen!2sbd" 
+                                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-amber-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">সচরাচর জিজ্ঞাসিত প্রশ্ন</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-3">রিজার্ভেশন কিভাবে করতে পারি?</h3>
+                    <p class="text-gray-700">আপনি ফোন করে বা আমাদের ওয়েবসাইটের মাধ্যমে অনলাইনে টেবিল রিজার্ভ করতে পারেন। বৃহৎ দলের জন্য আগে থেকে বুকিং দেওয়ার পরামর্শ দেওয়া হয়।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-3">হোম ডেলিভারি সার্ভিস আছে কি?</h3>
+                    <p class="text-gray-700">হ্যাঁ, আমরা ঢাকা শহরের বিভিন্ন এলাকায় হোম ডেলিভারি প্রদান করি। ন্যূনতম অর্ডার ৫০০ টাকা এবং ডেলিভারি চার্জ অর্ডারের পরিমাণ এবং অবস্থানের উপর নির্ভর করে।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-3">পার্কিং সুবিধা আছে কি?</h3>
+                    <p class="text-gray-700">হ্যাঁ, আমাদের রেস্টুরেন্টের সামনে সীমিত সংখ্যক পার্কিং স্পেস available। বিকাল ৭টার পরে পার্কিং জায়গা পাওয়া কঠিন হতে পারে, তাই পাবলিক ট্রান্সপোর্ট ব্যবহারের পরামর্শ দেওয়া হয়।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-3">ক্যাটারিং সার্ভিস প্রদান করেন কি?</h3>
+                    <p class="text-gray-700">হ্যাঁ, আমরা বিবাহ, জন্মদিন, কর্পোরেট ইভেন্ট ইত্যাদির জন্য ক্যাটারিং সার্ভিস প্রদান করি।最少 ৫০ জনের জন্য অর্ডার নেওয়া হয়। বিস্তারিত জানতে আমাদের কল করুন।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">ট্র্যাডিশনাল রেস্টুরেন্ট</h3>
+                    <p class="text-gray-400">ঢাকার সেরা বাংলা খাবার পরিবেশনকারী রেস্টুরেন্ট</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">লিংক</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white">হোম</a></li>
+                        <li><a href="menu.html" class="text-gray-400 hover:text-white">মেনু</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white">আমাদের সম্পর্কে</a></li>
+                        <li><a href="contact.html" class="text-amber-400">যোগাযোগ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">যোগাযোগ</h3>
+                    <p class="text-gray-400 mb-2">ধানমন্ডি রোড ১২, ঢাকা</p>
+                    <p class="text-gray-400 mb-2">+৮৮০ ১৭১২ ৩৪৫ ৬৭৮</p>
+                    <p class="text-gray-400">info@bengalirestaurant.com</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">সামাজিক মাধ্যম</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-youtube text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; ২০২৩ বাংলা ট্র্যাডিশনাল রেস্টুরেন্ট। সকল স্বত্ব সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.md\\:hidden button').addEventListener('click', function() {
+            document.querySelector('.mobile-nav').classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

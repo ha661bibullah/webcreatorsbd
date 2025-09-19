@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>পুরুষের পোশাক - বাংলা ফ্যাশন হাউস</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .collection-menu {
+            position: relative;
+        }
+        .collection-submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            z-index: 1000;
+            padding: 10px 0;
+        }
+        .collection-menu:hover .collection-submenu {
+            display: block;
+        }
+        .collection-submenu a {
+            display: block;
+            padding: 8px 20px;
+            color: #4a5568;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .collection-submenu a:hover {
+            background-color: #f7fafc;
+            color: #805ad5;
+        }
+        @media (max-width: 767px) {
+            .collection-submenu {
+                position: static;
+                box-shadow: none;
+                background-color: transparent;
+                padding-left: 20px;
+            }
+            .collection-submenu a {
+                color: white;
+                padding: 6px 0;
+            }
+            .collection-submenu a:hover {
+                background-color: rgba(255,255,255,0.1);
+            }
+        }
+        .breadcrumb {
+            padding: 15px 0;
+            background-color: #f8f9fa;
+        }
+        .filter-section {
+            transition: all 0.3s ease;
+        }
+        .filter-options {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .filter-options.active {
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+     <!-- Header Section -->
+<div id="header-placeholder"></div>
+<script>
+fetch('header.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const closeMenu = document.getElementById('closeMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+
+    // Mobile menu open/close
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.remove('-translate-x-full');
+      overlay.classList.remove('hidden');
+    });
+
+    closeMenu.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    overlay.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    // Mobile collection toggle with arrow rotation
+    document.querySelectorAll('.collection-toggle').forEach(button => {
+      const arrow = button.querySelector('i'); // arrow icon
+      const submenu = button.nextElementSibling;
+
+      button.addEventListener('click', () => {
+        if (!submenu) return;
+
+        submenu.classList.toggle('hidden'); // সাবমেনু খোলে/বন্ধ হয়
+
+        // Arrow rotation
+        if (arrow) {
+          arrow.classList.toggle('rotate-180');
+        }
+      });
+    });
+
+    // Active menu highlight
+    const currentPage = window.location.pathname.split('/').pop(); // file name
+    // Desktop links
+    document.querySelectorAll('nav a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('text-yellow-300', 'font-bold');
+      } else {
+        link.classList.remove('text-yellow-300', 'font-bold');
+      }
+    });
+
+    // Mobile links
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('bg-purple-700', 'text-yellow-300', 'rounded');
+      } else {
+        link.classList.remove('bg-purple-700', 'text-yellow-300', 'rounded');
+      }
+    });
+  });
+</script>
+<style>
+body {
+  padding-top: 60px;
+}
+
+/* Desktop submenu hover only on link */
+.group-link + .submenu {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.group-link:hover + .submenu {
+  opacity: 1;
+  visibility: visible;
+}
+</style>
+
+
+
+
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container mx-auto px-4">
+            <nav class="flex" aria-label="Breadcrumb">
+                <ol class="flex items-center space-x-2">
+                    <li><a href="Fashion_House.html" class="text-purple-600 hover:text-purple-800">হোম</a></li>
+                    <li class="flex items-center">
+                        <span class="text-gray-400 mx-2">/</span>
+                        <a href="#" class="text-purple-600 hover:text-purple-800">কালেকশন</a>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="text-gray-400 mx-2">/</span>
+                        <span class="text-gray-700">পুরুষের পোশাক</span>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <section class="py-8 bg-gradient-to-r from-purple-100 to-pink-100">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-purple-800 mb-4">পুরুষের পোশাক</h2>
+            <p class="text-lg text-gray-700 max-w-3xl mx-auto">আমাদের কালেকশনে রয়েছে সেরা মানের ও ঐতিহ্যবাহী পুরুষদের পোশাক। পাঞ্জাবি, শেরওয়ানি, ফতুয়া এবং আরও অনেক কিছু</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-8">
+                <!-- Sidebar Filters -->
+                <div class="w-full md:w-1/4">
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="text-xl font-bold mb-4 text-purple-800">ফিল্টার</h3>
+                        
+                        <!-- Category Filter -->
+                        <div class="filter-section mb-6">
+                            <button class="filter-toggle w-full flex justify-between items-center text-left font-semibold text-gray-700">
+                                <span>ক্যাটেগরি</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="filter-options mt-3 active">
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-purple-600 rounded" checked>
+                                        <span class="ml-2">পাঞ্জাবি</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-purple-600 rounded" checked>
+                                        <span class="ml-2">শেরওয়ানি</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-purple-600 rounded">
+                                        <span class="ml-2">ফতুয়া</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-purple-600 rounded">
+                                        <span class="ml-2">পায়জামা</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-purple-600 rounded">
+                                        <span class="ml-2">টি-শার্ট</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Price Filter -->
+                        <div class="filter-section mb-6">
+                            <button class="filter-toggle w-full flex justify-between items-center text-left font-semibold text-gray-700">
+                                <span>দাম</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="filter-options mt-3 active">
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="radio" name="price" class="form-radio text-purple-600" checked>
+                                        <span class="ml-2">সব</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="price" class="form-radio text-purple-600">
+                                        <span class="ml-2">৳ ৫০০ - ৳ ১৫০০</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="price" class="form-radio text-purple-600">
+                                        <span class="ml-2">৳ ১৫০০ - ৳ ৩০০০</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="price" class="form-radio text-purple-600">
+                                        <span class="ml-2">৳ ৩০০০ - ৳ ৫০০০</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="price" class="form-radio text-purple-600">
+                                        <span class="ml-2">৳ ৫০০০+</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Size Filter -->
+                        <div class="filter-section mb-6">
+                            <button class="filter-toggle w-full flex justify-between items-center text-left font-semibold text-gray-700">
+                                <span>সাইজ</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="filter-options mt-3 active">
+                                <div class="flex flex-wrap gap-2">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-purple-600 rounded">
+                                        <span class="ml-1">S</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-purple-600 rounded" checked>
+                                        <span class="ml-1">M</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-purple-600 rounded" checked>
+                                        <span class="ml-1">L</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-purple-600 rounded">
+                                        <span class="ml-1">XL</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-purple-600 rounded">
+                                        <span class="ml-1">XXL</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Color Filter -->
+                        <div class="filter-section mb-6">
+                            <button class="filter-toggle w-full flex justify-between items-center text-left font-semibold text-gray-700">
+                                <span>রং</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="filter-options mt-3 active">
+                                <div class="flex flex-wrap gap-2">
+                                    <button class="w-6 h-6 bg-red-600 rounded-full border border-gray-300"></button>
+                                    <button class="w-6 h-6 bg-blue-600 rounded-full border border-gray-300"></button>
+                                    <button class="w-6 h-6 bg-green-600 rounded-full border border-gray-300"></button>
+                                    <button class="w-6 h-6 bg-yellow-400 rounded-full border border-gray-300"></button>
+                                    <button class="w-6 h-6 bg-purple-600 rounded-full border border-gray-300"></button>
+                                    <button class="w-6 h-6 bg-black rounded-full border border-gray-300"></button>
+                                    <button class="w-6 h-6 bg-white rounded-full border border-gray-300"></button>
+                                    <button class="w-6 h-6 bg-gray-400 rounded-full border border-gray-300"></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition">
+                            ফিল্টার প্রয়োগ করুন
+                        </button>
+                    </div>
+                    
+                    <!-- Special Offers -->
+                    <div class="bg-gradient-to-r from-purple-600 to-pink-500 rounded-lg shadow-md p-6 text-white">
+                        <h3 class="text-xl font-bold mb-4">বিশেষ অফার!</h3>
+                        <p class="mb-4">পুরুষদের পোশাক কেনার সময় ১৫% ছাড় পান। কোড ব্যবহার করুন: <span class="font-bold">MEN15</span></p>
+                        <button class="w-full bg-white text-purple-600 py-2 rounded-md font-semibold hover:bg-gray-100 transition">
+                            এখনই কিনুন
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product Listing -->
+                <div class="w-full md:w-3/4">
+                    <!-- Sorting and View Options -->
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                        <p class="text-gray-600 mb-4 md:mb-0">মোট <span class="font-semibold">২৪</span>টি পণ্য দেখানো হচ্ছে</p>
+                        <div class="flex items-center space-x-4">
+                            <select class="border border-gray-300 rounded-md px-3 py-2 text-sm">
+                                <option>সর্বশেষ</option>
+                                <option>সর্বনিম্ন দাম</option>
+                                <option>সর্বোচ্চ দাম</option>
+                                <option>নাম (ক-হ)</option>
+                                <option>নাম (হ-ক)</option>
+                            </select>
+                            <div class="flex items-center space-x-2">
+                                <button class="p-2 bg-gray-200 rounded-md">
+                                    <i class="fas fa-th"></i>
+                                </button>
+                                <button class="p-2 bg-purple-600 text-white rounded-md">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Product 1 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1598033129183-c4f50c736f10?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="পাঞ্জাবি" class="w-full h-56 object-cover">
+                                <span class="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded">নতুন</span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-lg mb-1">ঐতিহ্যবাহী পাঞ্জাবি</h3>
+                                <p class="text-gray-600 text-sm mb-2">উচ্চ মানের সুতি কাপড়</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-lg font-bold text-purple-600">৳ ১,৮০০</span>
+                                    <span class="text-sm text-gray-500 line-through">৳ ২,২০০</span>
+                                </div>
+                                <div class="mt-3 flex justify-between items-center">
+                                    <button class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700 transition">
+                                        কার্টে যোগ করুন
+                                    </button>
+                                    <button class="text-gray-500 hover:text-purple-600">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 2 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="শেরওয়ানি" class="w-full h-56 object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-lg mb-1">বিয়ের শেরওয়ানি</h3>
+                                <p class="text-gray-600 text-sm mb-2">জরির কাজ করা</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-lg font-bold text-purple-600">৳ ৫,৯০০</span>
+                                    <span class="text-sm text-gray-500 line-through">৳ ৭,৫০০</span>
+                                </div>
+                                <div class="mt-3 flex justify-between items-center">
+                                    <button class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700 transition">
+                                        কার্টে যোগ করুন
+                                    </button>
+                                    <button class="text-gray-500 hover:text-purple-600">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 3 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="ফতুয়া" class="w-full h-56 object-cover">
+                                <span class="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded">বেস্টসেলার</span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-lg mb-1">কটন ফতুয়া</h3>
+                                <p class="text-gray-600 text-sm mb-2">আরামদায়ক এবং হালকা</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-lg font-bold text-purple-600">৳ ১,২০০</span>
+                                    <span class="text-sm text-gray-500 line-through">৳ ১,৫০০</span>
+                                </div>
+                                <div class="mt-3 flex justify-between items-center">
+                                    <button class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700 transition">
+                                        কার্টে যোগ করুন
+                                    </button>
+                                    <button class="text-gray-500 hover:text-purple-600">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 4 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="পায়জামা" class="w-full h-56 object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-lg mb-1">সুতি পায়জামা</h3>
+                                <p class="text-gray-600 text-sm mb-2">আরামদায়ক এবং ফিট</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-lg font-bold text-purple-600">৳ ৯০০</span>
+                                    <span class="text-sm text-gray-500 line-through">৳ ১,২০০</span>
+                                </div>
+                                <div class="mt-3 flex justify-between items-center">
+                                    <button class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700 transition">
+                                        কার্টে যোগ করুন
+                                    </button>
+                                    <button class="text-gray-500 hover:text-purple-600">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 5 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="টি-শার্ট" class="w-full h-56 object-cover">
+                                <span class="absolute top-2 right-2 bg-purple-500 text-white text-xs px-2 py-1 rounded">১০% ছাড়</span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-lg mb-1">কটন টি-শার্ট</h3>
+                                <p class="text-gray-600 text-sm mb-2">বিভিন্ন রং এবং ডিজাইন</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-lg font-bold text-purple-600">৳ ৫৫০</span>
+                                    <span class="text-sm text-gray-500 line-through">৳ ৬৫০</span>
+                                </div>
+                                <div class="mt-3 flex justify-between items-center">
+                                    <button class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700 transition">
+                                        কার্টে যোগ করুন
+                                    </button>
+                                    <button class="text-gray-500 hover:text-purple-600">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 6 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="জ্যাকেট" class="w-full h-56 object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-lg mb-1">ডেনিম জ্যাকেট</h3>
+                                <p class="text-gray-600 text-sm mb-2">শীতকালীন সংগ্রহ</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-lg font-bold text-purple-600">৳ ২,৪০০</span>
+                                    <span class="text-sm text-gray-500 line-through">৳ ২,৮০০</span>
+                                </div>
+                                <div class="mt-3 flex justify-between items-center">
+                                    <button class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700 transition">
+                                        কার্টে যোগ করুন
+                                    </button>
+                                    <button class="text-gray-500 hover:text-purple-600">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="mt-12 flex justify-center">
+                        <nav class="flex items-center space-x-2">
+                            <a href="#" class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <a href="#" class="px-3 py-1 rounded border border-purple-600 bg-purple-600 text-white">১</a>
+                            <a href="#" class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition">২</a>
+                            <a href="#" class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition">৩</a>
+                            <a href="#" class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition">৪</a>
+                            <a href="#" class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-12 bg-gradient-to-r from-purple-800 to-purple-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">আমাদের নিউজলেটার সাবস্ক্রাইব করুন</h2>
+            <p class="max-w-2xl mx-auto mb-6">নতুন পণ্য, বিশেষ অফার এবং ডিসকাউন্ট সম্পর্কে সর্বপ্রথম জানতে এখনই সাবস্ক্রাইব করুন</p>
+            <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+                <input type="email" placeholder="আপনার ইমেইল ঠিকানা" class="flex-grow px-4 py-3 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-300">
+                <button type="submit" class="bg-pink-500 px-6 py-3 rounded-md font-semibold hover:bg-pink-600 transition">সাবস্ক্রাইব</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <!-- About -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">বাংলা ফ্যাশন হাউস</h3>
+                    <p class="mb-4">আমরা ঐতিহ্যবাহী এবং আধুনিক ফ্যাশনের সমন্বয়ে সেরা পোশাক সরবরাহ করি। আমাদের লক্ষ্য সবার জন্য মানসম্মত পোশাক পৌঁছে দেওয়া।</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">দ্রুত লিংক</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">হোম</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">আমাদের সম্পর্কে</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">পণ্য</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">ব্লগ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">যোগাযোগ</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Categories -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">ক্যাটেগরি</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">পুরুষদের পোশাক</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">মহিলাদের পোশাক</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">শিশুদের পোশাক</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">এক্সেসরিজ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">নতুন কালেকশন</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">যোগাযোগ</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-purple-400"></i>
+                            <span class="text-gray-400">১২৩/বি, ধানমন্ডি, ঢাকা-১২০৫</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-3 text-purple-400"></i>
+                            <span class="text-gray-400">+৮৮০ ১৭১২ ৩৪৫৬৭৮</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-3 text-purple-400"></i>
+                            <span class="text-gray-400">info@bangla-fashion.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="border-t border-gray-800 pt-6 text-center text-gray-400 text-sm">
+                <p>&copy; ২০২৩ বাংলা ফ্যাশন হাউস। সকল حقوق محفوظة।</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('overlay');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        // Collection submenu toggle for mobile
+        const collectionMenuMobile = document.querySelector('.collection-menu-mobile');
+        if (collectionMenuMobile) {
+            collectionMenuMobile.addEventListener('click', (e) => {
+                e.preventDefault();
+                const submenu = collectionMenuMobile.querySelector('.collection-submenu-mobile');
+                submenu.classList.toggle('hidden');
+            });
+        }
+        
+        // Filter toggle functionality
+        const filterToggles = document.querySelectorAll('.filter-toggle');
+        filterToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const options = toggle.nextElementSibling;
+                options.classList.toggle('active');
+                
+                const icon = toggle.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('fa-chevron-down');
+                    icon.classList.toggle('fa-chevron-up');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

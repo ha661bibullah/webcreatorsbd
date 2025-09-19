@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ব্যবহারকারী প্রোফাইল - বাংলা ফ্যাশন হাউস</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .collection-menu {
+            position: relative;
+        }
+        .collection-submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            z-index: 1000;
+            padding: 10px 0;
+        }
+        .collection-menu:hover .collection-submenu {
+            display: block;
+        }
+        .collection-submenu a {
+            display: block;
+            padding: 8px 20px;
+            color: #4a5568;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .collection-submenu a:hover {
+            background-color: #f7fafc;
+            color: #805ad5;
+        }
+        @media (max-width: 767px) {
+            .collection-submenu {
+                position: static;
+                box-shadow: none;
+                background-color: transparent;
+                padding-left: 20px;
+            }
+            .collection-submenu a {
+                color: white;
+                padding: 6px 0;
+            }
+            .collection-submenu a:hover {
+                background-color: rgba(255,255,255,0.1);
+            }
+        }
+        .profile-menu {
+            position: relative;
+        }
+        .profile-submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            z-index: 1000;
+            padding: 10px 0;
+        }
+        .profile-menu:hover .profile-submenu {
+            display: block;
+        }
+        .profile-submenu a {
+            display: block;
+            padding: 8px 20px;
+            color: #4a5568;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .profile-submenu a:hover {
+            background-color: #f7fafc;
+            color: #805ad5;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+     <!-- Header Section -->
+<div id="header-placeholder"></div>
+<script>
+fetch('header.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const closeMenu = document.getElementById('closeMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+
+    // Mobile menu open/close
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.remove('-translate-x-full');
+      overlay.classList.remove('hidden');
+    });
+
+    closeMenu.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    overlay.addEventListener('click', () => {
+      mobileMenu.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+
+    // Mobile collection toggle with arrow rotation
+    document.querySelectorAll('.collection-toggle').forEach(button => {
+      const arrow = button.querySelector('i'); // arrow icon
+      const submenu = button.nextElementSibling;
+
+      button.addEventListener('click', () => {
+        if (!submenu) return;
+
+        submenu.classList.toggle('hidden'); // সাবমেনু খোলে/বন্ধ হয়
+
+        // Arrow rotation
+        if (arrow) {
+          arrow.classList.toggle('rotate-180');
+        }
+      });
+    });
+
+    // Active menu highlight
+    const currentPage = window.location.pathname.split('/').pop(); // file name
+    // Desktop links
+    document.querySelectorAll('nav a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('text-yellow-300', 'font-bold');
+      } else {
+        link.classList.remove('text-yellow-300', 'font-bold');
+      }
+    });
+
+    // Mobile links
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('bg-purple-700', 'text-yellow-300', 'rounded');
+      } else {
+        link.classList.remove('bg-purple-700', 'text-yellow-300', 'rounded');
+      }
+    });
+  });
+</script>
+<style>
+body {
+  padding-top: 60px;
+}
+
+/* Desktop submenu hover only on link */
+.group-link + .submenu {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.group-link:hover + .submenu {
+  opacity: 1;
+  visibility: visible;
+}
+</style>
+
+
+
+    <!-- User Profile Section -->
+    <section class="py-12 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+                <!-- Profile Header -->
+                <div class="bg-gradient-to-r from-purple-700 to-purple-900 text-white p-8 text-center">
+                    <div class="relative inline-block">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="প্রোফাইল ছবি" class="w-32 h-32 rounded-full border-4 border-white shadow-lg mx-auto">
+                        <button class="absolute bottom-2 right-2 bg-pink-500 hover:bg-pink-600 text-white p-2 rounded-full">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <h2 class="text-2xl font-bold mt-4">আহমেদ রহমান</h2>
+                    <p class="text-purple-200">platinum member</p>
+                </div>
+                
+                <!-- Profile Content -->
+                <div class="p-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Personal Information -->
+                        <div>
+                            <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">ব্যক্তিগত তথ্য</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600">পুরো নাম</label>
+                                    <p class="text-lg">আহমেদ রহমান</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600">ইমেইল</label>
+                                    <p class="text-lg">ahmed.rahman@example.com</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600">মোবাইল নম্বর</label>
+                                    <p class="text-lg">+৮৮০ ১৭১২ ৩৪৫ ৬৭৮</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600">জন্ম তারিখ</label>
+                                    <p class="text-lg">১৫ জানুয়ারি, ১৯৮৫</p>
+                                </div>
+                                <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition">
+                                    তথ্য সম্পাদনা
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Address -->
+                        <div>
+                            <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">ঠিকানা</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600">প্রাথমিক ঠিকানা</label>
+                                    <p class="text-lg">১২/৩, ধানমন্ডি, ঢাকা - ১২০৯</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600">বিকল্প ঠিকানা</label>
+                                    <p class="text-lg">৪৫/বি, গুলশান, ঢাকা - ১২১২</p>
+                                </div>
+                                <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition">
+                                    ঠিকানা ব্যবস্থাপনা
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Stats -->
+                    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-purple-700">১২</div>
+                            <div class="text-gray-600">মোট অর্ডার</div>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-purple-700">৩</div>
+                            <div class="text-gray-600">বকেয়া অর্ডার</div>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-purple-700">৮</div>
+                            <div class="text-gray-600">পছন্দের তালিকা</div>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-purple-700">২</div>
+                            <div class="text-gray-600">কুপন</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Orders -->
+                    <div class="mt-12">
+                        <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">সাম্প্রতিক অর্ডার</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white">
+                                <thead class="bg-gray-200 text-gray-700">
+                                    <tr>
+                                        <th class="py-3 px-4 text-left">অর্ডার নং</th>
+                                        <th class="py-3 px-4 text-left">তারিখ</th>
+                                        <th class="py-3 px-4 text-left">মোট</th>
+                                        <th class="py-3 px-4 text-left">স্ট্যাটাস</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b">
+                                        <td class="py-3 px-4">#ORD-7892</td>
+                                        <td class="py-3 px-4">১২ ডিসেম্বর, ২০২৩</td>
+                                        <td class="py-3 px-4">৳ ৫,২০০</td>
+                                        <td class="py-3 px-4"><span class="bg-green-100 text-green-800 py-1 px-2 rounded-full text-xs">বিতরণকৃত</span></td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-3 px-4">#ORD-7821</td>
+                                        <td class="py-3 px-4">১০ ডিসেম্বর, ২০২৩</td>
+                                        <td class="py-3 px-4">৳ ৩,৮০০</td>
+                                        <td class="py-3 px-4"><span class="bg-blue-100 text-blue-800 py-1 px-2 rounded-full text-xs">প্রক্রিয়াধীন</span></td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-3 px-4">#ORD-7789</td>
+                                        <td class="py-3 px-4">৫ ডিসেম্বর, ২০২৩</td>
+                                        <td class="py-3 px-4">৳ ৬,৫০০</td>
+                                        <td class="py-3 px-4"><span class="bg-yellow-100 text-yellow-800 py-1 px-2 rounded-full text-xs">মুলতুবি</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center mt-6">
+                            <a href="order_history.html" class="text-purple-600 hover:text-purple-800 font-medium">সমস্ত অর্ডার দেখুন <i class="fas fa-arrow-right ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gradient-to-r from-purple-800 to-purple-600 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- About -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">আমাদের সম্পর্কে</h3>
+                    <p class="mb-4">বাংলা ফ্যাশন হাউস দেশের সেরা ফ্যাশন ব্র্যান্ড, যেখানে আপনি পাবেন মানসম্মত ও স্টাইলিশ পোশাক।</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-yellow-300 transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="hover:text-yellow-300 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="hover:text-yellow-300 transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="hover:text-yellow-300 transition"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">দ্রুত লিংক</h3>
+                    <ul class="space-y-2">
+                        <li><a href="Fashion_House.html" class="hover:text-yellow-300 transition">হোম</a></li>
+                        <li><a href="About_Us_Fashion.html" class="hover:text-yellow-300 transition">আমাদের সম্পর্কে</a></li>
+                        <li><a href="Contact_Fashion.html" class="hover:text-yellow-300 transition">যোগাযোগ</a></li>
+                        <li><a href="Blog_Fashon.html" class="hover:text-yellow-300 transition">ব্লগ</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">প্রাইভেসি পলিসি</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Customer Service -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">গ্রাহক সেবা</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-yellow-300 transition">সাহায্য কেন্দ্র</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">রিটার্ন পলিসি</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">শিপিং গাইড</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">অফার</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-pink-500">যোগাযোগ</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <span>১২/৩, ধানমন্ডি, ঢাকা - ১২০৯</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone mt-1 mr-3"></i>
+                            <span>+৮৮০ ১৯১২ ৩৪৫ ৬৭৮</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-3"></i>
+                            <span>info@bangla-fashion.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="border-t border-purple-400 mt-8 pt-6 text-center">
+                <p>&copy; ২০২৩ বাংলা ফ্যাশন হাউস। সকল স্বত্ব সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuButton').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.remove('-translate-x-full');
+            document.getElementById('overlay').classList.remove('hidden');
+        });
+        
+        document.getElementById('closeMenu').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.add('-translate-x-full');
+            document.getElementById('overlay').classList.add('hidden');
+        });
+        
+        document.getElementById('overlay').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.add('-translate-x-full');
+            document.getElementById('overlay').classList.add('hidden');
+        });
+        
+        // Mobile Collection Submenu Toggle
+        const collectionMenuMobile = document.querySelector('.collection-menu-mobile');
+        if (collectionMenuMobile) {
+            collectionMenuMobile.addEventListener('click', function(e) {
+                e.preventDefault();
+                const submenu = this.querySelector('.collection-submenu-mobile');
+                submenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+</html>

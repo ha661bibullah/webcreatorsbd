@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>মাদ্রাসা শিক্ষা - অনলাইন ইসলামিক শিক্ষা প্ল্যাটফর্ম</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .course-card {
+            transition: transform 0.3s ease;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+        .category-card {
+            transition: all 0.3s ease;
+        }
+        .category-card:hover {
+            transform: scale(1.05);
+        }
+        .mobile-menu {
+            display: none;
+        }
+        .desktop-menu .dropdown {
+            position: relative;
+        }
+        .desktop-menu .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 8px;
+            padding: 10px 0;
+        }
+        .desktop-menu .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content a {
+            display: block;
+            padding: 8px 16px;
+            color: #4B5563;
+            text-decoration: none;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+            color: #059669;
+        }
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            .desktop-menu {
+                display: none;
+            }
+            .mobile-dropdown-content {
+                display: none;
+                padding-left: 20px;
+            }
+            .mobile-dropdown.active .mobile-dropdown-content {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- নেভিগেশন বার -->
+   <!-- Navbar will be loaded here -->
+<div id="navbar-container"></div>
+
+<script>
+// Load navbar
+fetch('navbar.html')
+  .then(response => response.text())
+  .then(data => {
+    const container = document.getElementById('navbar-container');
+    container.innerHTML = data;
+    
+    // Execute scripts inside the loaded navbar
+    const scripts = container.getElementsByTagName('script');
+    const scriptPromises = [];
+    
+    for (let i = 0; i < scripts.length; i++) {
+      const script = scripts[i];
+      
+      // Create a new script element
+      const newScript = document.createElement('script');
+      
+      // Copy attributes
+      if (script.src) {
+        // External script
+        newScript.src = script.src;
+        const promise = new Promise((resolve, reject) => {
+          newScript.onload = resolve;
+          newScript.onerror = reject;
+        });
+        scriptPromises.push(promise);
+      } else {
+        // Inline script
+        newScript.text = script.innerText;
+      }
+      
+      // Copy all attributes from the original script
+      for (let attr of script.attributes) {
+        newScript.setAttribute(attr.name, attr.value);
+      }
+      
+      document.head.appendChild(newScript);
+    }
+    
+    // Wait for all scripts to load
+    return Promise.all(scriptPromises);
+  })
+  .then(() => {
+    // Now manually initialize the navbar functionality
+    initializeNavbarAfterLoad();
+  })
+  .catch(error => console.error('Error loading navbar:', error));
+
+// Function to initialize navbar after it's loaded
+function initializeNavbarAfterLoad() {
+  // Check if login module exists and initialize it
+  if (typeof LoginModule !== 'undefined') {
+    LoginModule.initLoginForms();
+    LoginModule.checkLoginStatus();
+  }
+  
+  // Initialize other modules if they exist
+  if (typeof DropdownModule !== 'undefined') {
+    DropdownModule.setupDropdownCloseListeners();
+  }
+  
+  if (typeof ScrollModule !== 'undefined') {
+    ScrollModule.initScrollHide();
+    ScrollModule.initNavbarScrollEffect();
+  }
+  
+  if (typeof NavigationModule !== 'undefined') {
+    NavigationModule.initNavLinks();
+  }
+  
+  // Add profile dropdown event listeners
+  const desktopProfileIcon = document.getElementById('desktopProfileIcon');
+  if (desktopProfileIcon) {
+    desktopProfileIcon.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const dropdown = document.getElementById('desktopDropdownContent');
+      if (dropdown) dropdown.classList.toggle('show-dropdown');
+    });
+  }
+
+  const desktopLogoutButton = document.getElementById('desktopLogoutButton');
+  if (desktopLogoutButton) {
+    desktopLogoutButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (typeof LoginModule !== 'undefined') {
+        LoginModule.handleLogout();
+      }
+    });
+  }
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function() {
+    const dropdown = document.getElementById('desktopDropdownContent');
+    if (dropdown && dropdown.classList.contains('show-dropdown')) {
+      dropdown.classList.remove('show-dropdown');
+    }
+  });
+
+  // Prevent dropdown from closing when clicking inside
+  const dropdownContent = document.getElementById('desktopDropdownContent');
+  if (dropdownContent) {
+    dropdownContent.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+  }
+  
+  console.log('Navbar initialized successfully');
+}
+
+</script>
+
+<div class="relative max-w-5xl mx-auto text-center py-16 px-8 rounded-none md:rounded-2xl shadow-2xl overflow-hidden">
+
+  <!-- ব্যাকগ্রাউন্ড ইমেজ -->
+  <div class="absolute inset-0">
+    <img src="/madrasa/education.jpg" 
+         alt="Background Madrasa"
+         class="w-full h-full object-cover rounded-none md:rounded-2xl">
+    <!-- Overlay + Blur -->
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm rounded-none md:rounded-2xl"></div>
+  </div>
+
+  <!-- কনটেন্ট -->
+  <div class="relative">
+    <!-- হেডিং -->
+    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+      সর্বাধুনিক পদ্ধতিতে <span class="text-yellow-300">মাদ্রাসা</span> শিক্ষা গ্রহণ করুন অনলাইনে
+    </h1>
+    
+    <!-- সাবটাইটেল -->
+    <p class="text-base sm:text-lg md:text-xl text-white mb-10 max-w-2xl mx-auto opacity-90">
+      ঘরে বসেই ইসলামের বিষয়ভিত্তিক কোর্সে অংশ নিতে পারবেন সকল শ্রেণির পেশাজীবি। 
+      তালিমুল ইসলাম একাডেমি নিয়ে এসেছে সহজ, নিরাপদ ও মানসম্মত শিক্ষণ পদ্ধতি, যোগ্য উস্তাদদের তত্ত্বাবধানে।
+    </p>
+    
+    <!-- CTA বাটন -->
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <button class="bg-white text-purple-700 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition">
+        ফ্রি কোর্স
+      </button>
+      <button class="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-white hover:text-purple-700 transition">
+        পেইড কোর্স
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+    <!-- উদ্ধৃতি সেকশন -->
+    <section class="py-12 bg-green-50">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-green-700 mb-4" data-bn="কুরআন বুঝলে জীবনের মানে বদলে যায়" data-en="Understanding the Quran changes the meaning of life">কুরআন বুঝলে জীবনের মানে বদলে যায়</h3>
+                    <p class="text-gray-700" data-bn="আপনি হয়তো কুরআন পড়েন, কিন্তু বুঝেন না। আজ থেকে প্রতিটি আয়াত বোঝার চেষ্টা করুন। কারণ, কুরআন শুধু তিলাওয়াতের জন্য নয়, বাঁচার পথ শেখার জন্য。" data-en="You may read the Quran, but don't understand it. From today, try to understand each verse. Because the Quran is not just for recitation, but for learning how to live.">আপনি হয়তো কুরআন পড়েন, কিন্তু বুঝেন না। আজ থেকে প্রতিটি আয়াত বোঝার চেষ্টা করুন। কারণ, কুরআন শুধু তিলাওয়াতের জন্য নয়, বাঁচার পথ শেখার জন্য।</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-green-700 mb-4" data-bn="কুরআন না শিখে বেঁচে থাকা মানে, অন্ধকারে হাঁটা" data-en="Living without learning the Quran means walking in darkness">কুরআন না শিখে বেঁচে থাকা মানে, অন্ধকারে হাঁটা</h3>
+                    <p class="text-gray-700" data-bn="যেমন একজন পথিক মানচিত্র ছাড়া পথ হারায়, তেমনই কুরআন ছাড়া মানুষ জীবনের মূল উদ্দেশ্য হারিয়ে ফেলে। কুরআন জানলে আপনি জানবেন—কেন আপনি এই পৃথিবীতে?" data-en="Just as a traveler loses his way without a map, so without the Quran, a person loses the main purpose of life. If you know the Quran, you will know why you are in this world?">যেমন একজন পথিক মানচিত্র ছাড়া পথ হারায়, তেমনই কুরআন ছাড়া মানুষ জীবনের মূল উদ্দেশ্য হারিয়ে ফেলে। কুরআন জানলে আপনি জানবেন—কেন আপনি এই পৃথিবীতে?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- আমাদের বিভাগ সমূহ -->
+ <section class="py-16 bg-gray-100">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12 text-green-700" data-bn="আমাদের বিভাগ সমূহ" data-en="Our Departments">
+            আমাদের বিভাগ সমূহ
+        </h2>
+
+        <!-- Horizontal Scroll Container -->
+        <div class="overflow-hidden">
+            <div id="departmentSlider" class="flex gap-6 w-max transition-transform duration-700">
+                <!-- কার্ডগুলো -->
+                <div class="category-card bg-white p-4 rounded-lg shadow text-center min-w-[150px] flex-shrink-0">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-graduation-cap text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold" data-bn="কওমী মাদ্রাসা" data-en="Qawmi Madrasa">কওমী মাদ্রাসা</h3>
+                </div>
+                <div class="category-card bg-white p-4 rounded-lg shadow text-center min-w-[150px] flex-shrink-0">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-book-open text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold" data-bn="আলিয়া মাদ্রাসা" data-en="Alia Madrasa">আলিয়া মাদ্রাসা</h3>
+                </div>
+                <div class="category-card bg-white p-4 rounded-lg shadow text-center min-w-[150px] flex-shrink-0">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-female text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold" data-bn="মহিলা মাদ্রাসা" data-en="Women's Madrasa">মহিলা মাদ্রাসা</h3>
+                </div>
+                <div class="category-card bg-white p-4 rounded-lg shadow text-center min-w-[150px] flex-shrink-0">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-school text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold" data-bn="মক্তব আফটার স্কুল" data-en="Maktab After School">মক্তব আফটার স্কুল</h3>
+                </div>
+                <div class="category-card bg-white p-4 rounded-lg shadow text-center min-w-[150px] flex-shrink-0">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-moon text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold" data-bn="নৈশ্য মাদ্রাসা" data-en="Night Madrasa">নৈশ্য মাদ্রাসা</h3>
+                </div>
+                <div class="category-card bg-white p-4 rounded-lg shadow text-center min-w-[150px] flex-shrink-0">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-star text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold" data-bn="মাদানী নেসাব" data-en="Madani Nisab">মাদানী নেসাব</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Auto Slide JS -->
+<script>
+const slider = document.getElementById('departmentSlider');
+const cards = Array.from(slider.children);
+const cardCount = cards.length;
+
+// Clone all cards to create infinite loop effect
+cards.forEach(card => {
+    const clone = card.cloneNode(true);
+    slider.appendChild(clone);
+});
+
+let index = 0;
+let cardWidth = cards[0].offsetWidth + 24; // 24px = gap
+
+function slideNext() {
+    index++;
+    slider.style.transition = 'transform 0.7s';
+    slider.style.transform = `translateX(-${cardWidth * index}px)`;
+
+    // যখন অর্ধেক ক্লোন পর্যন্ত চলে যাবে, প্রথমে jump back
+    if (index >= cardCount) {
+        setTimeout(() => {
+            slider.style.transition = 'none';
+            slider.style.transform = 'translateX(0)';
+            index = 0;
+        }, 700); // transition time
+    }
+}
+
+setInterval(slideNext, 3000);
+</script>
+
+    <!-- জনপ্রিয় কোর্স -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-green-700" data-bn="জনপ্রিয় কোর্স" data-en="Popular Courses">জনপ্রিয় কোর্স</h2>
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-40 bg-green-200 flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1518331647614-7a4d4c5be0c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="কোরআন শিক্ষা" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2" data-bn="কোরআন শিক্ষা" data-en="Quran Learning">কোরআন শিক্ষা</h3>
+                        <p class="text-gray-600 text-sm mb-4" data-bn="সহীহ উচ্চারণে কুরআন পড়া শিখুন" data-en="Learn to read the Quran with correct pronunciation">সহীহ উচ্চারণে কুরআন পড়া শিখুন</p>
+                        <button class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700" data-bn="দেখুন →" data-en="View →">দেখুন →</button>
+                    </div>
+                </div>
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-40 bg-blue-200 flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="উর্দু কায়দা" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2" data-bn="উর্দু কায়দা" data-en="Urdu Qaida">উর্দু কায়দা</h3>
+                        <p class="text-gray-600 text-sm mb-4" data-bn="সহজ ভাষায় উর্দু শিখুন" data-en="Learn Urdu in simple language">সহজ ভাষায় উর্দু শিখুন</p>
+                        <button class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700" data-bn="দেখুন →" data-en="View →">দেখুন →</button>
+                    </div>
+                </div>
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-40 bg-yellow-200 flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="তালিমুল ইসলাম ১ম খন্ড" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2" data-bn="তালিমুল ইসলাম ১ম খন্ড" data-en="Talimul Islam Part 1">তালিমুল ইসলাম ১ম খন্ড</h3>
+                        <p class="text-gray-600 text-sm mb-4" data-bn="সহজ ভাষায় শিখুন" data-en="Learn in simple language">সহজ ভাষায় শিখুন</p>
+                        <button class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700" data-bn="দেখুন →" data-en="View →">দেখুন →</button>
+                    </div>
+                </div>
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-40 bg-purple-200 flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="উর্দু কি পেহেলি কিতাব" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2" data-bn="উর্দু কি পেহেলি কিতাব" data-en="Urdu Ki Pehli Kitab">উর্দু কি পেহেলি কিতাব</h3>
+                        <p class="text-gray-600 text-sm mb-4" data-bn="সহজ ভাষায় শিখুন" data-en="Learn in simple language">সহজ ভাষায় শিখুন</p>
+                        <button class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700" data-bn="দেখুন →" data-en="View →">দেখুন →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- বিশেষ কোর্স -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-green-700" data-bn="বিশেষ কোর্স" data-en="Special Courses">বিশেষ কোর্স</h2>
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-40 bg-green-200 flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="কোরআন শিক্ষা" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2" data-bn="কোরআন শিক্ষা" data-en="Quran Learning">কোরআন শিক্ষা</h3>
+                        <p class="text-gray-600 text-sm mb-4" data-bn="কুরআন তিলাওয়াতের নিয়মকানুন" data-en="Rules of Quran recitation">কুরআন তিলাওয়াতের নিয়মকানুন</p>
+                        <button class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700" data-bn="দেখুন →" data-en="View →">দেখুন →</button>
+                    </div>
+                </div>
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-40 bg-blue-200 flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="তালিমুল ইসলাম ২য় খন্ড" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2" data-bn="তালিমুল ইসলাম ২য় খন্ড" data-en="Talimul Islam Part 2">তালিমুল ইসলাম ২য় খন্ড</h3>
+                        <p class="text-gray-600 text-sm mb-4" data-bn="সহজ ভাষায় শিখুন" data-en="Learn in simple language">সহজ ভাষায় শিখুন</p>
+                        <button class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700" data-bn="দেখুন →" data-en="View →">দেখুন →</button>
+                    </div>
+                </div>
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-40 bg-yellow-200 flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="তালিমুল ইসলাম ৩য় খন্ড" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2" data-bn="তালিমুল ইসলাম ৩য় খন্ড" data-en="Talimul Islam Part 3">তালিমুল ইসলাম ৩য় খন্ড</h3>
+                        <p class="text-gray-600 text-sm mb-4" data-bn="সহজ ভাষায় শিখুন" data-en="Learn in simple language">সহজ ভাষায় শিখুন</p>
+                        <button class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700" data-bn="দেখুন →" data-en="View →">দেখুন →</button>
+                    </div>
+                </div>
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-40 bg-purple-200 flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="উর্দু কায়দা" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2" data-bn="উর্দু কায়দa" data-en="Urdu Qaida">উর্দু কায়দা</h3>
+                        <p class="text-gray-600 text-sm mb-4" data-bn="সহজ উর্দু শিখুন" data-en="Learn simple Urdu">সহজ উর্দু শিখুন</p>
+                        <button class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700" data-bn="দেখুন →" data-en="View →">দেখুন →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- আমাদের কোর্সসমূহ -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-green-700" data-bn="আমাদের কোর্সসমূহ" data-en="Our Courses">আমাদের কোর্সসমূহ</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-48">
+                        <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="বিশুদ্ধ কুরআন শিক্ষা" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2" data-bn="বিশুদ্ধ কুরআন শিক্ষা" data-en="Pure Quran Education">বিশুদ্ধ কুরআন শিক্ষা</h3>
+                        <div class="flex justify-between text-sm text-gray-600 mb-3">
+                            <span><i class="far fa-clock mr-1"></i> <span data-bn="২৪ ক্লাস" data-en="24 Classes">২৪ ক্লাস</span></span>
+                            <span><i class="far fa-play-circle mr-1"></i> <span data-bn="৭ ঘন্টা" data-en="7 Hours">৭ ঘন্টা</span></span>
+                            <span><i class="far fa-sticky-note mr-1"></i> <span data-bn="১ টি নোট" data-en="1 Note">১ টি নোট</span></span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-green-600 font-bold text-xl">৳৯৯</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">৳১২০</span>
+                            </div>
+                            <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" data-bn="দেখুন" data-en="View">দেখুন</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-48">
+                        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="উর্দু কায়দা" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2" data-bn="উর্দু কায়দা" data-en="Urdu Qaida">উর্দু কায়দা</h3>
+                        <div class="flex justify-between text-sm text-gray-600 mb-3">
+                            <span><i class="far fa-clock mr-1"></i> <span data-bn="১৮ ক্লাস" data-en="18 Classes">১৮ ক্লাস</span></span>
+                            <span><i class="far fa-play-circle mr-1"></i> <span data-bn="৫ ঘন্টা" data-en="5 Hours">৫ ঘন্টা</span></span>
+                            <span><i class="far fa-sticky-note mr-1"></i> <span data-bn="২ টি নোট" data-en="2 Notes">২ টি নোট</span></span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-green-600 font-bold text-xl">৳৯৯</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">৳۱২০</span>
+                            </div>
+                            <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" data-bn="দেখুন" data-en="View">দেখুন</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-48">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="তালিমুল ইসলাম ১ম খন্ড" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2" data-bn="তালিমুল ইসলাম ১ম খন্ড" data-en="Talimul Islam Part 1">তালিমুল ইসলাম ১ম খন্ড</h3>
+                        <div class="flex justify-between text-sm text-gray-600 mb-3">
+                            <span><i class="far fa-clock mr-1"></i> <span data-bn="৩০ ক্লাস" data-en="30 Classes">৩০ ক্লাস</span></span>
+                            <span><i class="far fa-play-circle mr-1"></i> <span data-bn="১০ ঘন্টা" data-en="10 Hours">১০ ঘন্টা</span></span>
+                            <span><i class="far fa-sticky-note mr-1"></i> <span data-bn="৩ টি নোট" data-en="3 Notes">৩ টি নোট</span></span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-green-600 font-bold text-xl">৳৯৯</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">৳۱২০</span>
+                            </div>
+                            <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" data-bn="দেখুন" data-en="View">দেখুন</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-48">
+                        <img src="https://images.unsplash.com/photo-1516937941344-00b4e0337589?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="তালিমুল ইসলাম ২য় খন্ড" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2" data-bn="তালимুল ইসলাম ২য় খন্ড" data-en="Talimul Islam Part 2">তালিমুল ইসলাম ২য় খন্ড</h3>
+                        <div class="flex justify-between text-sm text-gray-600 mb-3">
+                            <span><i class="far fa-clock mr-1"></i> <span data-bn="২০ ক্লাস" data-en="20 Classes">২০ ক্লাস</span></span>
+                            <span><i class="far fa-play-circle mr-1"></i> <span data-bn="৮ ঘন্টা" data-en="8 Hours">৮ ঘন্টা</span></span>
+                            <span><i class="far fa-sticky-note mr-1"></i> <span data-bn="২ টি নোট" data-en="2 Notes">২ টি নোট</span></span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-green-600 font-bold text-xl">৳৯৯</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">৳۱২০</span>
+                            </div>
+                            <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" data-bn="দেখুন" data-en="View">দেখুন</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-48">
+                        <img src="https://images.unsplash.com/photo-1517842645767-c639042777db?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="তালিমুল ইসলাম ৩য় খন্ড" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2" data-bn="তালিমুল ইসলাম ৩য় খন্ড" data-en="Talimul Islam Part 3">তালিমুল ইসলাম ৩য় খন্ড</h3>
+                        <div class="flex justify-between text-sm text-gray-600 mb-3">
+                            <span><i class="far fa-clock mr-1"></i> <span data-bn="২২ ক্লাস" data-en="22 Classes">২২ ক্লাস</span></span>
+                            <span><i class="far fa-play-circle mr-1"></i> <span data-bn="৯ ঘন্টা" data-en="9 Hours">৯ ঘন্টা</span></span>
+                            <span><i class="far fa-sticky-note mr-1"></i> <span data-bn="১ টি নোট" data-en="1 Note">১ টি নোট</span></span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-green-600 font-bold text-xl">৳৯৯</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">৳۱২০</span>
+                            </div>
+                            <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" data-bn="দেখুন" data-en="View">দেখুন</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow">
+                    <div class="h-48">
+                        <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="নতুন কোরআন কোর্স" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2" data-bn="নতুন কোরআন কোর্স" data-en="New Quran Course">নতুন কোরআন কোর্স</h3>
+                        <div class="flex justify-between text-sm text-gray-600 mb-3">
+                            <span><i class="far fa-clock mr-1"></i> <span data-bn="২৫ ক্লাস" data-en="25 Classes">২৫ ক্লাস</span></span>
+                            <span><i class="far fa-play-circle mr-1"></i> <span data-bn="১০ ঘন্টা" data-en="10 Hours">১০ ঘন্টা</span></span>
+                            <span><i class="far fa-sticky-note mr-1"></i> <span data-bn="৩ টি नোট" data-en="3 Notes">৩ টি নোট</span></span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-green-600 font-bold text-xl">৳১২৯</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">৳১৫০</span>
+                            </div>
+                            <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" data-bn="দেখুন" data-en="View">দেখুন</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button class="bg-green-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-green-700" data-bn="আরো দেখুন" data-en="See More">আরো দেখুন</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- পরিসংখ্যান -->
+    <section class="py-16 bg-green-600 text-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl font-bold mb-2">৮,১৬০+</div>
+                    <div class="text-lg" data-bn="শিক্ষার্থী" data-en="Students">শিক্ষার্থী</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">১৮</div>
+                    <div class="text-lg" data-bn="শিক্ষক" data-en="Teachers">শিক্ষক</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">১১</div>
+                    <div class="text-lg" data-bn="ফ্রি কোর্স" data-en="Free Courses">ফ্রি কোর্স</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">৮</div>
+                    <div class="text-lg" data-bn="পেইড কোর্স" data-en="Paid Courses">পেইড কোর্স</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- আপনি কি শিখতে চান? -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-green-700" data-bn="আপনি কি শিখতে চান?" data-en="What do you want to learn?">আপনি কি শিখতে চান?</h2>
+            <p class="text-center text-gray-600 mb-8" data-bn="আপনার পছন্দের বিষয় বেছে নিন" data-en="Choose your favorite subject">আপনার পছন্দের বিষয় বেছে নিন</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow text-center category-card">
+                    <div class="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-quran text-green-600 text-3xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2" data-bn="কুরআন" data-en="Quran">কুরআন</h3>
+                    <p class="text-gray-600" data-bn="১২০ কোর্স" data-en="120 Courses">১২০ কোর্স</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow text-center category-card">
+                    <div class="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-book text-blue-600 text-3xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2" data-bn="হাদিস" data-en="Hadith">হাদিস</h3>
+                    <p class="text-gray-600" data-bn="৮৫ কোর্স" data-en="85 Courses">৮৫ কোর্স</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow text-center category-card">
+                    <div class="bg-yellow-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-balance-scale text-yellow-600 text-3xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2" data-bn="ফিকহ" data-en="Fiqh">ফিকহ</h3>
+                    <p class="text-gray-600" data-bn="৬৫ কোর্স" data-en="65 Courses">৬৫ কোর্স</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow text-center category-card">
+                    <div class="bg-purple-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-language text-purple-600 text-3xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2" data-bn="আরবি" data-en="Arabic">আরবি</h3>
+                    <p class="text-gray-600" data-bn="৪২ কোর্স" data-en="42 Courses">৪২ কোর্স</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button class="text-green-600 font-semibold hover:text-green-700 flex items-center justify-center mx-auto" data-bn="আরও দেখুন" data-en="See More">
+                    <span data-bn="আরও দেখুন" data-en="See More">আরও দেখুন</span> <i class="fas fa-arrow-down ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- কেন মাদ্রাসা অনলাইন বেছে নিবেন -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-green-700" data-bn="কেন মাদ্রাসা অনলাইন বেছে নিবেন" data-en="Why Choose Madrasa Online">কেন মাদ্রাসা অনলাইন বেছে নিবেন</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow text-center">
+                    <div class="h-40 mb-4">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="সম্পূর্ণ পাঠ্যক্রম" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                    <h3 class="font-bold text-lg mb-2" data-bn="সম্পূর্ণ পাঠ্যক্রম" data-en="Complete Curriculum">সম্পূর্ণ পাঠ্যক্রম</h3>
+                    <p class="text-gray-600" data-bn="১ম শ্রেণী থেকে দাওরায়ে হাদীস পর্যন্ত সম্পূর্ণ মাদ্রাসা পাঠ্যক্রমে প্রবেশাধিকার পান।" data-en="Get access to the complete madrasa curriculum from 1st grade to Daura-e-Hadith.">১ম শ্রেণী থেকে দাওরায়e হাদীস পর্যন্ত সম্পূর্ণ মাদ্রাসা পাঠ্যক্রমে প্রবেশাধিকার পান।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow text-center">
+                    <div class="h-40 mb-4">
+                        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="যোগ্য শিক্ষকগণ" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                    <h3 class="font-bold text-lg mb-2" data-bn="যোগ্য শিক্ষকগণ" data-en="Qualified Teachers">যোগ্য শিক্ষকগণ</h3>
+                    <p class="text-gray-600" data-bn="অভিজ্ঞ এবং প্রত্যয়িত শিক্ষকদের কাছ থেকে শিখুন যাদের শিক্ষাদান অভিজ্ঞতা বছরের পর বছর।" data-en="Learn from experienced and certified teachers with years of teaching experience.">অভিজ্ঞ এবং প্রত্যয়িত শিক্ষকদের কাছ থেকে শিখুন যাদের শিক্ষাদান অভিজ্ঞতা বছরের পর বছর।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow text-center">
+                    <div class="h-40 mb-4">
+                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="নমনীয় শিক্ষা" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                    <h3 class="font-bold text-lg mb-2" data-bn="নমনীয় শিক্ষা" data-en="Flexible Education">নমনীয় শিক্ষা</h3>
+                    <p class="text-gray-600" data-bn="আপনার নিজের গতিতে নিজের সময়ে অধ্যয়ন করুন। ক্রয়কৃত কোর্সগুলিতে আজীবন অ্যাক্সেস।" data-en="Study at your own pace, in your own time. Lifetime access to purchased courses.">আপনার নিজের গতিতে নিজের সময়ে অধ্যয়ন করুন। ক্রয়কৃত কোর্সগুলিতে আজীবন অ্যাক্সেস।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow text-center">
+                    <div class="h-40 mb-4">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="সহায়ক সম্প্রদায়" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                    <h3 class="font-bold text-lg mb-2" data-bn="সহায়ক সম্প্রদায়" data-en="Supportive Community">সহায়ক সম্প্রদায়</h3>
+                    <p class="text-gray-600" data-bn="আপনার শিক্ষা সম্প্রদায়ে অন্যান্য শিক্ষার্থী এবং শিক্ষকদের সাথে সংযোগ করুন।" data-en="Connect with other students and teachers in your learning community.">আপনার শিক্ষা সম্প্রদায়ে অন্যান্য শিক্ষার্থী এবং শিক্ষকদের সাথে সংযোগ করুন।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- শিক্ষার্থীদের মন্তব্য -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-green-700" data-bn="আমাদের শিক্ষার্থীরা কী বলেন?" data-en="What Our Students Say?">আমাদের শিক্ষার্থীরা কী বলেন?</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-green-700 font-bold">আহ</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">আহমেদ র.</h4>
+                            <p class="text-gray-600 text-sm" data-bn="হিফজ কোর্স শিক্ষার্থী" data-en="Hifz Course Student">হিফজ কোর্স শিক্ষার্থী</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700" data-bn="পাঠ্যক্রমটি ব্যাপক এবং সুসংহত। আমি পূর্ণ সময়ের কাজ করার সময় আমার কোরআন শিক্ষা চালিয়ে যেতে পারি। শিক্ষকরা অত্যন্ত জ্ঞানী এবং সহায়ক।" data-en="The curriculum is comprehensive and well-structured. I can continue my Quran education while working full-time. The teachers are very knowledgeable and supportive.">পাঠ্যক্রমটি ব্যাপক এবং সুসংহত। আমি পূর্ণ সময়ের কাজ করার সময় আমার কোরআন শিক্ষা চালিয়ে যেতে পারি। শিক্ষকরা অত্যন্ত জ্ঞানী এবং সহায়ক।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-blue-700 font-bold">ফা</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">ফাতিমা হ.</h4>
+                            <p class="text-gray-600 text-sm" data-bn="আরবি ভাষা শিক্ষার্থী" data-en="Arabic Language Student">আরবি ভাষা শিক্ষার্থী</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700" data-bn="নিয়মিত স্কুলের একজন শিক্ষার্থী হিসাবে, আমি এখন আমার একাডেমিক পড়াশুনার পাশাপাশি দ্বীনও শিখতে পারি। প্লাটফর্মটি ব্যবহার করা খুব সহজ!" data-en="As a regular school student, I can now learn Deen alongside my academic studies. The platform is very easy to use!">নিয়মিত স্কুলের একজন শিক্ষার্থী হিসাবে, আমি এখন আমার একাডেমিক পড়াশুনার পাশাপাশি দ্বীনও শিখতে পারি। প্লাটফর্মটি ব্যবহার করা খুব সহজ!</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-yellow-200 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-yellow-700 font-bold">মো</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">মোহাম্মদ র.</h4>
+                            <p class="text-gray-600 text-sm" data-bn="দাওরায়ে হাদীস শিক্ষার্থী" data-en="Daura-e-Hadith Student">দাওরায়ে হাদীস শিক্ষার্থী</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700" data-bn="দাওরা শ্রেণীর পাঠ্যক্রম অসাধারণ। জ্ঞানের গভীরতা এবং শিক্ষার গুণমান এমন যে আমি ভৌত ক্লাসরুমে যে উপকার পেতাম তা আমি এখানে পাচ্ছি।" data-en="The Daura class curriculum is amazing. The depth of knowledge and quality of education is such that I get the same benefit here as I would in a physical classroom.">দাওরা শ্রেণীর পাঠ্যক্রম অসাধারণ। জ্ঞানের গভীরতা এবং শিক্ষার গুণমান এমন যে আমি ভৌত ক্লাসরুমে যে উপকার পেতাম তা আমি এখানে পাচ্ছি।</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-purple-700 font-bold">রা</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">রাফিয়া আ.</h4>
+                            <p class="text-gray-600 text-sm" data-bn="ফিকাহ কোর্স শিক্ষার্থী" data-en="Fiqh Course Student">ফিকাহ কোর্স শিক্ষার্থী</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700" data-bn="অনলাইন কোর্সগুলি আমার দ্বীনি শিক্ষার যাত্রায় অপরিহার্য হয়ে উঠেছে। ঘরে বসে এরকম গুণমান সম্পন্ন শিক্ষা পাওয়া অসাধারণ।" data-en="The online courses have become essential in my journey of Deeni education. Getting such quality education at home is amazing.">অনলাইন কোর্সগুলি আমার দ্বীনি শিক্ষার যাত্রায় অপরিহার্য হয়ে উঠেছে। ঘরে বসে এরকম গুণমান সম্পন্ন শিক্ষা পাওয়া অসাধারণ।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- ভিডিও সেকশন -->
+<!-- ভিডিও সেকশন -->
+<section class="py-16 bg-gray-100">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            
+            <!-- প্রথম কার্ড -->
+            <div class="bg-white rounded-lg shadow overflow-hidden group relative">
+                <div class="relative h-48">
+                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="কোর্স কিভাবে কিনবেন" class="w-full h-full object-cover">
+                    
+                    <!-- ব্ল্যাক overlay -->
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center transition-opacity duration-300 opacity-0 group-hover:opacity-100">
+                        <div class="text-center text-white px-4">
+                            <h3 class="text-xl font-bold mb-2" data-bn="কোর্স কিভাবে কিনবেন?" data-en="How to buy a course?">কোর্স কিভাবে কিনবেন?</h3>
+                            <p class="text-sm" data-bn="পছন্দের কোর্সে ক্লিক করে 'কিনুন' বাটনে চাপ দিন এবং নির্দিষ্ট পেমেন্ট পদ্ধতিতে টাকা পাঠিয়ে রেজিস্ট্রেশন সম্পন্ন করুন। ✅" data-en="Click on the desired course, press the 'Buy' button and complete registration by sending money through the specified payment method. ✅">
+                                পছন্দের কোর্সে ক্লিক করে "কিনুন" বাটনে চাপ দিন এবং নির্দিষ্ট পেমেন্ট পদ্ধতিতে টাকা পাঠিয়ে রেজিস্ট্রেশন সম্পন্ন করুন। ✅
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- play icon -->
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <i class="fas fa-play-circle text-5xl text-white opacity-80"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- দ্বিতীয় কার্ড -->
+            <div class="bg-white rounded-lg shadow overflow-hidden group relative">
+                <div class="relative h-48">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="ক্লাস কিভাবে করবেন" class="w-full h-full object-cover">
+                    
+                    <!-- ব্ল্যাক overlay -->
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center transition-opacity duration-300 opacity-0 group-hover:opacity-100">
+                        <div class="text-center text-white px-4">
+                            <h3 class="text-xl font-bold mb-2" data-bn="ক্লাস কিভাবে করবেন?" data-en="How to take classes?">ক্লাস কিভাবে করবেন?</h3>
+                            <p class="text-sm" data-bn="কোর্স কিনে নিলে আপনার অ্যাকাউন্টে অ্যাক্সেস চলে আসবে। সেখান থেকে ভিডিও দেখে এবং নোট ডাউনলোড করে পড়ালেখা করতে পারবেন।" data-en="After purchasing the course, you will get access to your account. From there you can study by watching videos and downloading notes.">
+                                কোর্স কিনে নিলে আপনার অ্যাকাউন্টে অ্যাক্সেস চলে আসবে। সেখান থেকে ভিডিও দেখে এবং নোট ডাউনলোড করে পড়ালেখা করতে পারবেন।
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- play icon -->
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <i class="fas fa-play-circle text-5xl text-white opacity-80"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+    <!-- ফুটার -->
+    <footer class="bg-green-800 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4" data-bn="দ্রুত লিংক" data-en="Quick Links">দ্রুত লিংক</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-green-300" data-bn="হোম" data-en="Home">হোম</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="আমাদের সম্পর্কে" data-en="About Us">আমাদের সম্পর্কে</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="সকল কোর্স" data-en="All Courses">সকল কোর্স</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="শিক্ষকমণ্ডলী" data-en="Teachers">শিক্ষকমণ্ডলী</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="ক্লাস সময়সূচি" data-en="Class Schedule">ক্লাস সময়সূচি</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="যোগাযোগ" data-en="Contact">যোগাযোগ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4" data-bn="জনপ্রিয় কোর্স" data-en="Popular Courses">জনপ্রিয় কোর্স</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-green-300" data-bn="কোরআন তেলাওয়াত" data-en="Quran Recitation">কোরআন তেলাওয়াত</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="হাদিস শিক্ষা" data-en="Hadith Learning">হাদিস শিক্ষa</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="আরবি ভাষা" data-en="Arabic Language">আরবি ভাষা</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="ফিকাহ শিক্ষা" data-en="Fiqh Learning">ফিকাহ শিক্ষা</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="তাজবিদ" data-en="Tajweed">তাজবিদ</a></li>
+                        <li><a href="#" class="hover:text-green-300" data-bn="ইসলামিক ইতিহাস" data-en="Islamic History">ইসলামিক ইতিহাস</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4" data-bn="নিউজলেটার" data-en="Newsletter">নিউজলেটার</h3>
+                    <p class="mb-4" data-bn="নিউজলেটার সাবস্ক্রাইব করুন" data-en="Subscribe to Newsletter">নিউজলেটার সাবস্ক্রাইব করুন</p>
+                    <div class="flex flex-col sm:flex-row">
+                        <input type="email" placeholder="আপনার ইমেইল" class="px-4 py-2 rounded-l-md w-full text-gray-800 sm:rounded-r-none" data-bn="আপনার ইমেইল" data-en="Your Email">
+                        <button class="bg-green-600 px-4 py-2 rounded-r-md hover:bg-green-500 mt-2 sm:mt-0 sm:rounded-l-none" data-bn="সাবস্ক্রাইব" data-en="Subscribe">সাবস্ক্রাইব</button>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4" data-bn="যোগাযোগ" data-en="Contact">যোগাযোগ</h3>
+                    <p class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i> <span data-bn="আজিমপুর, ঢাকা-১২০৫" data-en="Azimpur, Dhaka-1205">আজিমপুর, ঢাকা-১২০৫</span></p>
+                    <p class="mb-2"><i class="fas fa-phone-alt mr-2"></i> +৮৮০১৯১১-৫৬৭৮৯০</p>
+                    <p class="mb-4"><i class="fas fa-envelope mr-2"></i> billaharif661@gmail.com</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center hover:bg-green-600">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-green-700 mt-8 pt-6 text-center text-sm">
+                <p data-bn="© ২০২৫ মাদ্রাসা শিক্ষা। সমস্ত অধিকার সংরক্ষিত।" data-en="© 2025 Madrasa Education. All rights reserved.">© ২০২৫ মাদ্রাসা শিক্ষা। সমস্ত অধিকার সংরক্ষিত।</p>
+                <div class="mt-2">
+                    <a href="#" class="mx-2 hover:text-green-300" data-bn="প্রাইভেসি পলিসি" data-en="Privacy Policy">প্রাইভেসি পলিসি</a>
+                    <a href="#" class="mx-2 hover:text-green-300" data-bn="টার্মস অফ সার্ভিস" data-en="Terms of Service">টার্মস অফ সার্ভিস</a>
+                    <a href="#" class="mx-2 hover:text-green-300" data-bn="কোর্স নীতিমালা" data-en="Course Policies">কোর্স নীতিমালা</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<script>
+    // মোবাইল মেনু টগল করার জন্য JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // মোবাইল ড্রপডাউন মেনু টগল
+        const mobileDropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
+        mobileDropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                this.parentElement.classList.toggle('active');
+            });
+        });
+
+        // কন্টেন্ট আপডেট ফাংশন কল
+        updateContentFromDashboard();
+    });
+
+    // পৃষ্ঠা লোড হলে ডেটা আপডেট করার ফাংশন
+    function updateContentFromDashboard() {
+        const savedData = localStorage.getItem('madrasaContent');
+        
+        if (savedData) {
+            const data = JSON.parse(savedData);
+            console.log("লোড করা ডেটা:", data);
+            
+            // হিরো সেকশন আপডেট
+            if (data['hero-title']) {
+                const heroTitle = document.querySelector('.hero-bg h1');
+                if (heroTitle) heroTitle.textContent = data['hero-title'];
+            }
+            if (data['hero-desc']) {
+                const heroDesc = document.querySelector('.hero-bg p');
+                if (heroDesc) heroDesc.textContent = data['hero-desc'];
+            }
+            if (data['hero-btn1']) {
+                const heroBtn1 = document.querySelector('.hero-bg .bg-green-600');
+                if (heroBtn1) heroBtn1.textContent = data['hero-btn1'];
+            }
+            if (data['hero-btn2']) {
+                const heroBtn2 = document.querySelector('.hero-bg .bg-white');
+                if (heroBtn2) heroBtn2.textContent = data['hero-btn2'];
+            }
+            if (data['hero-bg']) {
+                const heroBg = document.querySelector('.hero-bg');
+                if (heroBg) {
+                    heroBg.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('${data['hero-bg']}')`;
+                }
+            }
+            
+            // উদ্ধৃতি সেকশন আপডেট
+            const quoteSections = document.querySelectorAll('.bg-green-50 .bg-white.p-6.rounded-lg.shadow-md');
+            if (data['quote1-title'] && quoteSections[0]) {
+                quoteSections[0].querySelector('h3').textContent = data['quote1-title'];
+            }
+            if (data['quote1-desc'] && quoteSections[0]) {
+                quoteSections[0].querySelector('p').textContent = data['quote1-desc'];
+            }
+            if (data['quote2-title'] && quoteSections[1]) {
+                quoteSections[1].querySelector('h3').textContent = data['quote2-title'];
+            }
+            if (data['quote2-desc'] && quoteSections[1]) {
+                quoteSections[1].querySelector('p').textContent = data['quote2-desc'];
+            }
+            
+            // বিভাগ সমূহ আপডেট
+            const categoryCards = document.querySelectorAll('section:nth-child(4) .category-card');
+            for (let i = 1; i <= 6; i++) {
+                if (data[`cat${i}-text`] && categoryCards[i-1]) {
+                    categoryCards[i-1].querySelector('h3').textContent = data[`cat${i}-text`];
+                }
+                if (data[`cat${i}-icon`] && categoryCards[i-1]) {
+                    const iconElement = categoryCards[i-1].querySelector('i');
+                    if (iconElement) {
+                        // আইকন ক্লাস আপডেট
+                        const newIconClass = data[`cat${i}-icon`];
+                        iconElement.className = '';
+                        iconElement.className = newIconClass + ' text-green-600 text-2xl';
+                    }
+                }
+            }
+            
+            // জনপ্রিয় কোর্স আপডেট - প্রথম সেট
+            const popularCardsSection1 = document.querySelectorAll('section:nth-child(5) .course-card');
+            for (let i = 1; i <= 4; i++) {
+                if (data[`pop-course${i}-title`] && popularCardsSection1[i-1]) {
+                    popularCardsSection1[i-1].querySelector('h3').textContent = data[`pop-course${i}-title`];
+                }
+                if (data[`pop-course${i}-desc`] && popularCardsSection1[i-1]) {
+                    popularCardsSection1[i-1].querySelector('p').textContent = data[`pop-course${i}-desc`];
+                }
+                if (data[`pop-course${i}-img`] && popularCardsSection1[i-1]) {
+                    const imgElement = popularCardsSection1[i-1].querySelector('img');
+                    if (imgElement) {
+                        imgElement.src = data[`pop-course${i}-img`];
+                    }
+                }
+            }
+            
+            // বিশেষ কোর্স আপডেট - দ্বিতীয় সেট
+            const specialCards = document.querySelectorAll('section:nth-child(6) .course-card');
+            for (let i = 1; i <= 4; i++) {
+                if (data[`spec-course${i}-title`] && specialCards[i-1]) {
+                    specialCards[i-1].querySelector('h3').textContent = data[`spec-course${i}-title`];
+                }
+                if (data[`spec-course${i}-desc`] && specialCards[i-1]) {
+                    specialCards[i-1].querySelector('p').textContent = data[`spec-course${i}-desc`];
+                }
+                if (data[`spec-course${i}-img`] && specialCards[i-1]) {
+                    const imgElement = specialCards[i-1].querySelector('img');
+                    if (imgElement) {
+                        imgElement.src = data[`spec-course${i}-img`];
+                    }
+                }
+            }
+            
+            // আমাদের কোর্সসমূহ আপডেট - তৃতীয় সেট
+            const allCourseCards = document.querySelectorAll('section:nth-child(7) .course-card');
+            for (let i = 1; i <= 6; i++) {
+                if (data[`all-course${i}-title`] && allCourseCards[i-1]) {
+                    allCourseCards[i-1].querySelector('h3').textContent = data[`all-course${i}-title`];
+                }
+                if (data[`all-course${i}-classes`] && allCourseCards[i-1]) {
+                    const infoElements = allCourseCards[i-1].querySelectorAll('.flex.justify-between.text-sm.text-gray-600 span');
+                    if (infoElements[0]) {
+                        infoElements[0].innerHTML = `<i class="far fa-clock mr-1"></i> ${data[`all-course${i}-classes`]}`;
+                    }
+                }
+                if (data[`all-course${i}-time`] && allCourseCards[i-1]) {
+                    const infoElements = allCourseCards[i-1].querySelectorAll('.flex.justify-between.text-sm.text-gray-600 span');
+                    if (infoElements[1]) {
+                        infoElements[1].innerHTML = `<i class="far fa-play-circle mr-1"></i> ${data[`all-course${i}-time`]}`;
+                    }
+                }
+                if (data[`all-course${i}-notes`] && allCourseCards[i-1]) {
+                    const infoElements = allCourseCards[i-1].querySelectorAll('.flex.justify-between.text-sm.text-gray-600 span');
+                    if (infoElements[2]) {
+                        infoElements[2].innerHTML = `<i class="far fa-sticky-note mr-1"></i> ${data[`all-course${i}-notes`]}`;
+                    }
+                }
+                if (data[`all-course${i}-price`] && allCourseCards[i-1]) {
+                    const priceElement = allCourseCards[i-1].querySelector('.text-green-600');
+                    if (priceElement) {
+                        priceElement.textContent = data[`all-course${i}-price`];
+                    }
+                }
+                if (data[`all-course${i}-oldprice`] && allCourseCards[i-1]) {
+                    const oldPriceElement = allCourseCards[i-1].querySelector('.text-gray-400');
+                    if (oldPriceElement) {
+                        oldPriceElement.textContent = data[`all-course${i}-oldprice`];
+                    }
+                }
+                if (data[`all-course${i}-img`] && allCourseCards[i-1]) {
+                    const imgElement = allCourseCards[i-1].querySelector('img');
+                    if (imgElement) {
+                        imgElement.src = data[`all-course${i}-img`];
+                    }
+                }
+            }
+            
+            // পরিসংখ্যান আপডেট
+            const stats = document.querySelectorAll('.bg-green-600 .text-4xl');
+            if (stats.length >= 4) {
+                if (data['stat1']) stats[0].textContent = data['stat1'];
+                if (data['stat2']) stats[1].textContent = data['stat2'];
+                if (data['stat3']) stats[2].textContent = data['stat3'];
+                if (data['stat4']) stats[3].textContent = data['stat4'];
+            }
+            
+            // আপনি কি শিখতে চান? আপডেট
+            const learnCards = document.querySelectorAll('section:nth-child(9) .category-card');
+            for (let i = 1; i <= 4; i++) {
+                if (data[`learn${i}-title`] && learnCards[i-1]) {
+                    learnCards[i-1].querySelector('h3').textContent = data[`learn${i}-title`];
+                }
+                if (data[`learn${i}-count`] && learnCards[i-1]) {
+                    learnCards[i-1].querySelector('p').textContent = data[`learn${i}-count`];
+                }
+            }
+            
+            // কেন মাদ্রাসা অনলাইন বেছে নিবেন আপডেট
+            const whyCards = document.querySelectorAll('section:nth-child(10) .bg-white.p-6.rounded-lg.shadow');
+            for (let i = 1; i <= 4; i++) {
+                if (data[`why${i}-title`] && whyCards[i-1]) {
+                    whyCards[i-1].querySelector('h3').textContent = data[`why${i}-title`];
+                }
+                if (data[`why${i}-desc`] && whyCards[i-1]) {
+                    whyCards[i-1].querySelector('p').textContent = data[`why${i}-desc`];
+                }
+                if (data[`why${i}-img`] && whyCards[i-1]) {
+                    const imgElement = whyCards[i-1].querySelector('img');
+                    if (imgElement) {
+                        imgElement.src = data[`why${i}-img`];
+                    }
+                }
+            }
+            
+            // শিক্ষার্থীদের মন্তব্য আপডেট
+            const testCards = document.querySelectorAll('section:nth-child(11) .bg-white.p-6.rounded-lg.shadow');
+            for (let i = 1; i <= 4; i++) {
+                if (data[`test${i}-name`] && testCards[i-1]) {
+                    testCards[i-1].querySelector('h4').textContent = data[`test${i}-name`];
+                }
+                if (data[`test${i}-role`] && testCards[i-1]) {
+                    testCards[i-1].querySelector('.text-gray-600.text-sm').textContent = data[`test${i}-role`];
+                }
+                if (data[`test${i}-comment`] && testCards[i-1]) {
+                    testCards[i-1].querySelector('.text-gray-700:last-child').textContent = data[`test${i}-comment`];
+                }
+            }
+            
+            // ভিডিও সেকশন আপডেট
+            const videoCards = document.querySelectorAll('section:nth-child(12) .bg-white.p-6.rounded-lg.shadow');
+            for (let i = 1; i <= 2; i++) {
+                if (data[`video${i}-title`] && videoCards[i-1]) {
+                    videoCards[i-1].querySelector('h3').textContent = data[`video${i}-title`];
+                }
+                if (data[`video${i}-desc`] && videoCards[i-1]) {
+                    videoCards[i-1].querySelector('p').textContent = data[`video${i}-desc`];
+                }
+                if (data[`video${i}-img`] && videoCards[i-1]) {
+                    const imgElement = videoCards[i-1].querySelector('img');
+                    if (imgElement) {
+                        imgElement.src = data[`video${i}-img`];
+                    }
+                }
+            }
+            
+            // ফুটার আপডেট
+            if (data['footer-address']) {
+                const addressElement = document.querySelector('footer p:nth-child(2)');
+                if (addressElement) {
+                    addressElement.innerHTML = `<i class="fas fa-map-marker-alt mr-2"></i> ${data['footer-address']}`;
+                }
+            }
+            if (data['footer-phone']) {
+                const phoneElement = document.querySelector('footer p:nth-child(3)');
+                if (phoneElement) {
+                    phoneElement.innerHTML = `<i class="fas fa-phone-alt mr-2"></i> ${data['footer-phone']}`;
+                }
+            }
+            if (data['footer-email']) {
+                const emailElement = document.querySelector('footer p:nth-child(4)');
+                if (emailElement) {
+                    emailElement.innerHTML = `<i class="fas fa-envelope mr-2"></i> ${data['footer-email']}`;
+                }
+            }
+            if (data['footer-copyright']) {
+                const copyrightElement = document.querySelector('.border-t.border-green-700 p');
+                if (copyrightElement) {
+                    copyrightElement.textContent = data['footer-copyright'];
+                }
+            }
+            
+            console.log("কন্টেন্ট আপডেট সম্পন্ন হয়েছে!");
+        } else {
+            console.log("লোকাল স্টোরেজে কোনো ডেটা নেই");
+        }
+    }
+
+
+
+
+
+    // ফুটার সম্পূর্ণ আপডেট
+// দ্রুত লিংক আপডেট
+for (let i = 1; i <= 6; i++) {
+    if (data[`footer-link${i}-text`]) {
+        const linkElement = document.querySelector(`footer ul:first-child li:nth-child(${i}) a`);
+        if (linkElement) {
+            linkElement.textContent = data[`footer-link${i}-text`];
+        }
+    }
+    if (data[`footer-link${i}-url`]) {
+        const linkElement = document.querySelector(`footer ul:first-child li:nth-child(${i}) a`);
+        if (linkElement) {
+            linkElement.href = data[`footer-link${i}-url`];
+        }
+    }
+}
+
+// জনপ্রিয় কোর্স লিংক আপডেট
+for (let i = 1; i <= 6; i++) {
+    if (data[`footer-course${i}-text`]) {
+        const courseElement = document.querySelector(`footer ul:nth-child(2) li:nth-child(${i}) a`);
+        if (courseElement) {
+            courseElement.textContent = data[`footer-course${i}-text`];
+        }
+    }
+    if (data[`footer-course${i}-url`]) {
+        const courseElement = document.querySelector(`footer ul:nth-child(2) li:nth-child(${i}) a`);
+        if (courseElement) {
+            courseElement.href = data[`footer-course${i}-url`];
+        }
+    }
+}
+
+// সোশ্যাল মিডিয়া লিংক আপডেট
+if (data['footer-facebook']) {
+    const facebookLink = document.querySelector('footer a:nth-child(1)');
+    if (facebookLink) facebookLink.href = data['footer-facebook'];
+}
+if (data['footer-youtube']) {
+    const youtubeLink = document.querySelector('footer a:nth-child(2)');
+    if (youtubeLink) youtubeLink.href = data['footer-youtube'];
+}
+if (data['footer-instagram']) {
+    const instagramLink = document.querySelector('footer a:nth-child(3)');
+    if (instagramLink) instagramLink.href = data['footer-instagram'];
+}
+if (data['footer-twitter']) {
+    const twitterLink = document.querySelector('footer a:nth-child(4)');
+    if (twitterLink) twitterLink.href = data['footer-twitter'];
+}
+
+// নীতিমালা লিংক আপডেট
+for (let i = 1; i <= 3; i++) {
+    if (data[`footer-policy${i}-text`]) {
+        const policyElement = document.querySelector(`.border-t.border-green-700 a:nth-child(${i})`);
+        if (policyElement) {
+            policyElement.textContent = data[`footer-policy${i}-text`];
+        }
+    }
+    if (data[`footer-policy${i}-url`]) {
+        const policyElement = document.querySelector(`.border-t.border-green-700 a:nth-child(${i})`);
+        if (policyElement) {
+            policyElement.href = data[`footer-policy${i}-url`];
+        }
+    }
+}
+
+// নিউজলেটার আপডেট
+if (data['footer-newsletter-text']) {
+    const newsletterText = document.querySelector('footer h3:nth-child(3) + p');
+    if (newsletterText) newsletterText.textContent = data['footer-newsletter-text'];
+}
+if (data['footer-newsletter-placeholder']) {
+    const newsletterInput = document.querySelector('footer input[type="email"]');
+    if (newsletterInput) newsletterInput.placeholder = data['footer-newsletter-placeholder'];
+}
+if (data['footer-newsletter-button']) {
+    const newsletterButton = document.querySelector('footer button.bg-green-600');
+    if (newsletterButton) newsletterButton.textContent = data['footer-newsletter-button'];
+}
+</script>   
+
+    
+</body>
+</html>
