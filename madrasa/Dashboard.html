@@ -1079,131 +1079,83 @@
         </div>
     </div>
     
-    <script>
-        // Mobile menu toggle
-        document.getElementById('mobileMenuButton').addEventListener('click', function() {
-            document.getElementById('sidebar').classList.toggle('active');
-            document.getElementById('overlay').classList.toggle('active');
+<script>
+    // Mobile menu toggle
+    document.getElementById('mobileMenuButton').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.toggle('active');
+        document.getElementById('overlay').classList.toggle('active');
+    });
+    
+    // Mobile scholbar toggle
+    document.getElementById('mobileScholbarButton').addEventListener('click', function() {
+        document.getElementById('scholbar').classList.toggle('active');
+        document.getElementById('overlay').classList.toggle('active');
+    });
+    
+    // Overlay click to close both sidebars
+    document.getElementById('overlay').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.remove('active');
+        document.getElementById('scholbar').classList.remove('active');
+        document.getElementById('overlay').classList.remove('active');
+    });
+    
+    // Smooth scrolling for sidebar links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Close sidebar on mobile after clicking
+                if (window.innerWidth <= 768) {
+                    document.getElementById('sidebar').classList.remove('active');
+                    document.getElementById('overlay').classList.remove('active');
+                }
+            }
         });
-        
-        // Mobile scholbar toggle
-        document.getElementById('mobileScholbarButton').addEventListener('click', function() {
-            document.getElementById('scholbar').classList.toggle('active');
-            document.getElementById('overlay').classList.toggle('active');
-        });
-        
-        // Overlay click to close both sidebars
-        document.getElementById('overlay').addEventListener('click', function() {
-            document.getElementById('sidebar').classList.remove('active');
-            document.getElementById('scholbar').classList.remove('active');
-            document.getElementById('overlay').classList.remove('active');
-        });
-        
-        // Save all button functionality
+    });
+
+    // Dashboard থেকে Madrasa.html কন্টেন্ট আপডেট সিস্টেম
+    document.addEventListener('DOMContentLoaded', function() {
+        // সব পরিবর্তন সেভ করার ফাংশন
         document.getElementById('saveAllBtn').addEventListener('click', function() {
-            alert('সব পরিবর্তন সফলভাবে সেভ করা হয়েছে!');
-        });
-        
-        // Smooth scrolling for sidebar links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    
-                    // Close sidebar on mobile after clicking
-                    if (window.innerWidth <= 768) {
-                        document.getElementById('sidebar').classList.remove('active');
-                        document.getElementById('overlay').classList.remove('active');
-                    }
+            // সব ইনপুট ফিল্ড থেকে ডেটা সংগ্রহ করুন
+            const formData = {};
+            const inputs = document.querySelectorAll('input, textarea');
+            
+            inputs.forEach(input => {
+                if (input.dataset.target) {
+                    formData[input.dataset.target] = input.value;
                 }
             });
-        });
-
-
-
-
-
-        // Dashboard থেকে Madrasa.html কন্টেন্ট আপডেট সিস্টেম
-document.addEventListener('DOMContentLoaded', function() {
-    // সব পরিবর্তন সেভ করার ফাংশন
-    document.getElementById('saveAllBtn').addEventListener('click', function() {
-        // সব ইনপুট ফিল্ড থেকে ডেটা সংগ্রহ করুন
-        const formData = {};
-        const inputs = document.querySelectorAll('input, textarea');
-        
-        inputs.forEach(input => {
-            if (input.dataset.target) {
-                formData[input.dataset.target] = input.value;
-            }
+            
+            // লোকাল স্টোরেজে ডেটা সেভ করুন
+            localStorage.setItem('madrasaContent', JSON.stringify(formData));
+            
+            alert('সব পরিবর্তন সফলভাবে সেভ করা হয়েছে! Madrasa.html পৃষ্ঠাটি রিফ্রেশ করুন আপডেট দেখতে।');
         });
         
-        // লোকাল স্টোরেজে ডেটা সেভ করুন
-        localStorage.setItem('madrasaContent', JSON.stringify(formData));
-        
-        alert('সব পরিবর্তন সফলভাবে সেভ করা হয়েছে! Madrasa.html পৃষ্ঠাটি রিফ্রেশ করুন আপডেট দেখতে।');
+        // পূর্বে সেভ করা ডেটা লোড করুন (যদি থাকে)
+        const savedData = localStorage.getItem('madrasaContent');
+        if (savedData) {
+            const data = JSON.parse(savedData);
+            const inputs = document.querySelectorAll('input, textarea');
+            
+            inputs.forEach(input => {
+                if (input.dataset.target && data[input.dataset.target]) {
+                    input.value = data[input.dataset.target];
+                }
+            });
+        }
     });
-    
-    // পূর্বে সেভ করা ডেটা লোড করুন (যদি থাকে)
-    const savedData = localStorage.getItem('madrasaContent');
-    if (savedData) {
-        const data = JSON.parse(savedData);
-        const inputs = document.querySelectorAll('input, textarea');
-        
-        inputs.forEach(input => {
-            if (input.dataset.target && data[input.dataset.target]) {
-                input.value = data[input.dataset.target];
-            }
-        });
-    }
-});
-
-
-
-
-
-
-// Dashboard থেকে Madrasa.html কন্টেন্ট আপডেট সিস্টেম
-document.addEventListener('DOMContentLoaded', function() {
-    // সব পরিবর্তন সেভ করার ফাংশন
-    document.getElementById('saveAllBtn').addEventListener('click', function() {
-        // সব ইনপুট ফিল্ড থেকে ডেটা সংগ্রহ করুন
-        const formData = {};
-        const inputs = document.querySelectorAll('input, textarea');
-        
-        inputs.forEach(input => {
-            if (input.dataset.target) {
-                formData[input.dataset.target] = input.value;
-            }
-        });
-        
-        // লোকাল স্টোরেজে ডেটা সেভ করুন
-        localStorage.setItem('madrasaContent', JSON.stringify(formData));
-        
-        alert('সব পরিবর্তন সফলভাবে সেভ করা হয়েছে! Madrasa.html পৃষ্ঠাটি রিফ্রেশ করুন আপডেট দেখতে।');
-    });
-    
-    // পূর্বে সেভ করা ডেটা লোড করুন (যদি থাকে)
-    const savedData = localStorage.getItem('madrasaContent');
-    if (savedData) {
-        const data = JSON.parse(savedData);
-        const inputs = document.querySelectorAll('input, textarea');
-        
-        inputs.forEach(input => {
-            if (input.dataset.target && data[input.dataset.target]) {
-                input.value = data[input.dataset.target];
-            }
-        });
-    }
-});
-    </script> 
+</script>
 </body>
 </html>

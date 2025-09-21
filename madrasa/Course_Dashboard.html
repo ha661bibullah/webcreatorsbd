@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>কোর্স ম্যানেজমেন্ট - মাদ্রাসা শিক্ষা</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .course-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .dashboard-menu {
+            transition: all 0.3s ease;
+        }
+        .dashboard-menu:hover {
+            background-color: #065f46;
+        }
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+        .mobile-menu {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            .desktop-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- ড্যাশবোর্ড হেডার -->
+    <header class="bg-green-700 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">কোর্স ম্যানেজমেন্ট - মাদ্রাসা শিক্ষা</h1>
+            <button id="dashboardToggle" class="md:hidden text-white focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+            <nav class="hidden md:flex space-x-4">
+                <a href="madrasa.html" class="px-3 py-2 rounded hover:bg-green-600">মূল সাইট</a>
+                <a href="#" class="px-3 py-2 rounded hover:bg-green-600">কোর্সসমূহ</a>
+                <a href="#" class="px-3 py-2 rounded hover:bg-green-600">লগআউট</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="flex flex-col md:flex-row">
+        <!-- সাইডবার (মোবাইলে লুকানো) -->
+        <aside id="dashboardSidebar" class="bg-green-800 text-white w-full md:w-64 h-auto md:h-screen p-4 hidden md:block">
+            <div class="mb-8 text-center">
+                <img src="https://ui-avatars.com/api/?name=Admin&background=0D8ABC&color=fff" alt="Admin" class="w-24 h-24 rounded-full mx-auto mb-2">
+                <h2 class="text-xl font-semibold">এডমিন</h2>
+                <p class="text-green-300">সুপার এডমিন</p>
+            </div>
+            
+            <ul class="space-y-2">
+                <li>
+                    <a href="#" class="dashboard-menu flex items-center p-3 rounded-lg bg-green-700">
+                        <i class="fas fa-tachometer-alt mr-3"></i>
+                        ড্যাশবোর্ড
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="dashboard-menu flex items-center p-3 rounded-lg hover:bg-green-700">
+                        <i class="fas fa-book mr-3"></i>
+                        সকল কোর্স
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="addCourseBtnSidebar" class="dashboard-menu flex items-center p-3 rounded-lg hover:bg-green-700">
+                        <i class="fas fa-plus-circle mr-3"></i>
+                        নতুন কোর্স
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="dashboard-menu flex items-center p-3 rounded-lg hover:bg-green-700">
+                        <i class="fas fa-users mr-3"></i>
+                        শিক্ষার্থীরা
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="dashboard-menu flex items-center p-3 rounded-lg hover:bg-green-700">
+                        <i class="fas fa-cog mr-3"></i>
+                        সেটিংস
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- মূল কন্টেন্ট -->
+        <main class="flex-1 p-6">
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-green-700">কোর্স ম্যানেজমেন্ট</h2>
+                    <button id="addCourseBtn" class="bg-green-600 text-white px-4 py-2 rounded-md font-semibold hover:bg-green-700 flex items-center">
+                        <i class="fas fa-plus-circle mr-2"></i> নতুন কোর্স
+                    </button>
+                </div>
+
+                <!-- কোর্স সার্চ এবং ফিল্টার -->
+                <div class="mb-6 flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
+                    <div class="flex-1">
+                        <input type="text" placeholder="কোর্স খুঁজুন..." class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    <div>
+                        <select class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <option>সব বিভাগ</option>
+                            <option>কুরআন</option>
+                            <option>হাদিস</option>
+                            <option>ইতিহাস</option>
+                            <option>ভাষা</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- কোর্স গ্রিড -->
+                <section class="py-8 bg-gray-100 rounded-lg">
+                    <div class="container mx-auto px-4">
+                        <h2 class="text-3xl font-bold text-center mb-12 text-green-700">আমাদের কোর্সসমূহ</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="coursesContainer">
+                            <!-- কোর্স কার্ডগুলি এখানে লোড হবে -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Course Modal -->
+    <div id="addCourseModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden modal">
+        <div class="bg-white rounded-lg shadow-xl w-11/12 md:w-3/4 lg:w-1/2 max-h-screen overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center border-b pb-3">
+                    <h3 class="text-2xl font-bold text-green-700">নতুন কোর্স যোগ করুন</h3>
+                    <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                
+                <form id="courseForm" class="mt-4 space-y-4">
+                    <div>
+                        <label for="courseTitle" class="block text-sm font-medium text-gray-700">কোর্সের নাম</label>
+                        <input type="text" id="courseTitle" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    
+                    <div>
+                        <label for="courseDescription" class="block text-sm font-medium text-gray-700">কোর্স বিবরণ</label>
+                        <textarea id="courseDescription" rows="3" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label for="courseClasses" class="block text-sm font-medium text-gray-700">ক্লাস সংখ্যা</label>
+                            <input type="number" id="courseClasses" min="1" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        
+                        <div>
+                            <label for="courseHours" class="block text-sm font-medium text-gray-700">মোট ঘন্টা</label>
+                            <input type="number" id="courseHours" min="1" step="0.5" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        
+                        <div>
+                            <label for="courseNotes" class="block text-sm font-medium text-gray-700">নোট সংখ্যা</label>
+                            <input type="number" id="courseNotes" min="0" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="coursePrice" class="block text-sm font-medium text-gray-700">কোর্স ফি</label>
+                            <input type="number" id="coursePrice" min="0" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        
+                        <div>
+                            <label for="courseOriginalPrice" class="block text-sm font-medium text-gray-700">আসল মূল্য (ঐচ্ছিক)</label>
+                            <input type="number" id="courseOriginalPrice" min="0" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="courseImage" class="block text-sm font-medium text-gray-700">কোর্স ইমেজ URL</label>
+                        <input type="url" id="courseImage" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    
+                    <div>
+                        <label for="courseLink" class="block text-sm font-medium text-gray-700">কোর্স লিংক (স্বয়ংক্রিয়ভাবে তৈরি হবে)</label>
+                        <input type="text" id="courseLink" readonly class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100">
+                    </div>
+                    
+                    <div class="flex justify-end space-x-3 pt-4">
+                        <button type="button" id="cancelCourse" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100">বাতিল</button>
+                        <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">কোর্স সংরক্ষণ করুন</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Course Modal -->
+    <div id="editCourseModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden modal">
+        <!-- Edit modal content (similar to add modal) -->
+    </div>
+
+   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // কোর্স ডেটা (সাধারণত সার্ভার থেকে আসবে)
+        let courses = [
+            {
+                id: 1,
+                title: "বিশুদ্ধ কুরআন শিক্ষা",
+                classes: 24,
+                hours: 7,
+                notes: 1,
+                price: 99,
+                originalPrice: 120,
+                image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                link: "/courses/pure-quran-education.html",
+                visible: true
+            },
+            {
+                id: 2,
+                title: "উর্দু কায়দা",
+                classes: 18,
+                hours: 5,
+                notes: 2,
+                price: 99,
+                originalPrice: 120,
+                image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                link: "/courses/urdu-qaida.html",
+                visible: true
+            },
+            {
+                id: 3,
+                title: "তালিমুল ইসলাম ১ম খন্ড",
+                classes: 30,
+                hours: 10,
+                notes: 3,
+                price: 99,
+                originalPrice: 120,
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                link: "/courses/talimul-islam-part-1.html",
+                visible: true
+            },
+            {
+                id: 4,
+                title: "তালিমুল ইসলাম ২য় খন্ড",
+                classes: 20,
+                hours: 8,
+                notes: 2,
+                price: 99,
+                originalPrice: 120,
+                image: "https://images.unsplash.com/photo-1516937941344-00b4e0337589?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                link: "/courses/talimul-islam-part-2.html",
+                visible: true
+            },
+            {
+                id: 5,
+                title: "তালিমুল ইসলাম ৩য় খন্ড",
+                classes: 22,
+                hours: 9,
+                notes: 1,
+                price: 99,
+                originalPrice: 120,
+                image: "https://images.unsplash.com/photo-1517842645767-c639042777db?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                link: "/courses/talimul-islam-part-3.html",
+                visible: true
+            },
+            {
+                id: 6,
+                title: "নতুন কোরআন কোর্স",
+                classes: 25,
+                hours: 10,
+                notes: 3,
+                price: 129,
+                originalPrice: 150,
+                image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                link: "/courses/new-quran-course.html",
+                visible: true
+            },
+            {
+                id: 7,
+                title: "আরবি ভাষা শিক্ষা",
+                classes: 35,
+                hours: 15,
+                notes: 5,
+                price: 159,
+                originalPrice: 200,
+                image: "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                link: "/courses/arabic-language.html",
+                visible: true
+            },
+            {
+                id: 8,
+                title: "হাদিস শিক্ষা",
+                classes: 28,
+                hours: 12,
+                notes: 4,
+                price: 149,
+                originalPrice: 180,
+                image: "https://images.unsplash.com/photo-1587132137058-ceb6decbba70?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                link: "/courses/hadith-studies.html",
+                visible: true
+            },
+            {
+                id: 9,
+                title: "নামাজ শিক্ষা",
+                classes: 15,
+                hours: 6,
+                notes: 2,
+                price: 79,
+                originalPrice: 100,
+                image: "https://images.unsplash.com/photo-1604369674555-503bed120a69?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                link: "/courses/prayer-learning.html",
+                visible: true
+            },
+            {
+                id: 10,
+                title: "ইসলামিক ইতিহাস",
+                classes: 40,
+                hours: 20,
+                notes: 6,
+                price: 199,
+                originalPrice: 250,
+                image: "https://images.unsplash.com/photo-1588666309990-d68f08e3d4a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                link: "/courses/islamic-history.html",
+                visible: true
+            },
+            {
+                id: 11,
+                title: "তাজবীদ শিক্ষা",
+                classes: 20,
+                hours: 8,
+                notes: 3,
+                price: 119,
+                originalPrice: 150,
+                image: "https://images.unsplash.com/photo-1591955506264-3f5a6834570a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                link: "/courses/tajweed.html",
+                visible: true
+            },
+            {
+                id: 12,
+                title: "ইসলামী আকিদা",
+                classes: 25,
+                hours: 12,
+                notes: 4,
+                price: 139,
+                originalPrice: 170,
+                image: "https://images.unsplash.com/photo-1589001720146-56dce6d60c6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                link: "/courses/islamic-aqeedah.html",
+                visible: true
+            }
+        ];
+
+        const coursesContainer = document.getElementById('coursesContainer');
+        const addCourseBtn = document.getElementById('addCourseBtn');
+        const addCourseBtnSidebar = document.getElementById('addCourseBtnSidebar');
+        const addCourseModal = document.getElementById('addCourseModal');
+        const closeModal = document.getElementById('closeModal');
+        const cancelCourse = document.getElementById('cancelCourse');
+        const courseForm = document.getElementById('courseForm');
+        const dashboardToggle = document.getElementById('dashboardToggle');
+        const dashboardSidebar = document.getElementById('dashboardSidebar');
+        const courseTitleInput = document.getElementById('courseTitle');
+        const courseLinkInput = document.getElementById('courseLink');
+
+        // বাংলা থেকে ইংরেজি ট্রান্সলিটারেশন ফাংশন
+        function banglaToEnglishTransliteration(text) {
+            const transliterationMap = {
+                'া': 'a', 'ি': 'i', 'ী': 'i', 'ু': 'u', 'ূ': 'u', 'ে': 'e', 'ো': 'o',
+                'অ': 'o', 'আ': 'a', 'ই': 'i', 'ঈ': 'i', 'উ': 'u', 'ঊ': 'u', 'এ': 'e',
+                'ও': 'o', 'ক': 'k', 'খ': 'kh', 'গ': 'g', 'ঘ': 'gh', 'ঙ': 'ng',
+                'চ': 'ch', 'ছ': 'chh', 'জ': 'j', 'ঝ': 'jh', 'ঞ': 'n',
+                'ট': 't', 'ঠ': 'th', 'ড': 'd', 'ঢ': 'dh', 'ণ': 'n',
+                'ত': 't', 'থ': 'th', 'দ': 'd', 'ধ': 'dh', 'ন': 'n',
+                'প': 'p', 'ফ': 'ph', 'ব': 'b', 'ভ': 'bh', 'ম': 'm',
+                'য': 'z', 'র': 'r', 'ল': 'l', 'শ': 'sh', 'ষ': 'sh', 'স': 's',
+                'হ': 'h', 'ড়': 'r', 'ঢ়': 'rh', 'য়': 'y', 'ৎ': 't', 'ং': 'ng', 'ঃ': 'h',
+                ' ': '-', '_': '-'
+            };
+            
+            return text.split('').map(char => {
+                return transliterationMap[char] || char;
+            }).join('').toLowerCase().replace(/[^\w\-]+/g, '');
+        }
+
+        // কার্ড রেন্ডার করার ফাংশন
+        function renderCourses() {
+            coursesContainer.innerHTML = '';
+            courses.forEach(course => {
+                const courseCard = document.createElement('div');
+                courseCard.className = 'course-card bg-white rounded-lg overflow-hidden shadow';
+                courseCard.innerHTML = `
+                    <div class="h-48 relative">
+                        <img src="${course.image}" alt="${course.title}" class="w-full h-full object-cover">
+                        <div class="absolute top-2 right-2 flex space-x-2">
+                            <button class="edit-course bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600" data-id="${course.id}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="delete-course bg-red-500 text-white p-2 rounded-full hover:bg-red-600" data-id="${course.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">${course.title}</h3>
+                        <div class="flex justify-between text-sm text-gray-600 mb-3">
+                            <span><i class="far fa-clock mr-1"></i> ${course.classes} ক্লাস</span>
+                            <span><i class="far fa-play-circle mr-1"></i> ${course.hours} ঘন্টা</span>
+                            <span><i class="far fa-sticky-note mr-1"></i> ${course.notes} টি নোট</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-green-600 font-bold text-xl">৳${course.price}</span>
+                                ${course.originalPrice ? `<span class="text-gray-400 line-through text-sm ml-2">৳${course.originalPrice}</span>` : ''}
+                            </div>
+                            <a href="${course.link}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">দেখুন</a>
+                        </div>
+                    </div>
+                `;
+                coursesContainer.appendChild(courseCard);
+            });
+
+            // ইভেন্ট লিসেনার যোগ করুন
+            document.querySelectorAll('.delete-course').forEach(button => {
+                button.addEventListener('click', function() {
+                    const courseId = parseInt(this.getAttribute('data-id'));
+                    deleteCourse(courseId);
+                });
+            });
+
+            document.querySelectorAll('.edit-course').forEach(button => {
+                button.addEventListener('click', function() {
+                    const courseId = parseInt(this.getAttribute('data-id'));
+                    editCourse(courseId);
+                });
+            });
+            
+            // মূল সাইটে কোর্স আপডেট করুন
+            updateMainSiteCourses();
+        }
+
+        // প্রথম রেন্ডার
+        renderCourses();
+
+        // মোবাইল ড্যাশবোর্ড টগল
+        dashboardToggle.addEventListener('click', function() {
+            dashboardSidebar.classList.toggle('hidden');
+        });
+
+        // মোডাল সম্পর্কিত ফাংশন
+        function openAddCourseModal() {
+            addCourseModal.classList.remove('hidden');
+        }
+        
+        addCourseBtn.addEventListener('click', openAddCourseModal);
+        addCourseBtnSidebar.addEventListener('click', openAddCourseModal);
+
+        closeModal.addEventListener('click', function() {
+            addCourseModal.classList.add('hidden');
+        });
+
+        cancelCourse.addEventListener('click', function() {
+            addCourseModal.classList.add('hidden');
+        });
+
+        // কোর্স টাইটেল থেকে লিংক জেনারেট করুন
+        courseTitleInput.addEventListener('input', function() {
+            const title = this.value;
+            const englishSlug = banglaToEnglishTransliteration(title);
+            const link = "/courses/" + englishSlug + ".html";
+            courseLinkInput.value = link;
+        });
+
+        // ফর্ম সাবমিশন
+        courseForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newCourse = {
+                id: courses.length + 1,
+                title: document.getElementById('courseTitle').value,
+                classes: parseInt(document.getElementById('courseClasses').value) || 0,
+                hours: parseInt(document.getElementById('courseHours').value) || 0,
+                notes: parseInt(document.getElementById('courseNotes').value) || 0,
+                price: parseInt(document.getElementById('coursePrice').value) || 0,
+                originalPrice: parseInt(document.getElementById('courseOriginalPrice').value) || 0,
+                image: document.getElementById('courseImage').value || 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                link: document.getElementById('courseLink').value,
+                visible: true
+            };
+            
+            courses.push(newCourse);
+            renderCourses();
+            
+            // ফর্ম রিসেট এবং মোডাল বন্ধ
+            courseForm.reset();
+            courseLinkInput.value = '';
+            addCourseModal.classList.add('hidden');
+            
+            alert('কোর্সটি সফলভাবে যোগ করা হয়েছে!');
+        });
+
+        // কোর্স ডিলিট ফাংশন
+        function deleteCourse(courseId) {
+            if (confirm('আপনি কি নিশ্চিত যে আপনি এই কোর্সটি মুছতে চান?')) {
+                courses = courses.filter(course => course.id !== courseId);
+                renderCourses();
+                alert('কোর্সটি মুছে ফেলা হয়েছে!');
+            }
+        }
+
+        // কোর্স এডিট ফাংশন
+        function editCourse(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            if (course) {
+                alert('এডিট ফিচারটি শীঘ্রই আসছে!');
+                // এডিট মোডাল খুলে কোর্স ডেটা লোড করতে হবে
+                // তারপর আপডেট করে রেন্ডার করতে হবে
+            }
+        }
+        
+        // মূল সাইটে কোর্স আপডেট করার ফাংশন
+        function updateMainSiteCourses() {
+            // লোকাল স্টোরেজে কোর্স ডেটা সেভ করুন
+            localStorage.setItem('madrasaCourses', JSON.stringify(courses));
+            
+            // মূল সাইটে কোর্স আপডেট করার জন্য একটি ইভেন্ট ট্রিগার করুন
+            window.dispatchEvent(new Event('coursesUpdated'));
+        }
+
+        // রেসপনসিভ মেনু টগল
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 768) {
+                dashboardSidebar.classList.remove('hidden');
+            } else {
+                dashboardSidebar.classList.add('hidden');
+            }
+        });
+        
+        // মূল সাইট থেকে কোর্স ডেটা লোড করুন (যদি থাকে)
+        const savedCourses = localStorage.getItem('madrasaCourses');
+        if (savedCourses) {
+            courses = JSON.parse(savedCourses);
+            renderCourses();
+        }
+
+        // অন্যান্য ট্যাব থেকে আপডেট শুনুন
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'madrasaCoursesUpdate') {
+                const savedCourses = localStorage.getItem('madrasaCourses');
+                if (savedCourses) {
+                    courses = JSON.parse(savedCourses);
+                    renderCourses();
+                }
+            }
+        });
+    });
+
+    // মূল সাইটে কোর্স আপডেট করার ফাংশন
+    function updateMainSiteCourses() {
+        // লোকাল স্টোরেজে কোর্স ডেটা সেভ করুন
+        localStorage.setItem('madrasaCourses', JSON.stringify(courses));
+        
+        // মূল সাইটে কোর্স আপডেট করার জন্য একটি ইভেন্ট ট্রিগার করুন
+        window.dispatchEvent(new Event('coursesUpdated'));
+        
+        // অন্যান্য উইন্ডো/ট্যাবের জন্যও স্টোরেজ ইভেন্ট ট্রিগার করুন
+        if (typeof Storage !== "undefined") {
+            localStorage.setItem('madrasaCoursesUpdate', Date.now().toString());
+        }
+    }
+</script>
+</body>
+</html>

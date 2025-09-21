@@ -433,142 +433,396 @@ setInterval(slideNext, 3000);
     </section>
 
     <!-- আমাদের কোর্সসমূহ -->
-    <section class="py-16 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12 text-green-700" data-bn="আমাদের কোর্সসমূহ" data-en="Our Courses">আমাদের কোর্সসমূহ</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+    <style>
+        .hidden-courses {
+            display: none;
+        }
+        .course-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        #seeMoreBtn {
+            transition: all 0.3s ease;
+        }
+        #seeMoreBtn:hover {
+            transform: scale(1.05);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+<section class="py-16 bg-gray-100">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12 text-green-700">আমাদের কোর্সসমূহ</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="dynamicCoursesContainer">   
+                <!-- প্রথম ৬টি কোর্স (দৃশ্যমান) -->
+                <!-- Quran Course -->
                 <div class="course-card bg-white rounded-lg overflow-hidden shadow">
                     <div class="h-48">
                         <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="বিশুদ্ধ কুরআন শিক্ষা" class="w-full h-full object-cover">
                     </div>
                     <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2" data-bn="বিশুদ্ধ কুরআন শিক্ষা" data-en="Pure Quran Education">বিশুদ্ধ কুরআন শিক্ষা</h3>
+                        <h3 class="font-bold text-lg mb-2">বিশুদ্ধ কুরআন শিক্ষা</h3>
                         <div class="flex justify-between text-sm text-gray-600 mb-3">
-                            <span><i class="far fa-clock mr-1"></i> <span data-bn="২৪ ক্লাস" data-en="24 Classes">২৪ ক্লাস</span></span>
-                            <span><i class="far fa-play-circle mr-1"></i> <span data-bn="৭ ঘন্টা" data-en="7 Hours">৭ ঘন্টা</span></span>
-                            <span><i class="far fa-sticky-note mr-1"></i> <span data-bn="১ টি নোট" data-en="1 Note">১ টি নোট</span></span>
+                            <span><i class="far fa-clock mr-1"></i> ২৪ ক্লাস</span>
+                            <span><i class="far fa-play-circle mr-1"></i> ৭ ঘন্টা</span>
+                            <span><i class="far fa-sticky-note mr-1"></i> ১ টি নোট</span>
                         </div>
                         <div class="flex justify-between items-center">
                             <div>
                                 <span class="text-green-600 font-bold text-xl">৳৯৯</span>
                                 <span class="text-gray-400 line-through text-sm ml-2">৳১২০</span>
                             </div>
-                            <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" data-bn="দেখুন" data-en="View">দেখুন</button>
+                            <a href="/courses/pure-quran-education" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">দেখুন</a>
                         </div>
                     </div>
                 </div>
-                
+
+                <!-- Urdu Qaida -->
                 <div class="course-card bg-white rounded-lg overflow-hidden shadow">
                     <div class="h-48">
                         <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="উর্দু কায়দা" class="w-full h-full object-cover">
                     </div>
                     <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2" data-bn="উর্দু কায়দা" data-en="Urdu Qaida">উর্দু কায়দা</h3>
+                        <h3 class="font-bold text-lg mb-2">উর্দু কায়দা</h3>
                         <div class="flex justify-between text-sm text-gray-600 mb-3">
-                            <span><i class="far fa-clock mr-1"></i> <span data-bn="১৮ ক্লাস" data-en="18 Classes">১৮ ক্লাস</span></span>
-                            <span><i class="far fa-play-circle mr-1"></i> <span data-bn="৫ ঘন্টা" data-en="5 Hours">৫ ঘন্টা</span></span>
-                            <span><i class="far fa-sticky-note mr-1"></i> <span data-bn="২ টি নোট" data-en="2 Notes">২ টি নোট</span></span>
+                            <span><i class="far fa-clock mr-1"></i> ১৮ ক্লাস</span>
+                            <span><i class="far fa-play-circle mr-1"></i> ৫ ঘন্টা</span>
+                            <span><i class="far fa-sticky-note mr-1"></i> ২ টি নোট</span>
                         </div>
                         <div class="flex justify-between items-center">
                             <div>
                                 <span class="text-green-600 font-bold text-xl">৳৯৯</span>
-                                <span class="text-gray-400 line-through text-sm ml-2">৳۱২০</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">৳১২০</span>
                             </div>
-                            <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" data-bn="দেখুন" data-en="View">দেখুন</button>
+                            <a href="/courses/urdu-qaida" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">দেখুন</a>
                         </div>
                     </div>
                 </div>
-                
+
+                <!-- Talimul Islam Part 1 -->
                 <div class="course-card bg-white rounded-lg overflow-hidden shadow">
                     <div class="h-48">
                         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="তালিমুল ইসলাম ১ম খন্ড" class="w-full h-full object-cover">
                     </div>
                     <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2" data-bn="তালিমুল ইসলাম ১ম খন্ড" data-en="Talimul Islam Part 1">তালিমুল ইসলাম ১ম খন্ড</h3>
+                        <h3 class="font-bold text-lg mb-2">তালিমুল ইসলাম ১ম খন্ড</h3>
                         <div class="flex justify-between text-sm text-gray-600 mb-3">
-                            <span><i class="far fa-clock mr-1"></i> <span data-bn="৩০ ক্লাস" data-en="30 Classes">৩০ ক্লাস</span></span>
-                            <span><i class="far fa-play-circle mr-1"></i> <span data-bn="১০ ঘন্টা" data-en="10 Hours">১০ ঘন্টা</span></span>
-                            <span><i class="far fa-sticky-note mr-1"></i> <span data-bn="৩ টি নোট" data-en="3 Notes">৩ টি নোট</span></span>
+                            <span><i class="far fa-clock mr-1"></i> ৩০ ক্লাস</span>
+                            <span><i class="far fa-play-circle mr-1"></i> ১০ ঘন্টা</span>
+                            <span><i class="far fa-sticky-note mr-1"></i> ৩ টি নোট</span>
                         </div>
                         <div class="flex justify-between items-center">
                             <div>
                                 <span class="text-green-600 font-bold text-xl">৳৯৯</span>
-                                <span class="text-gray-400 line-through text-sm ml-2">৳۱২০</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">৳১২০</span>
                             </div>
-                            <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" data-bn="দেখুন" data-en="View">দেখুন</button>
+                            <a href="/courses/talimul-islam-part-1" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">দেখুন</a>
                         </div>
                     </div>
                 </div>
 
+                <!-- Talimul Islam Part 2 -->
                 <div class="course-card bg-white rounded-lg overflow-hidden shadow">
                     <div class="h-48">
                         <img src="https://images.unsplash.com/photo-1516937941344-00b4e0337589?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="তালিমুল ইসলাম ২য় খন্ড" class="w-full h-full object-cover">
                     </div>
                     <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2" data-bn="তালимুল ইসলাম ২য় খন্ড" data-en="Talimul Islam Part 2">তালিমুল ইসলাম ২য় খন্ড</h3>
+                        <h3 class="font-bold text-lg mb-2">তালিমুল ইসলাম ২য় খন্ড</h3>
                         <div class="flex justify-between text-sm text-gray-600 mb-3">
-                            <span><i class="far fa-clock mr-1"></i> <span data-bn="২০ ক্লাস" data-en="20 Classes">২০ ক্লাস</span></span>
-                            <span><i class="far fa-play-circle mr-1"></i> <span data-bn="৮ ঘন্টা" data-en="8 Hours">৮ ঘন্টা</span></span>
-                            <span><i class="far fa-sticky-note mr-1"></i> <span data-bn="২ টি নোট" data-en="2 Notes">২ টি নোট</span></span>
+                            <span><i class="far fa-clock mr-1"></i> ২০ ক্লাস</span>
+                            <span><i class="far fa-play-circle mr-1"></i> ৮ ঘন্টা</span>
+                            <span><i class="far fa-sticky-note mr-1"></i> ২ টি নোট</span>
                         </div>
                         <div class="flex justify-between items-center">
                             <div>
                                 <span class="text-green-600 font-bold text-xl">৳৯৯</span>
-                                <span class="text-gray-400 line-through text-sm ml-2">৳۱২০</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">৳১২০</span>
                             </div>
-                            <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" data-bn="দেখুন" data-en="View">দেখুন</button>
+                            <a href="/courses/talimul-islam-part-2" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">দেখুন</a>
                         </div>
                     </div>
                 </div>
 
+                <!-- Talimul Islam Part 3 -->
                 <div class="course-card bg-white rounded-lg overflow-hidden shadow">
                     <div class="h-48">
                         <img src="https://images.unsplash.com/photo-1517842645767-c639042777db?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="তালিমুল ইসলাম ৩য় খন্ড" class="w-full h-full object-cover">
                     </div>
                     <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2" data-bn="তালিমুল ইসলাম ৩য় খন্ড" data-en="Talimul Islam Part 3">তালিমুল ইসলাম ৩য় খন্ড</h3>
+                        <h3 class="font-bold text-lg mb-2">তালিমুল ইসলাম ৩য় খন্ড</h3>
                         <div class="flex justify-between text-sm text-gray-600 mb-3">
-                            <span><i class="far fa-clock mr-1"></i> <span data-bn="২২ ক্লাস" data-en="22 Classes">২২ ক্লাস</span></span>
-                            <span><i class="far fa-play-circle mr-1"></i> <span data-bn="৯ ঘন্টা" data-en="9 Hours">৯ ঘন্টা</span></span>
-                            <span><i class="far fa-sticky-note mr-1"></i> <span data-bn="১ টি নোট" data-en="1 Note">১ টি নোট</span></span>
+                            <span><i class="far fa-clock mr-1"></i> ২২ ক্লাস</span>
+                            <span><i class="far fa-play-circle mr-1"></i> ৯ ঘন্টা</span>
+                            <span><i class="far fa-sticky-note mr-1"></i> ১ টি নোট</span>
                         </div>
                         <div class="flex justify-between items-center">
                             <div>
                                 <span class="text-green-600 font-bold text-xl">৳৯৯</span>
-                                <span class="text-gray-400 line-through text-sm ml-2">৳۱২০</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">৳১২০</span>
                             </div>
-                            <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" data-bn="দেখুন" data-en="View">দেখুন</button>
+                            <a href="/courses/talimul-islam-part-3" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">দেখুন</a>
                         </div>
                     </div>
                 </div>
 
+                <!-- New Quran Course -->
                 <div class="course-card bg-white rounded-lg overflow-hidden shadow">
                     <div class="h-48">
                         <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="নতুন কোরআন কোর্স" class="w-full h-full object-cover">
                     </div>
                     <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2" data-bn="নতুন কোরআন কোর্স" data-en="New Quran Course">নতুন কোরআন কোর্স</h3>
+                        <h3 class="font-bold text-lg mb-2">নতুন কোরআন কোর্স</h3>
                         <div class="flex justify-between text-sm text-gray-600 mb-3">
-                            <span><i class="far fa-clock mr-1"></i> <span data-bn="২৫ ক্লাস" data-en="25 Classes">২৫ ক্লাস</span></span>
-                            <span><i class="far fa-play-circle mr-1"></i> <span data-bn="১০ ঘন্টা" data-en="10 Hours">১০ ঘন্টা</span></span>
-                            <span><i class="far fa-sticky-note mr-1"></i> <span data-bn="৩ টি नোট" data-en="3 Notes">৩ টি নোট</span></span>
+                            <span><i class="far fa-clock mr-1"></i> ২৫ ক্লাস</span>
+                            <span><i class="far fa-play-circle mr-1"></i> ১০ ঘন্টা</span>
+                            <span><i class="far fa-sticky-note mr-1"></i> ৩ টি নোট</span>
                         </div>
                         <div class="flex justify-between items-center">
                             <div>
                                 <span class="text-green-600 font-bold text-xl">৳১২৯</span>
                                 <span class="text-gray-400 line-through text-sm ml-2">৳১৫০</span>
                             </div>
-                            <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" data-bn="দেখুন" data-en="View">দেখুন</button>
+                            <a href="/courses/new-quran-course" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">দেখুন</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- বাকি ৬টি কোর্স (প্রথমে লুকানো) -->
+                
+                <!-- আরবি ভাষা শিক্ষা -->
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow hidden-courses">
+                    <div class="h-48">
+                        <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="আরবি ভাষা শিক্ষা" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">আরবি ভাষা শিক্ষা</h3>
+                        <div class="flex justify-between text-sm text-gray-600 mb-3">
+                            <span><i class="far fa-clock mr-1"></i> ৩৫ ক্লাস</span>
+                            <span><i class="far fa-play-circle mr-1"></i> ১৫ ঘন্টা</span>
+                            <span><i class="far fa-sticky-note mr-1"></i> ৫ টি নোট</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-green-600 font-bold text-xl">৳১৫৯</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">৳২০০</span>
+                            </div>
+                            <a href="/courses/arabic-language" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">দেখুন</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- হাদিস শিক্ষা -->
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow hidden-courses">
+                    <div class="h-48">
+                        <img src="https://images.unsplash.com/photo-1587132137058-ceb6decbba70?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="হাদিস শিক্ষা" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">হাদিস শিক্ষা</h3>
+                        <div class="flex justify-between text-sm text-gray-600 mb-3">
+                            <span><i class="far fa-clock mr-1"></i> ২৮ ক্লাস</span>
+                            <span><i class="far fa-play-circle mr-1"></i> ১২ ঘন্টা</span>
+                            <span><i class="far fa-sticky-note mr-1"></i> ৪ টি নোট</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-green-600 font-bold text-xl">৳১৪৯</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">৳১৮০</span>
+                            </div>
+                            <a href="/courses/hadith-studies" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">দেখুন</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- নামাজ শিক্ষা -->
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow hidden-courses">
+                    <div class="h-48">
+                        <img src="https://images.unsplash.com/photo-1604369674555-503bed120a69?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="নামাজ শিক্ষা" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">নামাজ শিক্ষা</h3>
+                        <div class="flex justify-between text-sm text-gray-600 mb-3">
+                            <span><i class="far fa-clock mr-1"></i> ১৫ ক্লাস</span>
+                            <span><i class="far fa-play-circle mr-1"></i> ৬ ঘন্টা</span>
+                            <span><i class="far fa-sticky-note mr-1"></i> ২ টি নোট</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-green-600 font-bold text-xl">৳৭৯</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">৳১০০</span>
+                            </div>
+                            <a href="/courses/prayer-learning" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">দেখুন</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ইসলামিক ইতিহাস -->
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow hidden-courses">
+                    <div class="h-48">
+                        <img src="https://images.unsplash.com/photo-1588666309990-d68f08e3d4a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="ইসলামিক ইতিহাস" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">ইসলামিক ইতিহাস</h3>
+                        <div class="flex justify-between text-sm text-gray-600 mb-3">
+                            <span><i class="far fa-clock mr-1"></i> ৪০ ক্লাস</span>
+                            <span><i class="far fa-play-circle mr-1"></i> ২০ ঘন্টা</span>
+                            <span><i class="far fa-sticky-note mr-1"></i> ৬ টি নোট</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-green-600 font-bold text-xl">৳১৯৯</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">৳২৫০</span>
+                            </div>
+                            <a href="/courses/islamic-history" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">দেখুন</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- তাজবীদ শিক্ষা -->
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow hidden-courses">
+                    <div class="h-48">
+                        <img src="https://images.unsplash.com/photo-1591955506264-3f5a6834570a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="তাজবীদ শিক্ষা" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">তাজবীদ শিক্ষা</h3>
+                        <div class="flex justify-between text-sm text-gray-600 mb-3">
+                            <span><i class="far fa-clock mr-1"></i> ২০ ক্লাস</span>
+                            <span><i class="far fa-play-circle mr-1"></i> ৮ ঘন্টা</span>
+                            <span><i class="far fa-sticky-note mr-1"></i> ৩ টি নোট</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-green-600 font-bold text-xl">৳১১৯</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">৳১৫০</span>
+                            </div>
+                            <a href="/courses/tajweed" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">দেখুন</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ইসলামী আকিদা -->
+                <div class="course-card bg-white rounded-lg overflow-hidden shadow hidden-courses">
+                    <div class="h-48">
+                        <img src="https://images.unsplash.com/photo-1589001720146-56dce6d60c6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="ইসলামী আকিদা" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">ইসলামী আকিদা</h3>
+                        <div class="flex justify-between text-sm text-gray-600 mb-3">
+                            <span><i class="far fa-clock mr-1"></i> ২৫ ক্লাস</span>
+                            <span><i class="far fa-play-circle mr-1"></i> ১২ ঘন্টা</span>
+                            <span><i class="far fa-sticky-note mr-1"></i> ৪ টি নোট</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-green-600 font-bold text-xl">৳১৩৯</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">৳১৭০</span>
+                            </div>
+                            <a href="/courses/islamic-aqeedah" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">দেখুন</a>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="text-center mt-8">
-                <button class="bg-green-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-green-700" data-bn="আরো দেখুন" data-en="See More">আরো দেখুন</button>
+        </div>
+    </section>  
+
+ <script>
+// কোর্স লোড এবং ডিসপ্লে করার ফাংশন
+function loadCoursesFromStorage() {
+    const savedCourses = localStorage.getItem('madrasaCourses');
+    const coursesContainer = document.getElementById('dynamicCoursesContainer');
+    const seeMoreBtn = document.getElementById('seeMoreBtn');
+    
+    if (!savedCourses) {
+        console.log("কোনো সেভ করা কোর্স নেই, ডিফল্ট কোর্স দেখানো হচ্ছে");
+        return;
+    }
+    
+    const courses = JSON.parse(savedCourses);
+    const visibleCourses = courses.filter(course => course.visible);
+    const hiddenCourses = courses.filter(course => !course.visible);
+    
+    // কন্টেইনার খালি করুন
+    coursesContainer.innerHTML = '';
+    
+    // দৃশ্যমান কোর্সগুলি দেখান
+    visibleCourses.forEach(course => {
+        const courseCard = createCourseCard(course);
+        coursesContainer.appendChild(courseCard);
+    });
+    
+    // লুকানো কোর্সগুলি দেখান (যদি থাকে)
+    if (hiddenCourses.length > 0) {
+        hiddenCourses.forEach(course => {
+            const courseCard = createCourseCard(course);
+            courseCard.classList.add('hidden-courses');
+            coursesContainer.appendChild(courseCard);
+        });
+        
+        // "আরো দেখুন" বাটন সেটআপ করুন
+        setupSeeMoreButton(seeMoreBtn, coursesContainer);
+    } else {
+        seeMoreBtn.style.display = 'none';
+    }
+}
+
+// কোর্স কার্ড তৈরি করার ফাংশন
+function createCourseCard(course) {
+    const courseCard = document.createElement('div');
+    courseCard.className = 'course-card bg-white rounded-lg overflow-hidden shadow';
+    courseCard.innerHTML = `
+        <div class="h-48">
+            <img src="${course.image}" alt="${course.title}" class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+            <h3 class="font-bold text-lg mb-2">${course.title}</h3>
+            <div class="flex justify-between text-sm text-gray-600 mb-3">
+                <span><i class="far fa-clock mr-1"></i> ${course.classes} ক্লাস</span>
+                <span><i class="far fa-play-circle mr-1"></i> ${course.hours} ঘন্টা</span>
+                <span><i class="far fa-sticky-note mr-1"></i> ${course.notes} টি নোট</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <div>
+                    <span class="text-green-600 font-bold text-xl">৳${course.price}</span>
+                    ${course.originalPrice ? `<span class="text-gray-400 line-through text-sm ml-2">৳${course.originalPrice}</span>` : ''}
+                </div>
+                <a href="${course.link}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">দেখুন</a>
             </div>
         </div>
-    </section>
+    `;
+    return courseCard;
+}
+
+// "আরো দেখুন" বাটন সেটআপ করার ফাংশন
+
+// পৃষ্ঠা লোড হলে এবং কোর্স আপডেট ইভেন্টে কোর্স লোড করুন
+document.addEventListener('DOMContentLoaded', function() {
+    loadCoursesFromStorage();
+    
+    // কোর্স আপডেট ইভেন্ট শুনুন
+    window.addEventListener('coursesUpdated', function() {
+        loadCoursesFromStorage();
+    });
+});
+
+// লোকাল স্টোরেজ পরিবর্তন শুনুন (অন্যান্য ট্যাব/উইন্ডো থেকে আপডেটের জন্য)
+window.addEventListener('storage', function(e) {
+    if (e.key === 'madrasaCourses') {
+        loadCoursesFromStorage();
+    }
+});
+
+
+
+ </script> 
+
 
     <!-- পরিসংখ্যান -->
     <section class="py-16 bg-green-600 text-white">
@@ -876,9 +1130,11 @@ setInterval(slideNext, 3000);
         const mobileMenuButton = document.getElementById('mobileMenuButton');
         const mobileMenu = document.getElementById('mobileMenu');
         
-        mobileMenuButton.addEventListener('click', function() {
-            mobileMenu.classList.toggle('hidden');
-        });
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
         
         // মোবাইল ড্রপডাউন মেনু টগল
         const mobileDropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
@@ -910,11 +1166,11 @@ setInterval(slideNext, 3000);
                 if (heroDesc) heroDesc.textContent = data['hero-desc'];
             }
             if (data['hero-btn1']) {
-                const heroBtn1 = document.querySelector('.hero-bg .bg-green-600');
+                const heroBtn1 = document.querySelector('.hero-bg .bg-white');
                 if (heroBtn1) heroBtn1.textContent = data['hero-btn1'];
             }
             if (data['hero-btn2']) {
-                const heroBtn2 = document.querySelector('.hero-bg .bg-white');
+                const heroBtn2 = document.querySelector('.hero-bg .bg-transparent');
                 if (heroBtn2) heroBtn2.textContent = data['hero-btn2'];
             }
             if (data['hero-bg']) {
@@ -940,7 +1196,7 @@ setInterval(slideNext, 3000);
             }
             
             // বিভাগ সমূহ আপডেট
-            const categoryCards = document.querySelectorAll('section:nth-child(4) .category-card');
+            const categoryCards = document.querySelectorAll('#departmentSlider .category-card');
             for (let i = 1; i <= 6; i++) {
                 if (data[`cat${i}-text`] && categoryCards[i-1]) {
                     categoryCards[i-1].querySelector('h3').textContent = data[`cat${i}-text`];
@@ -1086,13 +1342,15 @@ setInterval(slideNext, 3000);
             }
             
             // ভিডিও সেকশন আপডেট
-            const videoCards = document.querySelectorAll('section:nth-child(12) .bg-white.p-6.rounded-lg.shadow');
+            const videoCards = document.querySelectorAll('section:nth-child(12) .bg-white.rounded-lg.shadow');
             for (let i = 1; i <= 2; i++) {
                 if (data[`video${i}-title`] && videoCards[i-1]) {
-                    videoCards[i-1].querySelector('h3').textContent = data[`video${i}-title`];
+                    const titleElement = videoCards[i-1].querySelector('h3');
+                    if (titleElement) titleElement.textContent = data[`video${i}-title`];
                 }
                 if (data[`video${i}-desc`] && videoCards[i-1]) {
-                    videoCards[i-1].querySelector('p').textContent = data[`video${i}-desc`];
+                    const descElement = videoCards[i-1].querySelector('p');
+                    if (descElement) descElement.textContent = data[`video${i}-desc`];
                 }
                 if (data[`video${i}-img`] && videoCards[i-1]) {
                     const imgElement = videoCards[i-1].querySelector('img');
@@ -1138,88 +1396,17 @@ setInterval(slideNext, 3000);
 
 
 
-    // ফুটার সম্পূর্ণ আপডেট
-// দ্রুত লিংক আপডেট
-for (let i = 1; i <= 6; i++) {
-    if (data[`footer-link${i}-text`]) {
-        const linkElement = document.querySelector(`footer ul:first-child li:nth-child(${i}) a`);
-        if (linkElement) {
-            linkElement.textContent = data[`footer-link${i}-text`];
-        }
+// মূল সাইটে কোর্স আপডেট করার জন্য
+window.addEventListener('coursesUpdated', function() {
+    const savedCourses = localStorage.getItem('madrasaCourses');
+    if (savedCourses) {
+        const courses = JSON.parse(savedCourses);
+        // এখানে আপনার কোর্স সেকশন আপডেট করার কোড লিখুন
+        console.log('কোর্স আপডেট হয়েছে:', courses);
     }
-    if (data[`footer-link${i}-url`]) {
-        const linkElement = document.querySelector(`footer ul:first-child li:nth-child(${i}) a`);
-        if (linkElement) {
-            linkElement.href = data[`footer-link${i}-url`];
-        }
-    }
-}
+});
 
-// জনপ্রিয় কোর্স লিংক আপডেট
-for (let i = 1; i <= 6; i++) {
-    if (data[`footer-course${i}-text`]) {
-        const courseElement = document.querySelector(`footer ul:nth-child(2) li:nth-child(${i}) a`);
-        if (courseElement) {
-            courseElement.textContent = data[`footer-course${i}-text`];
-        }
-    }
-    if (data[`footer-course${i}-url`]) {
-        const courseElement = document.querySelector(`footer ul:nth-child(2) li:nth-child(${i}) a`);
-        if (courseElement) {
-            courseElement.href = data[`footer-course${i}-url`];
-        }
-    }
-}
-
-// সোশ্যাল মিডিয়া লিংক আপডেট
-if (data['footer-facebook']) {
-    const facebookLink = document.querySelector('footer a:nth-child(1)');
-    if (facebookLink) facebookLink.href = data['footer-facebook'];
-}
-if (data['footer-youtube']) {
-    const youtubeLink = document.querySelector('footer a:nth-child(2)');
-    if (youtubeLink) youtubeLink.href = data['footer-youtube'];
-}
-if (data['footer-instagram']) {
-    const instagramLink = document.querySelector('footer a:nth-child(3)');
-    if (instagramLink) instagramLink.href = data['footer-instagram'];
-}
-if (data['footer-twitter']) {
-    const twitterLink = document.querySelector('footer a:nth-child(4)');
-    if (twitterLink) twitterLink.href = data['footer-twitter'];
-}
-
-// নীতিমালা লিংক আপডেট
-for (let i = 1; i <= 3; i++) {
-    if (data[`footer-policy${i}-text`]) {
-        const policyElement = document.querySelector(`.border-t.border-green-700 a:nth-child(${i})`);
-        if (policyElement) {
-            policyElement.textContent = data[`footer-policy${i}-text`];
-        }
-    }
-    if (data[`footer-policy${i}-url`]) {
-        const policyElement = document.querySelector(`.border-t.border-green-700 a:nth-child(${i})`);
-        if (policyElement) {
-            policyElement.href = data[`footer-policy${i}-url`];
-        }
-    }
-}
-
-// নিউজলেটার আপডেট
-if (data['footer-newsletter-text']) {
-    const newsletterText = document.querySelector('footer h3:nth-child(3) + p');
-    if (newsletterText) newsletterText.textContent = data['footer-newsletter-text'];
-}
-if (data['footer-newsletter-placeholder']) {
-    const newsletterInput = document.querySelector('footer input[type="email"]');
-    if (newsletterInput) newsletterInput.placeholder = data['footer-newsletter-placeholder'];
-}
-if (data['footer-newsletter-button']) {
-    const newsletterButton = document.querySelector('footer button.bg-green-600');
-    if (newsletterButton) newsletterButton.textContent = data['footer-newsletter-button'];
-}
-</script>   
-
+</script> 
     
 </body>
 </html>
