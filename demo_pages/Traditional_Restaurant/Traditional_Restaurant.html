@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ঢাকার সেরা বাংলা ট্র্যাডিশনাল রেস্টুরেন্ট - ১৯৯৫ সাল থেকে ঐতিহ্যবাহী বাংলা খাবার পরিবেশন">
+    <meta name="keywords" content="বাংলা খাবার, ঢাকা রেস্টুরেন্ট, কাচ্চি বিরিয়ানি, ইলিশ মাছ, ঐতিহ্যবাহী খাবার">
     <title>বাংলা ট্র্যাডিশনাল রেস্টুরেন্ট | ঢাকা</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -10,17 +12,25 @@
     <style>
         body {
             font-family: 'Hind Siliguri', sans-serif;
+            scroll-behavior: smooth;
         }
         .hero-bg {
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHxlbnwwfHwwfHw%3D&w=1000&q=80');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
+        }
+        @media (max-width: 768px) {
+            .hero-bg {
+                background-attachment: scroll;
+            }
         }
         .food-card {
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .food-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
         .nav-link {
             position: relative;
@@ -39,11 +49,72 @@
         .nav-link:hover::after {
             width: 100%;
         }
+        .sticky-header {
+            transition: all 0.3s ease;
+        }
+        .sticky-header.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #d97706;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .order-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #d97706;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .mobile-nav {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .mobile-nav.open {
+            max-height: 300px;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
     <!-- Header Section -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
+    <header class="sticky-header bg-white shadow-md sticky top-0 z-50" id="mainHeader">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <!-- Logo -->
             <div class="flex items-center">
@@ -52,11 +123,11 @@
             
             <!-- Desktop Navigation - Right aligned -->
             <nav class="hidden md:flex items-center space-x-8">
-                <a href="Traditional_Restaurant.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">হোম</a>
-                <a href="Menu_Items.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">মেনু</a>
-                <a href="About_Us.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">আমাদের সম্পর্কে</a>
-                <a href="Contact.html" class="nav-link text-gray-700 hover:text-amber-600 font-medium">যোগাযোগ</a>
-                <a href="Order.html" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-medium transition duration-300">অর্ডার করুন</a>
+                <a href="#home" class="nav-link text-gray-700 hover:text-amber-600 font-medium">হোম</a>
+                <a href="#menu" class="nav-link text-gray-700 hover:text-amber-600 font-medium">মেনু</a>
+                <a href="#about" class="nav-link text-gray-700 hover:text-amber-600 font-medium">আমাদের সম্পর্কে</a>
+                <a href="#contact" class="nav-link text-gray-700 hover:text-amber-600 font-medium">যোগাযোগ</a>
+                <a href="#order" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-medium transition duration-300">অর্ডার করুন</a>
             </nav>
             
             <!-- Mobile menu button -->
@@ -68,30 +139,29 @@
         </div>
         
         <!-- Mobile Navigation (hidden by default) -->
-        <div class="md:hidden hidden bg-white shadow-lg" id="mobile-nav">
+        <div class="mobile-nav md:hidden bg-white shadow-lg" id="mobile-nav">
             <div class="px-4 py-3 flex flex-col space-y-3">
-                <a href="Traditional_Restaurant.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">হোম</a>
-                <a href="Menu_Items.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">মেনু</a>
-                <a href="About_Us.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">আমাদের সম্পর্কে</a>
-                <a href="Contact.html" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">যোগাযোগ</a>
-                <a href="Contact.html" class="py-2 text-amber-600 font-medium">অর্ডার করুন</a>
+                <a href="#home" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">হোম</a>
+                <a href="#menu" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">মেনু</a>
+                <a href="#about" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">আমাদের সম্পর্কে</a>
+                <a href="#contact" class="py-2 text-gray-700 hover:text-amber-600 font-medium border-b border-gray-100">যোগাযোগ</a>
+                <a href="#order" class="py-2 text-amber-600 font-medium">অর্ডার করুন</a>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero-bg py-20 text-white">
+    <section class="hero-bg py-20 text-white" id="home">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-4xl md:text-6xl font-bold mb-6">ঢাকার সেরা বাংলা খাবার</h2>
             <p class="text-xl md:text-2xl mb-8">স্বাদে এবং গন্ধে অতুলনীয় ঐতিহ্যবাহী বাংলা রান্না</p>
             <div class="flex flex-col md:flex-row justify-center gap-4">
-                <button class="bg-amber-600 hover:bg-amber-700 px-6 py-3 rounded-full text-lg font-semibold transition duration-300">মেনু দেখুন</button>
-                <button class="bg-white hover:bg-gray-100 text-amber-600 px-6 py-3 rounded-full text-lg font-semibold transition duration-300">অর্ডার করুন</button>
+                <a href="#menu" class="bg-amber-600 hover:bg-amber-700 px-6 py-3 rounded-full text-lg font-semibold transition duration-300 text-center">মেনু দেখুন</a>
+                <a href="#order" class="bg-white hover:bg-gray-100 text-amber-600 px-6 py-3 rounded-full text-lg font-semibold transition duration-300 text-center">অর্ডার করুন</a>
             </div>
         </div>
     </section>
 
-    <!-- Rest of the content remains the same as in your original code -->
     <!-- Stats Section -->
     <section class="py-16 bg-white">
         <div class="container mx-auto px-4">
@@ -117,12 +187,12 @@
     </section>
 
     <!-- About Section -->
-    <section class="py-16 bg-gray-100">
+    <section class="py-16 bg-gray-100" id="about">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row items-center gap-10">
                 <div class="md:w-1/2">
-                    <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cm�zdGF1cmFudHxlbnwwfHwwfHw%3D&w=1000&q=80" 
-                         alt="রেস্টুরেন্ট ইন্টেরিয়র" class="rounded-lg shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cmVzdGF1cmFudHxlbnwwfHwwfHw%3D&w=1000&q=80" 
+                         alt="রেস্টুরেন্ট ইন্টেরিয়র" class="rounded-lg shadow-lg w-full">
                 </div>
                 <div class="md:w-1/2">
                     <h2 class="text-3xl font-bold mb-6">আমাদের সম্পর্কে</h2>
@@ -132,16 +202,16 @@
                     <p class="text-gray-700 mb-6">
                         আমাদের দক্ষ শেফরা স্থানীয়ভাবে sourced তাজা উপাদান ব্যবহার করে রান্না করেন, যা প্রতিটি খাবারে বাংলার সমৃদ্ধ culinary heritage কে জীবন্ত করে তোলে।
                     </p>
-                    <button class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-full font-semibold transition duration-300">
+                    <a href="#contact" class="inline-block bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-full font-semibold transition duration-300">
                         আরও জানুন
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Menu Section -->
-    <section class="py-16 bg-white">
+    <section class="py-16 bg-white" id="menu">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold text-center mb-4">আমাদের জনপ্রিয় খাবার</h2>
             <p class="text-gray-600 text-center mb-12">আমাদের বিশেষত্বযুক্ত খাবারগুলো দেখুন এবং স্বাদ নিন</p>
@@ -155,8 +225,8 @@
                         <h3 class="text-xl font-semibold mb-2">স্পেশাল কাচ্চি বিরিয়ানি</h3>
                         <p class="text-gray-600 mb-4">মূল্য: ৩২০ টাকা</p>
                         <p class="text-gray-700">সুগন্ধি বাসমতি চাল, মসলা দিয়ে রান্না কাচ্চি মutton এর বিরিয়ানি</p>
-                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold transition duration-300">
-                            অর্ডার করুন
+                        <button class="mt-4 order-btn bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold transition duration-300 w-full">
+                            অর্ডার করুন <span class="loading-spinner"></span>
                         </button>
                     </div>
                 </div>
@@ -169,8 +239,8 @@
                         <h3 class="text-xl font-semibold mb-2">ইলিশ মাছ ভুনা</h3>
                         <p class="text-gray-600 mb-4">মূল্য: ৪৫০ টাকা</p>
                         <p class="text-gray-700">তাজা ইলিশ মাছ সাথে traditional spices দিয়ে ভুনা</p>
-                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold transition duration-300">
-                            অর্ডার করুন
+                        <button class="mt-4 order-btn bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold transition duration-300 w-full">
+                            অর্ডার করুন <span class="loading-spinner"></span>
                         </button>
                     </div>
                 </div>
@@ -183,17 +253,17 @@
                         <h3 class="text-xl font-semibold mb-2">মুর্গি দাল</h3>
                         <p class="text-gray-600 mb-4">মূল্য: ২৮০ টাকা</p>
                         <p class="text-gray-700">টক-মিষ্টি স্বাদের মুর্গি দাল, বাংলার traditional recipe অনুযায়ী</p>
-                        <button class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold transition duration-300">
-                            অর্ডার করুন
+                        <button class="mt-4 order-btn bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold transition duration-300 w-full">
+                            অর্ডার করুন <span class="loading-spinner"></span>
                         </button>
                     </div>
                 </div>
             </div>
             
             <div class="text-center mt-12">
-                <button class="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-full font-semibold text-lg transition duration-300">
+                <a href="#menu" class="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-full font-semibold text-lg transition duration-300 inline-block">
                     সম্পূর্ণ মেনু দেখুন
-                </button>
+                </a>
             </div>
         </div>
     </section>
@@ -275,7 +345,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="py-16 bg-white">
+    <section class="py-16 bg-white" id="contact">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row gap-10">
                 <div class="md:w-1/2">
@@ -324,10 +394,10 @@
                 <div>
                     <h3 class="text-xl font-semibold mb-4">লিংক</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white">হোম</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">মেনু</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">আমাদের সম্পর্কে</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">যোগাযোগ</a></li>
+                        <li><a href="#home" class="text-gray-400 hover:text-white">হোম</a></li>
+                        <li><a href="#menu" class="text-gray-400 hover:text-white">মেনু</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white">আমাদের সম্পর্কে</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white">যোগাযোগ</a></li>
                     </ul>
                 </div>
                 
@@ -348,11 +418,11 @@
                     </div>
                     <div class="mt-6">
                         <h4 class="font-semibold mb-2">অ্যাপ ডাউনলোড করুন</h4>
-                        <div class="flex space-x-2">
-                            <button class="bg-black text-white px-4 py-2 rounded flex items-center">
+                        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                            <button class="bg-black text-white px-4 py-2 rounded flex items-center justify-center">
                                 <i class="fab fa-apple mr-2"></i> App Store
                             </button>
-                            <button class="bg-black text-white px-4 py-2 rounded flex items-center">
+                            <button class="bg-black text-white px-4 py-2 rounded flex items-center justify-center">
                                 <i class="fab fa-google-play mr-2"></i> Play Store
                             </button>
                         </div>
@@ -361,7 +431,7 @@
             </div>
             
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; ২০২৩ বাংলা ট্র্যাডিশনাল রেস্টুরেন্ট। সকল права защищены।</p>
+                <p>&copy; ২০২৩ বাংলা ট্র্যাডিশনাল রেস্টুরেন্ট। সকল স্বত্ব সংরক্ষিত।</p>
             </div>
         </div>
     </footer>
@@ -370,7 +440,116 @@
         // Mobile menu toggle functionality
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const mobileNav = document.getElementById('mobile-nav');
-            mobileNav.classList.toggle('hidden');
+            mobileNav.classList.toggle('open');
+            
+            // Change icon
+            const icon = this.querySelector('i');
+            if (mobileNav.classList.contains('open')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Sticky header on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('mainHeader');
+            const backToTop = document.getElementById('backToTop');
+            
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+                backToTop.classList.add('show');
+            } else {
+                header.classList.remove('scrolled');
+                backToTop.classList.remove('show');
+            }
+        });
+
+        // Back to top functionality
+        document.getElementById('backToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Order button functionality with loading state
+        document.querySelectorAll('.order-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const spinner = this.querySelector('.loading-spinner');
+                
+                // Show loading state
+                this.disabled = true;
+                spinner.style.display = 'inline-block';
+                
+                // Simulate order process
+                setTimeout(() => {
+                    // Hide loading state
+                    this.disabled = false;
+                    spinner.style.display = 'none';
+                    
+                    // Show success message
+                    alert('আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে! আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।');
+                }, 1500);
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileNav = document.getElementById('mobile-nav');
+                    const mobileMenuButton = document.getElementById('mobile-menu-button');
+                    const icon = mobileMenuButton.querySelector('i');
+                    
+                    if (mobileNav.classList.contains('open')) {
+                        mobileNav.classList.remove('open');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                }
+            });
+        });
+
+        // Image lazy loading for better performance
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img');
+            
+            const imageOptions = {
+                threshold: 0,
+                rootMargin: '0px 0px 50px 0px'
+            };
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            }, imageOptions);
+            
+            images.forEach(img => {
+                if (img.classList.contains('lazy')) {
+                    imageObserver.observe(img);
+                }
+            });
         });
     </script>
 </body>
